@@ -1,6 +1,14 @@
 import "./main.css";
+import Printer from "./features/printer/Printer";
 function App() {
-  return <h1 className="text-purple-800">Print Counter</h1>;
+  return (
+    <section className="text-center">
+      <h1>App.js</h1>
+      <div>
+        <Printer />
+      </div>
+    </section>
+  );
 }
 
 export default App;
