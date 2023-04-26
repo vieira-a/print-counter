@@ -1,5 +1,4 @@
 import Button from "../Button";
-import InputText from "../InputText";
 
 interface ModalCardProps {
   title: string;
@@ -21,7 +20,6 @@ export default function ModalCard({
       <div className="text-right">
         <Button text={buttonText} />
       </div>
-      <InputText name="name" placeholder="InputText" />
     </article>
   );
 }
