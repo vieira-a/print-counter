@@ -12,7 +12,7 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
   }
 
   return (
-    <section className="w-[50%] px-4 mx-auto bg-carbon-bg-modal absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+    <section className="w-[50%] px-4 mx-auto bg-carbon-bg-modal absolute top-[192px] left-[50%] translate-x-[-50%] ">
       <div className="flex justify-between py-4">
         <h2>Cadastro de impressoras</h2>
         <Close size={24} onClick={closeForm} className="cursor-pointer" />
