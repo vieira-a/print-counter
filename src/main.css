@@ -10,4 +10,13 @@
   html {
     font-family: IBM Plex Sans;
   }
+
+  body {
+    @apply max-w-[1234px];
+    @apply mx-auto;
+    @apply bg-carbon-bg;
+  }
+  h2 {
+    @apply text-xl;
+  }
 }

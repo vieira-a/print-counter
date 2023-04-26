@@ -1,8 +1,10 @@
+import Header from "./components/Header";
 import Printer from "./features/printer/Printer";
+
 function App() {
   return (
-    <section className="text-center">
-      <h1>App.js</h1>
+    <section>
+      <Header />
       <div>
         <Printer />
       </div>
