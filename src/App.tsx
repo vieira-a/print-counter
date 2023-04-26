@@ -5,7 +5,7 @@ function App() {
   return (
     <section>
       <Header />
-      <div>
+      <div className="relative">
         <Printer />
       </div>
     </section>

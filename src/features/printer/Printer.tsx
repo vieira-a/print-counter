@@ -1,4 +1,5 @@
 import ModalCard from "../../components/ModalCard";
+import PrinterForm from "./PrinterForm";
 
 export default function Printer() {
   return (
@@ -20,6 +21,7 @@ export default function Printer() {
           buttonText="Acessar"
         />
       </section>
+      <PrinterForm />
     </main>
   );
 }
