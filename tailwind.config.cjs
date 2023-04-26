@@ -2,7 +2,9 @@
 module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
-    extend: {},
+    fontFamily: {
+      "ibm-regular": ["IBM Plex Sans", "sans-serif"],
+    },
   },
   plugins: [],
 };

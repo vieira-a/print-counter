@@ -1,4 +1,3 @@
-import "./main.css";
 import Printer from "./features/printer/Printer";
 function App() {
   return (
