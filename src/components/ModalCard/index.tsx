@@ -1,15 +1,15 @@
-import Button from "../Button";
+import { ReactNode } from "react";
 
 interface ModalCardProps {
   title: string;
   description: string;
-  buttonText: string;
+  children?: ReactNode;
 }
 
 export default function ModalCard({
   title,
   description,
-  buttonText,
+  children,
 }: ModalCardProps) {
   return (
     <article className="bg-carbon-bg-modal w-full">
@@ -17,9 +17,7 @@ export default function ModalCard({
         <h2>{title}</h2>
         <p>{description}</p>
       </div>
-      <div className="text-right">
-        <Button text={buttonText} />
-      </div>
+      <div className="text-right">{children}</div>
     </article>
   );
 }

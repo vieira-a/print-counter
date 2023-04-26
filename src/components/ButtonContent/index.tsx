@@ -2,15 +2,18 @@ interface ButtonContentProps {
   theme?: "primary" | "secondary";
   text: string;
   className?: string;
+  onClick?: () => void;
 }
 
 export default function ButtonContent({
   text,
   theme,
   className,
+  onClick,
 }: ButtonContentProps) {
   return (
     <button
+      onClick={onClick}
       className={`text-left text-carbon-text-inverse text-sm px-[13px] pt-3 pb-[28px]
       ${
         theme === "primary" &&
