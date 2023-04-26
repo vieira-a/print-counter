@@ -8,6 +8,9 @@ module.exports = {
     colors: {
       "carbon-layer": "#161616",
       "carbon-bg": "#E5E5E5",
+      "carbon-bg-secondary": "#393939",
+      "carbon-bg-secondary-hover": "#4C4C4C",
+      "carbon-bg-secondary-active": "#6F6F6F",
       "carbon-label": "#525252",
       "carbon-field": "#FFFFFF",
       "carbon-field-placeholder": "#A8A8A8",
