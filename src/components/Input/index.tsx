@@ -2,13 +2,15 @@ interface InputTextProps {
   label: string;
   name: string;
   placeholder: string;
+  type: string;
   onChange?: () => void;
 }
 
-export default function InputText({
+export default function Input({
   label,
   name,
   placeholder,
+  type,
   onChange,
 }: InputTextProps) {
   return (
@@ -16,7 +18,7 @@ export default function InputText({
       {label}
       <input
         onChange={onChange}
-        type="text"
+        type={type}
         name={name}
         id={name}
         placeholder={placeholder}

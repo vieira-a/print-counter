@@ -1,5 +1,5 @@
 import { Close } from "@carbon/icons-react";
-import InputText from "../../components/InputText";
+import Input from "../../components/Input";
 import ButtonContent from "../../components/ButtonContent";
 
 interface PrinterFormProps {
@@ -24,29 +24,34 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
         </p>
         <form className="flex flex-col gap-8">
           <div>
-            <InputText
+            <Input
+              type="text"
               label="Número de série"
               name="serialNumber"
               placeholder="Informe o número de série"
             />
           </div>
           <div className="grid grid-cols-2 gap-8 mb-4">
-            <InputText
+            <Input
+              type="text"
               label="Fabricante"
               name="brand"
               placeholder="Informe o fabricante"
             />
-            <InputText
+            <Input
+              type="text"
               label="Modelo"
               name="model"
               placeholder="Informe o modelo"
             />
-            <InputText
+            <Input
+              type="text"
               label="Localicação"
               name="location"
               placeholder="Informe o local de instalação"
             />
-            <InputText
+            <Input
+              type="number"
               label="Contador atual"
               name="counter"
               placeholder="Informe o contador atual"
