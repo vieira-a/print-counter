@@ -3,7 +3,8 @@ interface InputTextProps {
   name: string;
   placeholder: string;
   type: string;
-  onChange?: () => void;
+  required: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
@@ -11,12 +12,14 @@ export default function Input({
   name,
   placeholder,
   type,
+  required,
   onChange,
 }: InputTextProps) {
   return (
     <label htmlFor={name} className="text-xs text-carbon-label">
       {label}
       <input
+        required={required}
         onChange={onChange}
         type={type}
         name={name}

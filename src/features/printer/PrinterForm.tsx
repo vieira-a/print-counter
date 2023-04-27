@@ -25,6 +25,7 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
         <form className="flex flex-col gap-8">
           <div>
             <Input
+              required={true}
               type="text"
               label="Número de série"
               name="serialNumber"
@@ -33,24 +34,28 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
           </div>
           <div className="grid grid-cols-2 gap-8 mb-4">
             <Input
+              required={true}
               type="text"
               label="Fabricante"
               name="brand"
               placeholder="Informe o fabricante"
             />
             <Input
+              required={true}
               type="text"
               label="Modelo"
               name="model"
               placeholder="Informe o modelo"
             />
             <Input
+              required={true}
               type="text"
               label="Localicação"
               name="location"
               placeholder="Informe o local de instalação"
             />
             <Input
+              required={true}
               type="number"
               label="Contador atual"
               name="counter"
