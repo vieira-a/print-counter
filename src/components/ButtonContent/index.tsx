@@ -14,7 +14,7 @@ export default function ButtonContent({
   return (
     <button
       onClick={onClick}
-      className={`text-left text-carbon-text-inverse text-sm px-[13px] pt-3 pb-[28px]
+      className={`w-full text-left text-carbon-text-inverse text-sm px-[13px] pt-3 pb-[28px]
       ${
         theme === "primary" &&
         "bg-carbon-brand hover:bg-carbon-brand-hover active:bg-carbon-brand-active"

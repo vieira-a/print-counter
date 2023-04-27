@@ -19,7 +19,7 @@ export default function Notification({
 }: NotificationProps) {
   return (
     <div
-      className={`p-4 flex justify-between w-[33%] mx-auto absolute top-[192px] left-[50%] translate-x-[-50%]
+      className={`p-4 flex justify-between w-full mx-auto 
       ${
         theme === "success" &&
         "bg-notification-success-bg border border-notification-success border-l-[3px] border-l-notification-success"
