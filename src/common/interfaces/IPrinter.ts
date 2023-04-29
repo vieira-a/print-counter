@@ -11,6 +11,7 @@ export interface IPrinter {
 export interface IPrinterContext {
   printer: IPrinter;
   setPrinter: (printer: IPrinter) => void;
+  printerCreated: boolean;
 }
 
 export interface IPrinterProvider {

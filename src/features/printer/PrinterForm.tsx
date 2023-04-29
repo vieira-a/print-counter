@@ -4,7 +4,7 @@ import ButtonContent from "../../components/ButtonContent";
 import Notification from "../../components/Notification";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import PrinterContext from "../../contexts/printerContext";
-import { IPrinter } from "common/interfaces/IPrinter";
+import { IPrinter } from "../../common/interfaces/IPrinter";
 
 interface PrinterFormProps {
   setShowForm: (state: boolean) => void;
@@ -18,7 +18,7 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
 
   const [showNotification, setShowNotification] = useState(false);
 
-  const { printer, setPrinter } = useContext(PrinterContext);
+  const { printer, setPrinter, printerCreated } = useContext(PrinterContext);
 
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
@@ -131,12 +131,18 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
               </label>
             </div>
             <div className="px-4">
-              {showNotification && (
+              {printerCreated && showNotification && (
                 <Notification
                   setShowNotification={setShowNotification}
-                  onClick={() => setShowNotification(false)}
                   theme="success"
                   message={"Impressora cadastrada com sucesso"}
+                />
+              )}
+              {!printerCreated && showNotification && (
+                <Notification
+                  setShowNotification={setShowNotification}
+                  theme="error"
+                  message={"Impressora não cadastrada"}
                 />
               )}
             </div>

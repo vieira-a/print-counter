@@ -12,18 +12,22 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     counter: "",
   });
 
+  const [printerCreated, setPrinterCreated] = useState(false);
+
   useEffect(() => {
     const sendPrinter = async () => {
       printerService.createPrinter(printer);
     };
-    if (printer) {
+    if (Object.values(printer).every((value) => !!value)) {
       sendPrinter();
+      setPrinterCreated(true);
     }
   }, [printer]);
 
   const printerContextValue = {
     printer,
     setPrinter,
+    printerCreated,
   };
 
   return (

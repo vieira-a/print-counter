@@ -8,15 +8,18 @@ import {
 interface NotificationProps {
   message?: string;
   theme?: "success" | "warning" | "error";
-  onClick?: () => void;
   setShowNotification: (state: boolean) => void;
 }
 
 export default function Notification({
   message,
   theme,
-  onClick,
+  setShowNotification,
 }: NotificationProps) {
+  const closeNotification = () => {
+    setShowNotification(false);
+  };
+
   return (
     <div
       className={`p-4 flex justify-between w-full mx-auto 
@@ -48,7 +51,7 @@ export default function Notification({
         </div>
         <div className="text-xs">{message}</div>
       </div>
-      <button onClick={onClick}>
+      <button onClick={closeNotification}>
         <Close />
       </button>
     </div>

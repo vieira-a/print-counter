@@ -11,6 +11,7 @@ const PrinterContext = createContext<IPrinterContext>({
   setPrinter: (printer: IPrinter) => {
     console.log("Update printer", printer);
   },
+  printerCreated: false,
 });
 PrinterContext.displayName = "Printer";
 
