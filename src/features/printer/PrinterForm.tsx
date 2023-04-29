@@ -136,7 +136,7 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
                   setShowNotification={setShowNotification}
                   onClick={() => setShowNotification(false)}
                   theme="success"
-                  message="Sucesso"
+                  message={"Impressora cadastrada com sucesso"}
                 />
               )}
             </div>
