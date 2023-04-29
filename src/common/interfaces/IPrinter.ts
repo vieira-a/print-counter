@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
 
 export interface IPrinter {
-  name: string;
   model: string;
   brand: string;
   serial: string;
   local: string;
-  counter: number;
+  counter: number | string;
 }
 
 export interface IPrinterContext {

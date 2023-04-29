@@ -4,16 +4,22 @@ import PrinterContext from "../../contexts/printerContext";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
-    name: "",
     model: "",
     brand: "",
     serial: "",
     local: "",
-    counter: 0,
+    counter: "",
   });
 
+  const printerContextValue = {
+    printer,
+    setPrinter,
+  };
+
+  console.log(printer);
+
   return (
-    <PrinterContext.Provider value={{ printer, setPrinter }}>
+    <PrinterContext.Provider value={printerContextValue}>
       {children}
     </PrinterContext.Provider>
   );

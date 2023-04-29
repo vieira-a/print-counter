@@ -1,15 +1,10 @@
-import { useState, useContext } from "react";
-import PrinterContext from "../../contexts/printerContext";
+import { useState } from "react";
 import ModalCard from "../../components/ModalCard";
 import PrinterForm from "./PrinterForm";
 import Button from "../../components/Button";
 
 export default function Printer() {
   const [showForm, setShowForm] = useState(false);
-
-  const { printer } = useContext(PrinterContext);
-
-  console.log(printer);
 
   return (
     <main className="h-screen bg-carbon-white p-4">
