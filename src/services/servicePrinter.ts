@@ -1,11 +1,13 @@
 import { IPrinter } from "common/interfaces/IPrinter";
 
+const API_URL = "http://localhost:3000/api/printer";
+
 const createPrinter = async (
   newPrinter: IPrinter,
   setPrinterMessage: (message: string | undefined) => void
 ) => {
   try {
-    const response = await fetch("http://localhost:3000/api/printer", {
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,4 +23,15 @@ const createPrinter = async (
   }
 };
 
-export default createPrinter;
+const getPrinters = async () => {
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export { createPrinter, getPrinters };

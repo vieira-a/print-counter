@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
 import PrinterContext from "../../contexts/printerContext";
-import createPrinter from "../../services/servicePrinter";
+import { createPrinter, getPrinters } from "../../services/servicePrinter";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
@@ -11,6 +11,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     local: "",
     counter: "",
   });
+
+  const [printers, setPrinters] = useState<IPrinter[]>([]);
 
   const [printerMessage, setPrinterMessage] = useState<string | undefined>(
     undefined
@@ -22,9 +24,18 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     }
   }, [printer, setPrinterMessage]);
 
+  useEffect(() => {
+    const loadPrinters = async () => {
+      const data = await getPrinters();
+      setPrinters(data);
+    };
+    loadPrinters();
+  }, []);
+
   const printerContextValue = {
     printer,
     setPrinter,
+    printers,
     printerMessage,
     setPrinterMessage,
   };

@@ -2,9 +2,15 @@ import { useState } from "react";
 import ModalCard from "../../components/ModalCard";
 import PrinterForm from "./PrinterForm";
 import Button from "../../components/Button";
+import { useContext } from "react";
+import PrinterContext from "../../contexts/printerContext";
 
 export default function Printer() {
   const [showForm, setShowForm] = useState(false);
+
+  const { printers } = useContext(PrinterContext);
+
+  console.log(printers);
 
   return (
     <main className="h-screen bg-carbon-white p-4">
@@ -30,6 +36,17 @@ export default function Printer() {
         </ModalCard>
       </section>
       {showForm && <PrinterForm setShowForm={setShowForm} />}
+      <section>
+        {printers?.map((printer) => (
+          <div key={printer.serial}>
+            <p>{printer.serial}</p>
+            <p>{printer.brand}</p>
+            <p>{printer.model}</p>
+            <p>{printer.local}</p>
+            <p>{printer.counter}</p>
+          </div>
+        ))}
+      </section>
     </main>
   );
 }
