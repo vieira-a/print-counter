@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
 import PrinterContext from "../../contexts/printerContext";
-import printerService from "../../services/printerService";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
@@ -12,22 +11,36 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     counter: "",
   });
 
-  const [printerCreated, setPrinterCreated] = useState(false);
+  const [printerMessage, setPrinterMessage] = useState<string | undefined>(
+    undefined
+  );
 
   useEffect(() => {
-    const sendPrinter = async () => {
-      printerService.createPrinter(printer);
+    const createPrinter = async (newPrinter: IPrinter) => {
+      try {
+        const response = await fetch("http://localhost:3000/api/printer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newPrinter),
+        });
+        const data = await response.json();
+        console.log(data.msg);
+        setPrinterMessage("success");
+      } catch (error) {
+        console.log(error);
+        setPrinterMessage("error");
+      }
     };
-    if (Object.values(printer).every((value) => !!value)) {
-      sendPrinter();
-      setPrinterCreated(true);
-    }
+    createPrinter(printer);
   }, [printer]);
 
   const printerContextValue = {
     printer,
     setPrinter,
-    printerCreated,
+    printerMessage,
+    setPrinterMessage,
   };
 
   return (

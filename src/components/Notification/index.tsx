@@ -7,7 +7,7 @@ import {
 
 interface NotificationProps {
   message?: string;
-  theme?: "success" | "warning" | "error";
+  theme?: string | undefined;
   setShowNotification: (state: boolean) => void;
 }
 

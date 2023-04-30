@@ -18,7 +18,8 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
 
   const [showNotification, setShowNotification] = useState(false);
 
-  const { printer, setPrinter, printerCreated } = useContext(PrinterContext);
+  const { printer, setPrinter, printerMessage, setPrinterMessage } =
+    useContext(PrinterContext);
 
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
@@ -50,8 +51,14 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
 
   function createPrinter(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setPrinter(newPrinterObject);
-    clearInputForm();
+    if (Object.values(newPrinterObject).every((value) => !!value)) {
+      setPrinter(newPrinterObject);
+      setShowNotification(true);
+      clearInputForm();
+    } else {
+      setShowNotification(true);
+      setPrinterMessage("error");
+    }
   }
 
   return (
@@ -74,7 +81,6 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
             <label className="text-xs text-carbon-label">
               Número de série
               <Input
-                required
                 type="text"
                 name="serialNumber"
                 placeholder="Informe o número de série"
@@ -131,18 +137,17 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
               </label>
             </div>
             <div className="px-4">
-              {printerCreated && showNotification && (
+              {showNotification && (
                 <Notification
                   setShowNotification={setShowNotification}
-                  theme="success"
-                  message={"Impressora cadastrada com sucesso"}
-                />
-              )}
-              {!printerCreated && showNotification && (
-                <Notification
-                  setShowNotification={setShowNotification}
-                  theme="error"
-                  message={"Impressora não cadastrada"}
+                  theme={`${printerMessage}`}
+                  message={
+                    printerMessage === "success"
+                      ? "Impressora cadastrada com sucesso"
+                      : printerMessage === "error"
+                      ? "Erro ao cadastrar a impressora"
+                      : ""
+                  }
                 />
               )}
             </div>

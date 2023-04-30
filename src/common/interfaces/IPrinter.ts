@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export interface IPrinter {
   model: string;
@@ -11,7 +11,8 @@ export interface IPrinter {
 export interface IPrinterContext {
   printer: IPrinter;
   setPrinter: (printer: IPrinter) => void;
-  printerCreated: boolean;
+  printerMessage: string | undefined;
+  setPrinterMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export interface IPrinterProvider {
