@@ -31,8 +31,10 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   useEffect(() => {
     if (Object.values(printer).every((value) => !!value)) {
       createPrinter(printer, setPrinterMessage);
+      setPrinterMessage("success");
       setShouldUpdatePrinters(true);
     }
+
     getPrinters().then((data) => {
       setPrinters(data);
     });

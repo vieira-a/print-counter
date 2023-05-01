@@ -7,16 +7,7 @@ import PrinterContext from "../../contexts/printerContext";
 import { IPrinter } from "../../common/interfaces/IPrinter";
 import { Link } from "react-router-dom";
 
-interface PrinterFormProps {
-  setShowForm?: (state: boolean) => void;
-}
-
-export default function PrinterForm({ setShowForm }: PrinterFormProps) {
-  function closeForm() {
-    setShowForm?.(false);
-    setShowNotification(false);
-  }
-
+export default function PrinterForm() {
   const [showNotification, setShowNotification] = useState(false);
 
   const { printer, setPrinter, printerMessage, setPrinterMessage } =
@@ -56,7 +47,6 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
       setPrinter(newPrinterObject);
       setShowNotification(true);
       clearInputForm();
-      closeForm();
     } else {
       setShowNotification(true);
       setPrinterMessage("error");
@@ -69,7 +59,7 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
         <div className="flex justify-between py-4">
           <h2>Cadastro de impressoras</h2>
           <Link to={"/printer"}>
-            <Close size={24} onClick={closeForm} className="cursor-pointer" />
+            <Close size={24} className="cursor-pointer" />
           </Link>
         </div>
         <div>
