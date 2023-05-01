@@ -5,14 +5,15 @@ import Notification from "../../components/Notification";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import PrinterContext from "../../contexts/printerContext";
 import { IPrinter } from "../../common/interfaces/IPrinter";
+import { Link } from "react-router-dom";
 
 interface PrinterFormProps {
-  setShowForm: (state: boolean) => void;
+  setShowForm?: (state: boolean) => void;
 }
 
 export default function PrinterForm({ setShowForm }: PrinterFormProps) {
   function closeForm() {
-    setShowForm(false);
+    setShowForm?.(false);
     setShowNotification(false);
   }
 
@@ -67,7 +68,9 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
       <div className="relative px-4">
         <div className="flex justify-between py-4">
           <h2>Cadastro de impressoras</h2>
-          <Close size={24} onClick={closeForm} className="cursor-pointer" />
+          <Link to={"/printer"}>
+            <Close size={24} onClick={closeForm} className="cursor-pointer" />
+          </Link>
         </div>
         <div>
           <p className="w-[85%]">
@@ -154,12 +157,9 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
             </div>
           </div>
           <div className="flex gap-[1px]">
-            <ButtonContent
-              type="reset"
-              onClick={() => setShowForm(false)}
-              text="Cancelar"
-              theme="secondary"
-            />
+            <Link to={"/printer"} className="w-full">
+              <ButtonContent type="reset" text="Cancelar" theme="secondary" />
+            </Link>
             <ButtonContent type="submit" text="Salvar" theme="primary" />
           </div>
         </form>

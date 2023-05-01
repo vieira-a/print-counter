@@ -1,15 +1,8 @@
-import Header from "./components/Header";
-import Printer from "./features/printer/Printer";
-import PrinterProvider from "./features/printer/PrinterProvider";
-
 function App() {
   return (
     <section>
-      <Header />
       <div className="relative">
-        <PrinterProvider>
-          <Printer />
-        </PrinterProvider>
+        <p></p>
       </div>
     </section>
   );
