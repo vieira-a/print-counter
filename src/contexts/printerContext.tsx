@@ -13,6 +13,8 @@ const PrinterContext = createContext<IPrinterContext>({
   },
   printerMessage: undefined,
   setPrinterMessage: (printerMessage) => console.log(printerMessage),
+  printers: [],
+  setPrinters: (printers) => console.log(printers),
 });
 PrinterContext.displayName = "Printer";
 

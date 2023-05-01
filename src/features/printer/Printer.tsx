@@ -10,8 +10,6 @@ export default function Printer() {
 
   const { printers } = useContext(PrinterContext);
 
-  console.log(printers);
-
   return (
     <main className="h-screen bg-carbon-white p-4">
       <section className="flex gap-4 justify-end ">
@@ -37,13 +35,13 @@ export default function Printer() {
       </section>
       {showForm && <PrinterForm setShowForm={setShowForm} />}
       <section>
-        {printers?.map((printer) => (
-          <div key={printer.serial}>
-            <p>{printer.serial}</p>
-            <p>{printer.brand}</p>
-            <p>{printer.model}</p>
-            <p>{printer.local}</p>
-            <p>{printer.counter}</p>
+        {printers?.map((item) => (
+          <div key={item.serial}>
+            <p>{item.serial}</p>
+            <p>{item.brand}</p>
+            <p>{item.model}</p>
+            <p>{item.local}</p>
+            <p>{item.counter}</p>
           </div>
         ))}
       </section>

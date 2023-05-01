@@ -25,17 +25,24 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   }, [printer, setPrinterMessage]);
 
   useEffect(() => {
-    const loadPrinters = async () => {
-      const data = await getPrinters();
+    getPrinters().then((data) => {
       setPrinters(data);
-    };
-    loadPrinters();
+    });
   }, []);
+
+  // useEffect(() => {
+  //   const loadPrinters = async () => {
+  //     const data = await getPrinters();
+  //     setPrinters(data);
+  //   };
+  //   loadPrinters();
+  // }, []);
 
   const printerContextValue = {
     printer,
     setPrinter,
     printers,
+    setPrinters,
     printerMessage,
     setPrinterMessage,
   };

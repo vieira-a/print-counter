@@ -1,4 +1,4 @@
-import { IPrinter } from "common/interfaces/IPrinter";
+import { IPrinter } from "../common/interfaces/IPrinter";
 
 const API_URL = "http://localhost:3000/api/printer";
 

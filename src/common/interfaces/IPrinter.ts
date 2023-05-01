@@ -14,6 +14,8 @@ export interface IPrinterContext {
   printerMessage: string | undefined;
   setPrinterMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
   printers?: IPrinter[];
+  setPrinters?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
+  getPrinters?: () => void;
 }
 
 export interface IPrinterProvider {
