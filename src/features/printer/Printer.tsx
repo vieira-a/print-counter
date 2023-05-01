@@ -5,7 +5,7 @@ export default function Printer() {
   const { printers } = useContext(PrinterContext);
 
   return (
-    <main className="h-screen bg-carbon-white p-4">
+    <main>
       <section>
         {printers?.map((item) => (
           <div key={item._id}>
