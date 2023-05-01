@@ -18,31 +18,33 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     undefined
   );
 
+  const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
+
+  useEffect(() => {
+    if (shouldUpdatePrinters) {
+      getPrinters().then((data) => {
+        setPrinters(data);
+      });
+    }
+  }, [shouldUpdatePrinters]);
+
   useEffect(() => {
     if (Object.values(printer).every((value) => !!value)) {
       createPrinter(printer, setPrinterMessage);
+      setShouldUpdatePrinters(true);
     }
-  }, [printer, setPrinterMessage]);
-
-  useEffect(() => {
     getPrinters().then((data) => {
       setPrinters(data);
     });
-  }, []);
-
-  // useEffect(() => {
-  //   const loadPrinters = async () => {
-  //     const data = await getPrinters();
-  //     setPrinters(data);
-  //   };
-  //   loadPrinters();
-  // }, []);
+  }, [printer, setPrinterMessage, setShouldUpdatePrinters]);
 
   const printerContextValue = {
     printer,
     setPrinter,
     printers,
     setPrinters,
+    getPrinters,
+    shouldUpdatePrinters,
     printerMessage,
     setPrinterMessage,
   };

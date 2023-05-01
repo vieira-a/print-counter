@@ -55,6 +55,7 @@ export default function PrinterForm({ setShowForm }: PrinterFormProps) {
       setPrinter(newPrinterObject);
       setShowNotification(true);
       clearInputForm();
+      closeForm();
     } else {
       setShowNotification(true);
       setPrinterMessage("error");

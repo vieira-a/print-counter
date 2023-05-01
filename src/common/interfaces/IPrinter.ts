@@ -16,6 +16,7 @@ export interface IPrinterContext {
   printers?: IPrinter[];
   setPrinters?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
   getPrinters?: () => void;
+  shouldUpdatePrinters: boolean;
 }
 
 export interface IPrinterProvider {
