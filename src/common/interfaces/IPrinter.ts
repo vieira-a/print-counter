@@ -1,11 +1,14 @@
 import React, { ReactNode } from "react";
 
 export interface IPrinter {
+  _id?: string;
   model: string;
   brand: string;
   serial: string;
   local: string;
   counter: number | string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IPrinterContext {

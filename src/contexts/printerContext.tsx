@@ -2,6 +2,7 @@ import { createContext } from "react";
 import { IPrinter, IPrinterContext } from "common/interfaces/IPrinter";
 const PrinterContext = createContext<IPrinterContext>({
   printer: {
+    _id: "",
     model: "",
     brand: "",
     serial: "",
