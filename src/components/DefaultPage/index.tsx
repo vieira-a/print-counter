@@ -7,9 +7,13 @@ export default function DefaultPage() {
   return (
     <>
       <Header />
-      <MenuBar />
-      <BannerOptions />
-      <Outlet />
+      <section className="flex mt-3">
+        <MenuBar />
+        <BannerOptions />
+      </section>
+      <main className="ml-[52px] pt-4">
+        <Outlet />
+      </main>
     </>
   );
 }

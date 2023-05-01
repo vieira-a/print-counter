@@ -4,7 +4,7 @@ import Button from "../Button";
 
 export default function BannerOptions() {
   return (
-    <section className="flex gap-3 justify-end mt-3">
+    <section className="flex gap-3 justify-end">
       <ModalCard
         title="Adicionar impressora"
         description="Cadastre uma nova impressora para iniciar o controle do seu contador"

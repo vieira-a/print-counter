@@ -3,7 +3,7 @@ import { Home, Printer, ChartBarFloating } from "@carbon/icons-react";
 
 export default function MenuBar() {
   return (
-    <nav className="px-4 absolute left-0 top-[70px]">
+    <nav className="p-4">
       <ul className="flex flex-col gap-6">
         <li>
           <Link to={"/"}>
