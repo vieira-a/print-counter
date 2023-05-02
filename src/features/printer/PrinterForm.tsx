@@ -5,9 +5,10 @@ import Notification from "../../components/Notification";
 import { FormEvent, useContext, useEffect, useState } from "react";
 import PrinterContext from "../../contexts/printerContext";
 import { IPrinter } from "../../common/interfaces/IPrinter";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function PrinterForm() {
+  const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
 
   const { printer, setPrinter, printerMessage, setPrinterMessage } =
@@ -53,14 +54,20 @@ export default function PrinterForm() {
     }
   }
 
+  function goToPrinterPage() {
+    navigate("/printer");
+  }
+
   return (
     <section className="w-[50%] mx-auto bg-carbon-bg-modal">
       <div className="relative px-4">
         <div className="flex justify-between py-4">
           <h2>Cadastro de impressoras</h2>
-          <Link to={"/printer"}>
-            <Close size={24} className="cursor-pointer" />
-          </Link>
+          <Close
+            onClick={goToPrinterPage}
+            size={24}
+            className="cursor-pointer"
+          />
         </div>
         <div>
           <p className="w-[85%]">
@@ -147,9 +154,13 @@ export default function PrinterForm() {
             </div>
           </div>
           <div className="flex gap-[1px]">
-            <Link to={"/printer"} className="w-full">
-              <ButtonContent type="reset" text="Cancelar" theme="secondary" />
-            </Link>
+            <ButtonContent
+              onClick={goToPrinterPage}
+              type="reset"
+              text="Cancelar"
+              theme="secondary"
+            />
+
             <ButtonContent type="submit" text="Salvar" theme="primary" />
           </div>
         </form>
