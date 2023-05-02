@@ -54,7 +54,7 @@ export default function PrinterForm() {
   }
 
   return (
-    <section className="w-[50%] mx-auto bg-carbon-bg-modal absolute top-[74px] left-[50%] translate-x-[-50%] translate-y-[-58px]">
+    <section className="w-[50%] mx-auto bg-carbon-bg-modal">
       <div className="relative px-4">
         <div className="flex justify-between py-4">
           <h2>Cadastro de impressoras</h2>
