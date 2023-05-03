@@ -7,8 +7,8 @@ import PrinterForm from "./features/printer/PrinterForm";
 
 export default function AppRouter() {
   return (
-    <PrinterProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <PrinterProvider>
         <Routes>
           <Route path="/" element={<DefaultPage />}>
             <Route index element={<App />} />
@@ -16,7 +16,7 @@ export default function AppRouter() {
             <Route path="printer/create" element={<PrinterForm />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </PrinterProvider>
+      </PrinterProvider>
+    </BrowserRouter>
   );
 }

@@ -1,4 +1,8 @@
-interface ButtonContentProps {
+interface ButtonContentProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   theme?: "primary" | "secondary" | "danger";
   text: string;
   className?: string;

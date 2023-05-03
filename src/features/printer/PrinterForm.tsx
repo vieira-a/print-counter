@@ -67,6 +67,7 @@ export default function PrinterForm() {
             onClick={goToPrinterPage}
             size={24}
             className="cursor-pointer"
+            aria-label="Fechar formulário"
           />
         </div>
         <div>
@@ -155,6 +156,7 @@ export default function PrinterForm() {
           </div>
           <div className="flex gap-[1px]">
             <ButtonContent
+              aria-label="Fechar formulário"
               onClick={goToPrinterPage}
               type="reset"
               text="Cancelar"

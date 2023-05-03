@@ -1,16 +1,17 @@
-import { MemoryRouter } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
+import { BrowserRouter } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 import PrinterForm from "./PrinterForm";
+
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => {
+  return {
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe("Should render PrinterForm components and their types", () => {
   beforeEach(() => {
-    render(
-      <MemoryRouter initialEntries={["/"]}>
-        <PrinterForm />
-      </MemoryRouter>
-    );
+    render(<PrinterForm />);
   });
 
   it("Should render serial number input, type: text", () => {
@@ -52,5 +53,20 @@ describe("Should render PrinterForm components and their types", () => {
   it("Should render cancel button, type: reset", () => {
     const cancelButton = screen.getByRole("button", { name: "Cancelar" });
     expect(cancelButton).toHaveAttribute("type", "reset");
+  });
+});
+
+describe("Check navigation button actions", () => {
+  it("Cancel button should return do printer page", () => {
+    render(<PrinterForm />);
+    const cancelButton = screen.getByText("Cancelar");
+    fireEvent.click(cancelButton);
+    expect(mockNavigate).toHaveBeenCalled();
+  });
+  it("Close button should return do printer page", () => {
+    render(<PrinterForm />);
+    const closeButton = screen.getByLabelText("Fechar formulário");
+    fireEvent.click(closeButton);
+    expect(mockNavigate).toHaveBeenCalled();
   });
 });
