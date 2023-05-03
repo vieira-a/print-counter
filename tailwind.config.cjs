@@ -28,6 +28,7 @@ module.exports = {
       "carbon-brand-hover": "#0353E9",
       "carbon-brand-active": "#002D9C",
       "carbon-table-head": "#E0E0E0",
+      "carbon-error-message": "#DA1E28",
       "notification-success": "#198038",
       "notification-warning": "#F1C21B",
       "notification-error": "#DA1E28",

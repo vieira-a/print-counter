@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PrinterForm from "./PrinterForm";
 
@@ -72,16 +72,15 @@ describe("Check navigation button actions", () => {
 });
 
 describe("PrinterForm fields validation message", () => {
-  it("Should display an error message if serial number has less than 3 characters", () => {
+  it("Should display an error message if serial number has less than 3 characters", async () => {
     render(<PrinterForm />);
     const inputSerialNumber = screen.getByPlaceholderText(
       "Informe o número de série"
     );
-    userEvent;
-    const errorMessage = screen.getByText(
-      "Este campo precisa ter no mínimo 3 caracteres"
-    );
     userEvent.type(inputSerialNumber, "ab");
+    const errorMessage = await waitFor(() =>
+      screen.findByText("Este campo precisa ter no mínimo 3 caracteres")
+    );
     expect(errorMessage).toBeInTheDocument();
   });
 });

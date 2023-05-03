@@ -1,11 +1,12 @@
+import { FormEvent, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Close } from "@carbon/icons-react";
+import { IPrinter } from "../../common/interfaces/IPrinter";
 import Input from "../../components/Input";
 import ButtonContent from "../../components/ButtonContent";
 import Notification from "../../components/Notification";
-import { FormEvent, useContext, useEffect, useState } from "react";
+import ErrorMessage from "../../components/ErrorMessage";
 import PrinterContext from "../../contexts/printerContext";
-import { IPrinter } from "../../common/interfaces/IPrinter";
-import { useNavigate } from "react-router-dom";
 
 export default function PrinterForm() {
   const navigate = useNavigate();
@@ -48,6 +49,23 @@ export default function PrinterForm() {
       setShowNotification(false);
     }, 5000);
   }
+
+  const [serialErrorMessage, setSerialErrorMessage] = useState("");
+
+  const validateFieldLength = (field: string, length: number) => {
+    if (field.trim().length < length) {
+      setSerialErrorMessage("Este campo precisa ter no mínimo 3 caracteres");
+      console.log(serialErrorMessage);
+    } else {
+      setSerialErrorMessage("");
+    }
+  };
+
+  const serialNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSerialNumber = event.target.value;
+    validateFieldLength(newSerialNumber, 3);
+    setSerial(newSerialNumber);
+  };
 
   function createPrinter(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -92,11 +110,13 @@ export default function PrinterForm() {
               <Input
                 required
                 type="text"
-                name="serialNumber"
                 placeholder="Informe o número de série"
                 value={serial}
-                onChange={(event) => setSerial(event.target.value)}
+                onChange={serialNumberChange}
               />
+              {serialErrorMessage && (
+                <ErrorMessage message={serialErrorMessage} />
+              )}
             </label>
           </div>
           <div>
