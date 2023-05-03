@@ -42,14 +42,21 @@ export default function PrinterForm() {
     setCounter("");
   }
 
+  function showFormNotification() {
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 5000);
+  }
+
   function createPrinter(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (Object.values(newPrinterObject).every((value) => !!value)) {
       setPrinter(newPrinterObject);
-      setShowNotification(true);
+      showFormNotification();
       clearInputForm();
     } else {
-      setShowNotification(true);
+      showFormNotification();
       setPrinterMessage("error");
     }
   }
