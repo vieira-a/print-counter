@@ -90,6 +90,7 @@ export default function PrinterForm() {
             <label className="text-xs text-carbon-label">
               Número de série
               <Input
+                required
                 type="text"
                 name="serialNumber"
                 placeholder="Informe o número de série"

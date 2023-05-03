@@ -1,5 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import PrinterForm from "./PrinterForm";
 
 const mockNavigate = jest.fn();
@@ -68,5 +68,20 @@ describe("Check navigation button actions", () => {
     const closeButton = screen.getByLabelText("Fechar formulário");
     fireEvent.click(closeButton);
     expect(mockNavigate).toHaveBeenCalled();
+  });
+});
+
+describe("PrinterForm fields validation message", () => {
+  it("Should display an error message if serial number has less than 3 characters", () => {
+    render(<PrinterForm />);
+    const inputSerialNumber = screen.getByPlaceholderText(
+      "Informe o número de série"
+    );
+    userEvent;
+    const errorMessage = screen.getByText(
+      "Este campo precisa ter no mínimo 3 caracteres"
+    );
+    userEvent.type(inputSerialNumber, "ab");
+    expect(errorMessage).toBeInTheDocument();
   });
 });
