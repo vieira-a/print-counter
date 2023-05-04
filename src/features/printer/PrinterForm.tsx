@@ -52,18 +52,22 @@ export default function PrinterForm() {
 
   const [serialErrorMessage, setSerialErrorMessage] = useState("");
 
-  const validateFieldLength = (field: string, length: number) => {
+  const validateFieldLength = (
+    field: string,
+    length: number,
+    setError: React.Dispatch<React.SetStateAction<string>>
+  ) => {
     if (field.trim().length < length) {
-      setSerialErrorMessage("Este campo precisa ter no mínimo 3 caracteres");
+      setError(`Este campo precisa ter no mínimo ${length} caracteres`);
       console.log(serialErrorMessage);
     } else {
-      setSerialErrorMessage("");
+      setError("");
     }
   };
 
   const serialNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSerialNumber = event.target.value;
-    validateFieldLength(newSerialNumber, 3);
+    validateFieldLength(newSerialNumber, 3, setSerialErrorMessage);
     setSerial(newSerialNumber);
   };
 

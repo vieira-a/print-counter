@@ -72,14 +72,29 @@ describe("Check navigation button actions", () => {
 });
 
 describe("PrinterForm fields validation message", () => {
-  it("Should display an error message if serial number has less than 3 characters", async () => {
+  beforeEach(() => {
     render(<PrinterForm />);
+  });
+
+  it("Should display an error message if serial number has less than 3 characters", async () => {
     const inputSerialNumber = screen.getByPlaceholderText(
       "Informe o número de série"
     );
     userEvent.type(inputSerialNumber, "ab");
     const errorMessage = await waitFor(() =>
       screen.findByText("Este campo precisa ter no mínimo 3 caracteres")
+    );
+    expect(errorMessage).toBeInTheDocument();
+  });
+
+  it("Should display an error message if counter has 0", async () => {
+    const inputCounter = screen.getByPlaceholderText(
+      "Informe o contador atual"
+    );
+    const counterValue = 0;
+    userEvent.type(inputCounter, counterValue.toString());
+    const errorMessage = await waitFor(() =>
+      screen.findByText("O valor do contador precisa ser maior que 0")
     );
     expect(errorMessage).toBeInTheDocument();
   });
