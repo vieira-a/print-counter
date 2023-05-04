@@ -51,6 +51,7 @@ export default function PrinterForm() {
   }
 
   const [serialErrorMessage, setSerialErrorMessage] = useState("");
+  const [counterErrorMessage, setCounterErrorMessage] = useState("");
 
   const validateFieldLength = (
     field: string,
@@ -70,6 +71,20 @@ export default function PrinterForm() {
     validateFieldLength(newSerialNumber, 3, setSerialErrorMessage);
     setSerial(newSerialNumber);
   };
+
+  const counterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCounter = event.target.value;
+    if (Number(newCounter) < 0) {
+      setCounterErrorMessage(
+        "O valor do contador precisa ser maior ou igual a 0"
+      );
+      return;
+    }
+    setCounterErrorMessage("");
+    setCounter(newCounter);
+  };
+
+  console.log(counter);
 
   function createPrinter(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -166,8 +181,11 @@ export default function PrinterForm() {
                   name="counter"
                   placeholder="Informe o contador atual"
                   value={counter}
-                  onChange={(event) => setCounter(event.target.value)}
+                  onChange={counterChange}
                 />
+                {counterErrorMessage && (
+                  <ErrorMessage message={counterErrorMessage} />
+                )}
               </label>
             </div>
             <div className="px-4">
