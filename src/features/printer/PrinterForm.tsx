@@ -28,7 +28,7 @@ const createPrinterFormSchema = z.object({
     .string()
     .nonempty("O campo Localização é obrigatório")
     .min(3, "O campo Localização precisa ter no mínimo 3 caracteres"),
-  counter: z.number().min(0, "O contador deve ser maior que 0"),
+  counter: z.number().min(1, "O contador deve ser maior que 0"),
 });
 
 export default function PrinterForm() {
@@ -104,11 +104,10 @@ export default function PrinterForm() {
                 {...register("serial")}
               />
               {errors.serial && (
-                <p data-testid="error-serial">{errors.serial.message}</p>
-                // <ErrorMessage
-                //   data-testid="error-serial"
-                //   message={`${errors.serial.message}`}
-                // />
+                <ErrorMessage
+                  data-testid="error-serial"
+                  message={`${errors.serial.message}`}
+                />
               )}
             </label>
           </div>

@@ -1,10 +1,5 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import userEvent from "@testing-library/user-event";
 import PrinterForm from "./PrinterForm";
 
@@ -63,16 +58,21 @@ describe("Should render PrinterForm components and their types", () => {
 });
 
 describe("Check navigation button actions", () => {
-  it("Cancel button should return do printer page", () => {
+  beforeEach(() => {
     render(<PrinterForm />);
+  });
+  it("Cancel button should return do printer page", async () => {
     const cancelButton = screen.getByText("Cancelar");
-    fireEvent.click(cancelButton);
+    await act(async () => {
+      fireEvent.click(cancelButton);
+    });
     expect(mockNavigate).toHaveBeenCalled();
   });
-  it("Close button should return do printer page", () => {
-    render(<PrinterForm />);
+  it("Close button should return do printer page", async () => {
     const closeButton = screen.getByLabelText("Fechar formulário");
-    fireEvent.click(closeButton);
+    await act(async () => {
+      fireEvent.click(closeButton);
+    });
     expect(mockNavigate).toHaveBeenCalled();
   });
 });
@@ -86,21 +86,31 @@ describe("PrinterForm fields validation message", () => {
     const inputSerialNumber = screen.getByPlaceholderText(
       "Informe o número de série"
     );
-    userEvent.type(inputSerialNumber, "ab");
-    const errorMessage = await screen.findByTestId("error-serial");
-
+    const submitButton = screen.getByRole("button", { name: "Salvar" });
+    await act(async () => {
+      userEvent.type(inputSerialNumber, "ab");
+      userEvent.click(submitButton);
+    });
+    const errorMessage = await screen.findByText(
+      "O campo Número de série precisa ter no mínimo 3 caracteres"
+    );
     expect(errorMessage).toBeInTheDocument();
   });
 
-  // it("Should display an error message if counter less than 0", async () => {
-  //   const inputCounter = screen.getByPlaceholderText(
-  //     "Informe o contador atual"
-  //   );
-  //   const counterValue = -1;
-  //   userEvent.type(inputCounter, counterValue.toString());
-  //   const errorMessage = await waitFor(() =>
-  //     screen.findByText("O valor do contador precisa ser maior ou igual a 0")
-  //   );
-  //   expect(errorMessage).toBeInTheDocument();
-  // });
+  it("Should display an error message if counter less than 0", async () => {
+    const counterValue = -1;
+    const inputCounter = screen.getByPlaceholderText(
+      "Informe o contador atual"
+    );
+    const submitButton = screen.getByRole("button", { name: "Salvar" });
+    await act(async () => {
+      userEvent.type(inputCounter, counterValue.toString());
+      userEvent.click(submitButton);
+    });
+
+    const errorMessage = await screen.findByText(
+      "Expected number, received nan"
+    );
+    expect(errorMessage).toBeInTheDocument();
+  });
 });
