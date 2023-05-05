@@ -17,5 +17,5 @@ export const PrinterFormSchema = z.object({
     .string()
     .nonempty("O campo Localização é obrigatório")
     .min(3, "O campo Localização precisa ter no mínimo 3 caracteres"),
-  counter: z.number().min(1, "O contador deve ser maior que 0"),
+  counter: z.coerce.number().min(1, "O contador deve ser maior que 0"),
 });

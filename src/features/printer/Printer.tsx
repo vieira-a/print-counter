@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ButtonContent from "../../components/ButtonContent";
+import Button from "../../components/Button";
 import PrinterContext from "../../contexts/printerContext";
 
 export default function Printer() {
@@ -39,9 +39,17 @@ export default function Printer() {
                 {item.local}
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                <div className="flex gap-3">
-                  <ButtonContent theme="primary" text="Alterar" />
-                  <ButtonContent theme="danger" text="Excluir" />
+                <div className="flex gap-1">
+                  <Button
+                    className="w-[25%]"
+                    // theme="primary"
+                    text="Alterar"
+                  />
+                  <Button
+                    className="w-[25%]"
+                    // theme="danger"
+                    text="Excluir"
+                  />
                 </div>
               </td>
             </tr>
