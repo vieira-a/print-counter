@@ -1,5 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import PrinterFormEdit from "./PrinterFormEdit";
+
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => {
+  return {
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe("Should render PrinterFormEdit components", () => {
   beforeEach(() => {
@@ -59,5 +67,19 @@ describe("Should render PrinterFormEdit components", () => {
   it("Should render save button", () => {
     const buttonSave = screen.getByRole("button", { name: "Salvar" });
     expect(buttonSave).toBeInTheDocument();
+  });
+  it("Should return to printer page when click on cancel button", async () => {
+    const cancelButton = screen.getByRole("button", { name: "Cancelar" });
+    await act(async () => {
+      fireEvent.click(cancelButton);
+    });
+    expect(mockNavigate).toHaveBeenCalled();
+  });
+  it("Should return to printer page when click on close button ", async () => {
+    const closeButton = screen.getByLabelText("Fechar formulário");
+    await act(async () => {
+      fireEvent.click(closeButton);
+    });
+    expect(mockNavigate).toHaveBeenCalled();
   });
 });
