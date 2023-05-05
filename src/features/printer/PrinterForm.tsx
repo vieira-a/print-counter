@@ -1,6 +1,6 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { PrinterFormSchema } from "../../common/schemas/PrinterFormSchema";
 import { Close } from "@carbon/icons-react";
 import Input from "../../components/Input";
 import ButtonContent from "../../components/ButtonContent";
@@ -11,26 +11,6 @@ import PrinterContext from "../../contexts/printerContext";
 import Notification from "../../components/Notification";
 import { useNavigate } from "react-router-dom";
 
-const createPrinterFormSchema = z.object({
-  model: z
-    .string()
-    .nonempty("O campo Modelo é obrigatório")
-    .min(3, "O campo Modelo precisa ter no mínimo 3 caracteres"),
-  brand: z
-    .string()
-    .nonempty("O campo Marca é obrigatório")
-    .min(3, "O campo Marca precisa ter no mínimo 3 caracteres"),
-  serial: z
-    .string()
-    // .nonempty("O campo Número de série é obrigatório")
-    .min(3, "O campo Número de série precisa ter no mínimo 3 caracteres"),
-  local: z
-    .string()
-    .nonempty("O campo Localização é obrigatório")
-    .min(3, "O campo Localização precisa ter no mínimo 3 caracteres"),
-  counter: z.number().min(1, "O contador deve ser maior que 0"),
-});
-
 export default function PrinterForm() {
   const navigate = useNavigate();
 
@@ -39,7 +19,7 @@ export default function PrinterForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<IPrinter>({
-    resolver: zodResolver(createPrinterFormSchema),
+    resolver: zodResolver(PrinterFormSchema),
   });
 
   const { setPrinter } = useContext(PrinterContext);
@@ -57,6 +37,10 @@ export default function PrinterForm() {
       console.log(newPrinter);
       setPrinter(newPrinter);
       setCreatedSuccess(true);
+      setTimeout(() => {
+        setCreatedSuccess(null);
+      }, 2000);
+      navigate("/printer");
       console.log("Objeto printer:", newPrinter);
     } catch (error) {
       setPrinter({
@@ -75,7 +59,7 @@ export default function PrinterForm() {
     <section className="w-[50%] mx-auto bg-carbon-bg-modal">
       <div className="relative px-4">
         <div className="flex justify-between py-4">
-          <h2>Cadastro de impressoras V2</h2>
+          <h2>Cadastro de impressoras</h2>
           <Close
             onClick={() => navigate("/printer")}
             size={24}
