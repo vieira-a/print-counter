@@ -14,6 +14,14 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
 
   const [printers, setPrinters] = useState<IPrinter[]>([]);
 
+  const [printerEdit, setPrinterEdit] = useState<IPrinter>({
+    model: "",
+    brand: "",
+    serial: "",
+    local: "",
+    counter: "",
+  });
+
   const [printerMessage, setPrinterMessage] = useState<string | undefined>(
     undefined
   );
@@ -49,6 +57,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     shouldUpdatePrinters,
     printerMessage,
     setPrinterMessage,
+    printerEdit,
+    setPrinterEdit,
   };
 
   return (
