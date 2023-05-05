@@ -1,3 +1,4 @@
+import ButtonContent from "../../components/ButtonContent";
 import Input from "../../components/Input";
 
 export default function PrinterFormEdit() {
@@ -41,7 +42,16 @@ export default function PrinterFormEdit() {
             </label>
           </div>
           <div className="px-4"></div>
-          <div className="flex gap-[1px]"></div>
+          <div className="flex gap-[1px]">
+            <ButtonContent
+              aria-label="Fechar formulário"
+              type="reset"
+              text="Cancelar"
+              theme="secondary"
+            />
+
+            <ButtonContent type="submit" text="Salvar" theme="primary" />
+          </div>
         </form>
       </div>
     </section>

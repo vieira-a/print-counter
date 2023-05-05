@@ -52,17 +52,12 @@ describe("Should render PrinterFormEdit components", () => {
     expect(labelCounter).toBeInTheDocument();
     expect(inputCounter).toHaveAttribute("type", "number");
   });
+  it("Should render cancel button", () => {
+    const buttonCancel = screen.getByRole("button", { name: "Cancelar" });
+    expect(buttonCancel).toBeInTheDocument();
+  });
+  it("Should render save button", () => {
+    const buttonSave = screen.getByRole("button", { name: "Salvar" });
+    expect(buttonSave).toBeInTheDocument();
+  });
 });
-// it("Should render cancel button", () => {
-//   const buttons = screen.getAllByRole("button");
-//   const buttonCancel = buttons.map(
-//     (button) => (button.textContent = "Cancelar")
-//   );
-
-//   expect(buttonCancel).toBeInTheDocument();
-// });
-// it("Should render save button", () => {
-//   const buttons = screen.getAllByRole("button");
-//   const buttonSave = buttons.map((button) => (button.textContent = "Salvar"));
-//   expect(buttonSave).toBeInTheDocument();
-// });
