@@ -1,13 +1,14 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, forwardRef } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputLabel?: string;
 }
 
-export default function Input({ ...props }: InputProps) {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <input
       {...props}
+      ref={ref}
       className="w-full
         mt-1
         text-sm 
@@ -20,4 +21,6 @@ export default function Input({ ...props }: InputProps) {
       "
     />
   );
-}
+});
+
+export default Input;

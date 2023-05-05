@@ -40,6 +40,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     });
   }, [printer, setPrinterMessage, setShouldUpdatePrinters]);
 
+  console.log("**Provider", printer);
+
   const printerContextValue = {
     printer,
     setPrinter,

@@ -8,7 +8,7 @@ import {
 interface NotificationProps {
   message?: string;
   theme?: string | undefined;
-  setShowNotification: (state: boolean) => void;
+  setShowNotification?: (state: boolean) => void;
 }
 
 export default function Notification({
@@ -17,7 +17,7 @@ export default function Notification({
   setShowNotification,
 }: NotificationProps) {
   const closeNotification = () => {
-    setShowNotification(false);
+    setShowNotification?.(false);
   };
 
   return (

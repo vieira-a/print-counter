@@ -1,7 +1,7 @@
 function App() {
   return (
     <section>
-      <p>Home</p>
+      <h1>Home</h1>
     </section>
   );
 }

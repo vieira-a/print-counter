@@ -1,114 +1,83 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Close } from "@carbon/icons-react";
-import { IPrinter } from "../../common/interfaces/IPrinter";
 import Input from "../../components/Input";
 import ButtonContent from "../../components/ButtonContent";
-import Notification from "../../components/Notification";
+import { IPrinter } from "../../common/interfaces/IPrinter";
 import ErrorMessage from "../../components/ErrorMessage";
+import { useContext, useState } from "react";
 import PrinterContext from "../../contexts/printerContext";
+import Notification from "../../components/Notification";
+import { useNavigate } from "react-router-dom";
+
+const createPrinterFormSchema = z.object({
+  model: z
+    .string()
+    .nonempty("O campo Modelo é obrigatório")
+    .min(3, "O campo Modelo precisa ter no mínimo 3 caracteres"),
+  brand: z
+    .string()
+    .nonempty("O campo Marca é obrigatório")
+    .min(3, "O campo Marca precisa ter no mínimo 3 caracteres"),
+  serial: z
+    .string()
+    // .nonempty("O campo Número de série é obrigatório")
+    .min(3, "O campo Número de série precisa ter no mínimo 3 caracteres"),
+  local: z
+    .string()
+    .nonempty("O campo Localização é obrigatório")
+    .min(3, "O campo Localização precisa ter no mínimo 3 caracteres"),
+  counter: z.number().min(0, "O contador deve ser maior que 0"),
+});
 
 export default function PrinterForm() {
   const navigate = useNavigate();
-  const [showNotification, setShowNotification] = useState(false);
 
-  const { printer, setPrinter, printerMessage, setPrinterMessage } =
-    useContext(PrinterContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IPrinter>({
+    resolver: zodResolver(createPrinterFormSchema),
+  });
 
-  const [model, setModel] = useState("");
-  const [brand, setBrand] = useState("");
-  const [serial, setSerial] = useState("");
-  const [local, setLocal] = useState("");
-  const [counter, setCounter] = useState("");
-  const [newPrinterObject, setNewPrinterObject] = useState<IPrinter>(printer);
+  const { setPrinter } = useContext(PrinterContext);
+  const [createdSuccess, setCreatedSuccess] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    function updateNewPrinterObject() {
-      setNewPrinterObject({
-        model,
-        brand,
-        serial,
-        local,
-        counter,
+  const createPrinter: SubmitHandler<FieldValues> = (data) => {
+    try {
+      const newPrinter: IPrinter = {
+        model: data.model,
+        brand: data.brand,
+        serial: data.serial,
+        local: data.local,
+        counter: data.counter,
+      };
+      console.log(newPrinter);
+      setPrinter(newPrinter);
+      setCreatedSuccess(true);
+      console.log("Objeto printer:", newPrinter);
+    } catch (error) {
+      setPrinter({
+        model: "",
+        brand: "",
+        serial: "",
+        local: "",
+        counter: "",
       });
-    }
-    updateNewPrinterObject();
-  }, [model, brand, serial, local, counter]);
-
-  function clearInputForm() {
-    setModel("");
-    setBrand("");
-    setSerial("");
-    setLocal("");
-    setCounter("");
-  }
-
-  function showFormNotification() {
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 5000);
-  }
-
-  const [serialErrorMessage, setSerialErrorMessage] = useState("");
-  const [counterErrorMessage, setCounterErrorMessage] = useState("");
-
-  const validateFieldLength = (
-    field: string,
-    length: number,
-    setError: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    if (field.trim().length < length) {
-      setError(`Este campo precisa ter no mínimo ${length} caracteres`);
-      console.log(serialErrorMessage);
-    } else {
-      setError("");
+      setCreatedSuccess(false);
+      console.log("Erro ao cadastrar:", error);
     }
   };
-
-  const serialNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newSerialNumber = event.target.value;
-    validateFieldLength(newSerialNumber, 3, setSerialErrorMessage);
-    setSerial(newSerialNumber);
-  };
-
-  const counterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCounter = event.target.value;
-    if (Number(newCounter) < 0) {
-      setCounterErrorMessage(
-        "O valor do contador precisa ser maior ou igual a 0"
-      );
-      return;
-    }
-    setCounterErrorMessage("");
-    setCounter(newCounter);
-  };
-
-  console.log(counter);
-
-  function createPrinter(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (Object.values(newPrinterObject).every((value) => !!value)) {
-      setPrinter(newPrinterObject);
-      showFormNotification();
-      clearInputForm();
-    } else {
-      showFormNotification();
-      setPrinterMessage("error");
-    }
-  }
-
-  function goToPrinterPage() {
-    navigate("/printer");
-  }
 
   return (
     <section className="w-[50%] mx-auto bg-carbon-bg-modal">
       <div className="relative px-4">
         <div className="flex justify-between py-4">
-          <h2>Cadastro de impressoras</h2>
+          <h2>Cadastro de impressoras V2</h2>
           <Close
-            onClick={goToPrinterPage}
+            onClick={() => navigate("/printer")}
             size={24}
             className="cursor-pointer"
             aria-label="Fechar formulário"
@@ -122,19 +91,24 @@ export default function PrinterForm() {
         </div>
       </div>
       <div>
-        <form onSubmit={createPrinter} className="flex flex-col gap-8">
+        <form
+          onSubmit={handleSubmit(createPrinter)}
+          className="flex flex-col gap-8"
+        >
           <div className="px-4 pt-8">
             <label className="text-xs text-carbon-label">
               Número de série
               <Input
-                required
                 type="text"
                 placeholder="Informe o número de série"
-                value={serial}
-                onChange={serialNumberChange}
+                {...register("serial")}
               />
-              {serialErrorMessage && (
-                <ErrorMessage message={serialErrorMessage} />
+              {errors.serial && (
+                <p data-testid="error-serial">{errors.serial.message}</p>
+                // <ErrorMessage
+                //   data-testid="error-serial"
+                //   message={`${errors.serial.message}`}
+                // />
               )}
             </label>
           </div>
@@ -143,71 +117,68 @@ export default function PrinterForm() {
               <label className="text-xs text-carbon-label">
                 Fabricante
                 <Input
-                  required
                   type="text"
-                  name="brand"
                   placeholder="Informe o fabricante"
-                  value={brand}
-                  onChange={(event) => setBrand(event.target.value)}
+                  {...register("brand")}
                 />
+                {errors.brand && (
+                  <ErrorMessage message={`${errors.brand.message}`} />
+                )}
               </label>
               <label className="text-xs text-carbon-label">
                 Modelo
                 <Input
-                  required
                   type="text"
-                  name="model"
                   placeholder="Informe o modelo"
-                  value={model}
-                  onChange={(event) => setModel(event.target.value)}
+                  {...register("model")}
                 />
+                {errors.model && (
+                  <ErrorMessage message={`${errors.model.message}`} />
+                )}
               </label>
               <label className="text-xs text-carbon-label">
                 Localização
                 <Input
-                  required
                   type="text"
-                  name="location"
                   placeholder="Informe o local de instalação"
-                  value={local}
-                  onChange={(event) => setLocal(event.target.value)}
+                  {...register("local")}
                 />
+                {errors.local && (
+                  <ErrorMessage message={`${errors.local.message}`} />
+                )}
               </label>
               <label className="text-xs text-carbon-label">
                 Contador atual
                 <Input
-                  required
                   type="number"
-                  name="counter"
                   placeholder="Informe o contador atual"
-                  value={counter}
-                  onChange={counterChange}
+                  {...register("counter", { valueAsNumber: true })}
                 />
-                {counterErrorMessage && (
-                  <ErrorMessage message={counterErrorMessage} />
+                {errors.counter && (
+                  <ErrorMessage message={`${errors.counter.message}`} />
                 )}
               </label>
             </div>
             <div className="px-4">
-              {showNotification && (
+              {createdSuccess === true ? (
                 <Notification
-                  setShowNotification={setShowNotification}
-                  theme={`${printerMessage}`}
-                  message={
-                    printerMessage === "success"
-                      ? "Impressora cadastrada com sucesso"
-                      : printerMessage === "error"
-                      ? "Erro ao cadastrar a impressora"
-                      : ""
-                  }
+                  theme="success"
+                  message="Impressora cadastrada com sucesso"
                 />
+              ) : createdSuccess === false ? (
+                <Notification
+                  theme="error"
+                  message="Erro ao cadastrar a impressora"
+                />
+              ) : (
+                ""
               )}
             </div>
           </div>
           <div className="flex gap-[1px]">
             <ButtonContent
+              onClick={() => navigate("/printer")}
               aria-label="Fechar formulário"
-              onClick={goToPrinterPage}
               type="reset"
               text="Cancelar"
               theme="secondary"
