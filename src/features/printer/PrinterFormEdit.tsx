@@ -6,10 +6,11 @@ import { Close } from "@carbon/icons-react";
 import ButtonContent from "../../components/ButtonContent";
 import Input from "../../components/Input";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import PrinterContext from "../../contexts/printerContext";
 import { IPrinter } from "common/interfaces/IPrinter";
 import ErrorMessage from "../../components/ErrorMessage";
+import Notification from "../../components/Notification";
 
 export default function PrinterFormEdit() {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ export default function PrinterFormEdit() {
     resolver: zodResolver(PrinterFormSchema),
   });
 
+  const [updatedSuccess, setUpdatedSuccess] = useState<boolean | null>(null);
+
   const handleEditPrinter: SubmitHandler<FieldValues> = (data) => {
     try {
       const updatedPrinter: IPrinter = {
@@ -41,9 +44,19 @@ export default function PrinterFormEdit() {
         local: data.local,
         counter: data.counter,
       };
-
       setPrinterEdit(updatedPrinter);
+      setUpdatedSuccess(true);
+      setTimeout(() => {
+        setUpdatedSuccess(null);
+      }, 2000);
     } catch (error) {
+      setPrinterEdit({
+        model: "",
+        brand: "",
+        serial: "",
+        local: "",
+        counter: "",
+      });
       console.log(error);
     }
   };
@@ -149,7 +162,21 @@ export default function PrinterFormEdit() {
                 )}
               </label>
             </div>
-            <div className="px-4"></div>
+            <div className="px-4">
+              {updatedSuccess === true ? (
+                <Notification
+                  theme="success"
+                  message="Impressora atualizada com sucesso"
+                />
+              ) : updatedSuccess === false ? (
+                <Notification
+                  theme="error"
+                  message="Erro ao atualizar a impressora"
+                />
+              ) : (
+                ""
+              )}
+            </div>
             <div className="flex gap-[1px]">
               <ButtonContent
                 onClick={() => navigate("/printer")}

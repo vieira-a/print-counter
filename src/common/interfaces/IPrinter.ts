@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 export interface IPrinter {
-  _id: string;
+  _id?: string;
   model: string;
   brand: string;
   serial: string;

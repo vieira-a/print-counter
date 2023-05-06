@@ -49,8 +49,9 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
       createPrinter(printer, setPrinterMessage);
       setPrinterMessage("success");
       setShouldUpdatePrinters(true);
+    } else {
+      console.log("Erro ao atualizar impressora");
     }
-
     getPrinters().then((data) => {
       setPrinters(data);
     });
@@ -62,9 +63,10 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
       Object.values(printerEdit).every((value) => !!value)
     ) {
       updatePrinter(selectedPrinter?._id, printerEdit);
+
       setShouldUpdatePrinters(true);
     } else {
-      console.log("Erro ao cadastrar impressora");
+      console.log("Erro ao atualizar impressora");
     }
     getPrinters().then((data) => {
       setPrinters(data);
