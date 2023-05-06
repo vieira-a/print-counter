@@ -57,9 +57,18 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   }, [printer, setPrinterMessage, setShouldUpdatePrinters]);
 
   useEffect(() => {
-    if (selectedPrinter?._id) {
+    if (
+      selectedPrinter?._id &&
+      Object.values(printerEdit).every((value) => !!value)
+    ) {
       updatePrinter(selectedPrinter?._id, printerEdit);
+      setShouldUpdatePrinters(true);
+    } else {
+      console.log("Erro ao cadastrar impressora");
     }
+    getPrinters().then((data) => {
+      setPrinters(data);
+    });
   }, [printerEdit, selectedPrinter?._id]);
 
   console.log(printerEdit);
