@@ -34,4 +34,20 @@ const getPrinters = async () => {
   }
 };
 
-export { createPrinter, getPrinters };
+const updatePrinter = async (printerId: string, printerUpdated: IPrinter) => {
+  try {
+    const response = await fetch(`${API_URL}/${printerId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(printerUpdated),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { createPrinter, getPrinters, updatePrinter };

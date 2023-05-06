@@ -10,11 +10,22 @@ const PrinterContext = createContext<IPrinterContext>({
     counter: "",
   },
   setPrinter: (printer: IPrinter) => {
-    console.log("Update printer", printer);
+    console.log("Create printer", printer);
   },
   printerMessage: undefined,
   setPrinterMessage: (printerMessage) => console.log(printerMessage),
   printers: [],
+  printerEdit: {
+    _id: "",
+    model: "",
+    brand: "",
+    serial: "",
+    local: "",
+    counter: "",
+  },
+  setPrinterEdit: (printerEdit: IPrinter) => {
+    console.log("Updated printer", printerEdit);
+  },
   setPrinters: (printers) => console.log(printers),
   shouldUpdatePrinters: false,
 });

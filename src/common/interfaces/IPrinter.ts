@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 export interface IPrinter {
-  _id?: string;
+  _id: string;
   model: string;
   brand: string;
   serial: string;
@@ -15,8 +15,14 @@ export interface IPrinterContext {
   printer: IPrinter;
   setPrinter: (printer: IPrinter) => void;
 
+  selectedPrinter?: IPrinter;
+  setSelectedPrinter?: React.Dispatch<
+    React.SetStateAction<IPrinter | undefined>
+  >;
+
   printerEdit: IPrinter;
   setPrinterEdit: (printerEdit: IPrinter) => void;
+
   printerMessage: string | undefined;
   setPrinterMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
   printers?: IPrinter[];

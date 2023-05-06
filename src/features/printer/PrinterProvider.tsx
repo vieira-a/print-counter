@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
 import PrinterContext from "../../contexts/printerContext";
-import { createPrinter, getPrinters } from "../../services/servicePrinter";
+import {
+  createPrinter,
+  getPrinters,
+  updatePrinter,
+} from "../../services/servicePrinter";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
+    _id: "",
     model: "",
     brand: "",
     serial: "",
@@ -14,7 +19,10 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
 
   const [printers, setPrinters] = useState<IPrinter[]>([]);
 
+  const [selectedPrinter, setSelectedPrinter] = useState<IPrinter>();
+
   const [printerEdit, setPrinterEdit] = useState<IPrinter>({
+    _id: "",
     model: "",
     brand: "",
     serial: "",
@@ -48,6 +56,14 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     });
   }, [printer, setPrinterMessage, setShouldUpdatePrinters]);
 
+  useEffect(() => {
+    if (selectedPrinter?._id) {
+      updatePrinter(selectedPrinter?._id, printerEdit);
+    }
+  }, [printerEdit, selectedPrinter?._id]);
+
+  console.log(printerEdit);
+
   const printerContextValue = {
     printer,
     setPrinter,
@@ -59,6 +75,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrinterMessage,
     printerEdit,
     setPrinterEdit,
+    selectedPrinter,
+    setSelectedPrinter,
   };
 
   return (

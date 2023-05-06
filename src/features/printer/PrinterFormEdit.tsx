@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PrinterFormSchema } from "../../common/schemas/PrinterFormSchema";
@@ -5,26 +6,23 @@ import { Close } from "@carbon/icons-react";
 import ButtonContent from "../../components/ButtonContent";
 import Input from "../../components/Input";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import PrinterContext from "../../contexts/printerContext";
 import { IPrinter } from "common/interfaces/IPrinter";
 import ErrorMessage from "../../components/ErrorMessage";
 
 export default function PrinterFormEdit() {
   const navigate = useNavigate();
-  const { printers, setPrinterEdit } = useContext(PrinterContext);
-  const [selectedPrinter, setSelectedPrinter] = useState<
-    IPrinter | undefined
-  >();
+  const { id } = useParams();
+  const { printers, selectedPrinter, setSelectedPrinter, setPrinterEdit } =
+    useContext(PrinterContext);
 
   useEffect(() => {
-    const selectPrinter = printers?.find(
-      (printer) => printer._id === "64546475231a146302af821c"
-    );
-    if (selectPrinter) {
+    const selectPrinter = printers?.find((printer) => printer._id === id);
+    if (setSelectedPrinter) {
       setSelectedPrinter(selectPrinter);
     }
-  }, [printers]);
+  }, [printers, id, setSelectedPrinter]);
 
   const {
     register,

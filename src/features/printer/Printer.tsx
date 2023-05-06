@@ -1,8 +1,10 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import PrinterContext from "../../contexts/printerContext";
 
 export default function Printer() {
+  const navigate = useNavigate();
   const { printers } = useContext(PrinterContext);
 
   return (
@@ -41,6 +43,7 @@ export default function Printer() {
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 <div className="flex gap-1">
                   <Button
+                    onClick={() => navigate(`/printer/${item._id}`)}
                     className="w-[25%]"
                     // theme="primary"
                     text="Alterar"

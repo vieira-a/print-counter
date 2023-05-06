@@ -1,11 +1,7 @@
-import PrinterFormEdit from "./features/printer/PrinterFormEdit";
-
 function App() {
   return (
     <section>
-      <h1>
-        <PrinterFormEdit />
-      </h1>
+      <h1>Home</h1>
     </section>
   );
 }
