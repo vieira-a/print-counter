@@ -14,7 +14,7 @@ export default function AppRouter() {
           <Route path="/" element={<DefaultPage />}>
             <Route index element={<App />} />
             <Route path="printer" element={<Printer />} />
-            <Route path="printer/:id" element={<PrinterFormEdit />} />
+            <Route path="printer/edit/:id" element={<PrinterFormEdit />} />
             <Route path="printer/create" element={<PrinterForm />} />
           </Route>
         </Routes>

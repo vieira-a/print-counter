@@ -30,6 +30,7 @@ export interface IPrinterContext {
 
   getPrinters?: () => void;
   shouldUpdatePrinters: boolean;
+  setShouldUpdatePrinters: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IPrinterProvider {

@@ -11,19 +11,22 @@ import PrinterContext from "../../contexts/printerContext";
 import { IPrinter } from "common/interfaces/IPrinter";
 import ErrorMessage from "../../components/ErrorMessage";
 import Notification from "../../components/Notification";
+import { updatePrinter } from "../../services/servicePrinter";
 
 export default function PrinterFormEdit() {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const { printers, selectedPrinter, setSelectedPrinter, setPrinterEdit } =
-    useContext(PrinterContext);
+  const goToPrinterPage = useNavigate();
+  const { printers, setShouldUpdatePrinters } = useContext(PrinterContext);
+
+  const [selectPrinterToEdit, setSelectPrinterToEdit] = useState<IPrinter>();
 
   useEffect(() => {
-    const selectPrinter = printers?.find((printer) => printer._id === id);
-    if (setSelectedPrinter) {
-      setSelectedPrinter(selectPrinter);
-    }
-  }, [printers, id, setSelectedPrinter]);
+    printers?.map((item) => {
+      if (item._id === id) {
+        setSelectPrinterToEdit(item);
+      }
+    });
+  }, [id, printers]);
 
   const {
     register,
@@ -33,31 +36,45 @@ export default function PrinterFormEdit() {
     resolver: zodResolver(PrinterFormSchema),
   });
 
-  const [updatedSuccess, setUpdatedSuccess] = useState<boolean | null>(null);
+  interface IUpdateStatus {
+    status: boolean | null;
+    msg: string;
+  }
 
-  const handleEditPrinter: SubmitHandler<FieldValues> = (data) => {
+  const [updatedSuccess, setUpdatedSuccess] = useState<IUpdateStatus>({
+    status: null,
+    msg: "",
+  });
+
+  const handleEditPrinter: SubmitHandler<FieldValues> = async (data) => {
+    const updatedPrinter: IPrinter = {
+      model: data.model,
+      brand: data.brand,
+      serial: data.serial,
+      local: data.local,
+      counter: data.counter,
+    };
     try {
-      const updatedPrinter: IPrinter = {
-        model: data.model,
-        brand: data.brand,
-        serial: data.serial,
-        local: data.local,
-        counter: data.counter,
-      };
-      setPrinterEdit(updatedPrinter);
-      setUpdatedSuccess(true);
-      setTimeout(() => {
-        setUpdatedSuccess(null);
-      }, 2000);
+      if (selectPrinterToEdit?._id) {
+        const data = await updatePrinter(
+          selectPrinterToEdit?._id,
+          updatedPrinter
+        );
+        console.log(data);
+        setShouldUpdatePrinters(true);
+        setUpdatedSuccess({ status: true, msg: data.msg });
+        setTimeout(() => {
+          setUpdatedSuccess({ status: null, msg: "" });
+          setShouldUpdatePrinters(false);
+        }, 2000);
+      }
     } catch (error) {
-      setPrinterEdit({
-        model: "",
-        brand: "",
-        serial: "",
-        local: "",
-        counter: "",
-      });
       console.log(error);
+      setUpdatedSuccess({ status: false, msg: data.msg });
+      setShouldUpdatePrinters(false);
+      setTimeout(() => {
+        setUpdatedSuccess({ status: null, msg: "" });
+      }, 2000);
     }
   };
 
@@ -67,7 +84,7 @@ export default function PrinterFormEdit() {
         <div className="flex justify-between py-4">
           <h2>Alteração de impressora</h2>
           <Close
-            onClick={() => navigate("/printer")}
+            onClick={() => goToPrinterPage("/printer")}
             size={24}
             className="cursor-pointer"
             aria-label="Fechar formulário"
@@ -81,7 +98,7 @@ export default function PrinterFormEdit() {
         </div>
       </div>
       <div>
-        {selectedPrinter && (
+        {selectPrinterToEdit && (
           <form onSubmit={handleSubmit(handleEditPrinter)}>
             <div className="px-4 pt-8">
               <label className="text-xs text-carbon-label">
@@ -90,7 +107,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o número de série"
                   {...register("serial")}
-                  defaultValue={selectedPrinter.serial}
+                  defaultValue={selectPrinterToEdit.serial}
                 />
                 {errors.serial && (
                   <ErrorMessage
@@ -107,7 +124,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o fabricante"
                   {...register("brand")}
-                  defaultValue={selectedPrinter.brand}
+                  defaultValue={selectPrinterToEdit.brand}
                 />
                 {errors.brand && (
                   <ErrorMessage
@@ -122,7 +139,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o modelo"
                   {...register("model")}
-                  defaultValue={selectedPrinter.model}
+                  defaultValue={selectPrinterToEdit.model}
                 />
                 {errors.model && (
                   <ErrorMessage
@@ -137,7 +154,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o local de instalação"
                   {...register("local")}
-                  defaultValue={selectedPrinter.local}
+                  defaultValue={selectPrinterToEdit.local}
                 />
                 {errors.local && (
                   <ErrorMessage
@@ -152,7 +169,7 @@ export default function PrinterFormEdit() {
                   type="number"
                   placeholder="Informe o contador atual"
                   {...register("counter")}
-                  defaultValue={selectedPrinter.counter}
+                  defaultValue={selectPrinterToEdit.counter}
                 />
                 {errors.counter && (
                   <ErrorMessage
@@ -163,23 +180,17 @@ export default function PrinterFormEdit() {
               </label>
             </div>
             <div className="px-4">
-              {updatedSuccess === true ? (
-                <Notification
-                  theme="success"
-                  message="Impressora atualizada com sucesso"
-                />
-              ) : updatedSuccess === false ? (
-                <Notification
-                  theme="error"
-                  message="Erro ao atualizar a impressora"
-                />
+              {updatedSuccess.status === true ? (
+                <Notification theme="success" message={updatedSuccess.msg} />
+              ) : updatedSuccess.status === false ? (
+                <Notification theme="error" message={updatedSuccess.msg} />
               ) : (
                 ""
               )}
             </div>
             <div className="flex gap-[1px]">
               <ButtonContent
-                onClick={() => navigate("/printer")}
+                onClick={() => goToPrinterPage("/printer")}
                 aria-label="Fechar formulário"
                 type="reset"
                 text="Cancelar"

@@ -34,19 +34,25 @@ const getPrinters = async () => {
   }
 };
 
-const updatePrinter = async (printerId: string, printerUpdated: IPrinter) => {
+const updatePrinter = async (id: string, printerUpdated: IPrinter) => {
   try {
-    const response = await fetch(`${API_URL}/${printerId}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(printerUpdated),
     });
-    const data = await response.json();
-    return data;
+
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(`Error updating printer. Status: ${response.status}`);
+    }
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 

@@ -43,7 +43,7 @@ export default function Printer() {
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 <div className="flex gap-1">
                   <Button
-                    onClick={() => navigate(`/printer/${item._id}`)}
+                    onClick={() => navigate(`/printer/edit/${item._id}`)}
                     className="w-[25%]"
                     // theme="primary"
                     text="Alterar"

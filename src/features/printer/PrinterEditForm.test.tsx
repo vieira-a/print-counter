@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { act } from "@testing-library/react";
 import PrinterFormEdit from "./PrinterFormEdit";
 
 const mockNavigate = jest.fn();
