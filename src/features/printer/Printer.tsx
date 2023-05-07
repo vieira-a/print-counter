@@ -6,7 +6,6 @@ import PrinterContext from "../../contexts/printerContext";
 export default function Printer() {
   const navigate = useNavigate();
   const { printers, deleteSelectedPrinter } = useContext(PrinterContext);
-
   const handleDeletePrinter = (id: string) => {
     deleteSelectedPrinter(id);
   };

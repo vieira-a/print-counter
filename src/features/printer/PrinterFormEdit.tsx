@@ -16,7 +16,8 @@ import { updatePrinter } from "../../services/servicePrinter";
 export default function PrinterFormEdit() {
   const { id } = useParams();
   const goToPrinterPage = useNavigate();
-  const { printers, setShouldUpdatePrinters } = useContext(PrinterContext);
+  const { printers, shouldUpdatePrinters, setShouldUpdatePrinters } =
+    useContext(PrinterContext);
 
   const [selectPrinterToEdit, setSelectPrinterToEdit] = useState<IPrinter>();
 
@@ -61,21 +62,20 @@ export default function PrinterFormEdit() {
           updatedPrinter
         );
         console.log(data);
-        setShouldUpdatePrinters(true);
+        setShouldUpdatePrinters(!shouldUpdatePrinters);
         setUpdatedSuccess({ status: true, msg: data.msg });
         setTimeout(() => {
           setUpdatedSuccess({ status: null, msg: "" });
-          setShouldUpdatePrinters(false);
         }, 2000);
       }
     } catch (error) {
       console.log(error);
       setUpdatedSuccess({ status: false, msg: data.msg });
-      setShouldUpdatePrinters(false);
       setTimeout(() => {
         setUpdatedSuccess({ status: null, msg: "" });
       }, 2000);
     }
+    setShouldUpdatePrinters(true);
   };
 
   return (

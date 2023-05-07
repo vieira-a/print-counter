@@ -39,6 +39,7 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
       getPrinters().then((data) => {
         setPrinters(data);
       });
+      setShouldUpdatePrinters(false);
     }
   }, [shouldUpdatePrinters]);
 
@@ -51,14 +52,19 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     getPrinters().then((data) => {
       setPrinters(data);
     });
-  }, [printer, setPrinterMessage, setShouldUpdatePrinters]);
+  }, [printer]);
 
   const deleteSelectedPrinter = (id: string) => {
     if (id) {
       deletePrinter(id);
-      setShouldUpdatePrinters(true);
     }
+    getPrinters().then((data) => {
+      setPrinters(data);
+    });
+    setShouldUpdatePrinters(true);
   };
+
+  console.log(shouldUpdatePrinters);
 
   const printerContextValue = {
     printer,
