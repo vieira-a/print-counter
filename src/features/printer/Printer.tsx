@@ -5,7 +5,11 @@ import PrinterContext from "../../contexts/printerContext";
 
 export default function Printer() {
   const navigate = useNavigate();
-  const { printers } = useContext(PrinterContext);
+  const { printers, deleteSelectedPrinter } = useContext(PrinterContext);
+
+  const handleDeletePrinter = (id: string) => {
+    deleteSelectedPrinter(id);
+  };
 
   return (
     <section>
@@ -49,6 +53,7 @@ export default function Printer() {
                     text="Alterar"
                   />
                   <Button
+                    onClick={() => handleDeletePrinter(`${item._id}`)}
                     className="w-[25%]"
                     // theme="danger"
                     text="Excluir"

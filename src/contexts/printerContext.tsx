@@ -31,6 +31,9 @@ const PrinterContext = createContext<IPrinterContext>({
   setShouldUpdatePrinters: () => {
     console.log("Updated");
   },
+  deleteSelectedPrinter: () => {
+    console.log("Deleted");
+  },
 });
 PrinterContext.displayName = "Printer";
 

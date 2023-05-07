@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
 import PrinterContext from "../../contexts/printerContext";
-import { createPrinter, getPrinters } from "../../services/servicePrinter";
+import {
+  createPrinter,
+  getPrinters,
+  deletePrinter,
+} from "../../services/servicePrinter";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
@@ -49,6 +53,13 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     });
   }, [printer, setPrinterMessage, setShouldUpdatePrinters]);
 
+  const deleteSelectedPrinter = (id: string) => {
+    if (id) {
+      deletePrinter(id);
+      setShouldUpdatePrinters(true);
+    }
+  };
+
   const printerContextValue = {
     printer,
     setPrinter,
@@ -61,6 +72,7 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrinterMessage,
     printerEdit,
     setPrinterEdit,
+    deleteSelectedPrinter,
   };
 
   return (

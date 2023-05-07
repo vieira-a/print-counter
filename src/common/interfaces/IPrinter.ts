@@ -31,6 +31,7 @@ export interface IPrinterContext {
   getPrinters?: () => void;
   shouldUpdatePrinters: boolean;
   setShouldUpdatePrinters: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteSelectedPrinter: (id: string) => void;
 }
 
 export interface IPrinterProvider {

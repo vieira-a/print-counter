@@ -56,4 +56,22 @@ const updatePrinter = async (id: string, printerUpdated: IPrinter) => {
   }
 };
 
-export { createPrinter, getPrinters, updatePrinter };
+const deletePrinter = async (id: string) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      console.log("Impressora excluída com sucesso");
+    } else {
+      throw new Error(`Erro ao excluir a impressora ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { createPrinter, getPrinters, updatePrinter, deletePrinter };
