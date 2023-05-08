@@ -12,7 +12,7 @@ export default function ModalCard({
   children,
 }: ModalCardProps) {
   return (
-    <article className="bg-carbon-bg-modal flex flex-col justify-between">
+    <article className="w-full bg-carbon-bg-modal flex flex-col justify-between">
       <div className="flex flex-col gap-4 p-4">
         <h2>{title}</h2>
         <p>{description}</p>

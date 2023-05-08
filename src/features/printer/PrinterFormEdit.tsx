@@ -58,7 +58,7 @@ export default function PrinterFormEdit() {
     try {
       if (selectPrinterToEdit?._id) {
         const data = await updatePrinter(
-          selectPrinterToEdit?._id,
+          selectPrinterToEdit._id,
           updatedPrinter
         );
         console.log(data);
@@ -124,7 +124,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o fabricante"
                   {...register("brand")}
-                  defaultValue={selectPrinterToEdit.brand}
+                  defaultValue={selectPrinterToEdit?.brand}
                 />
                 {errors.brand && (
                   <ErrorMessage
@@ -139,7 +139,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o modelo"
                   {...register("model")}
-                  defaultValue={selectPrinterToEdit.model}
+                  defaultValue={selectPrinterToEdit?.model}
                 />
                 {errors.model && (
                   <ErrorMessage
@@ -154,7 +154,7 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o local de instalação"
                   {...register("local")}
-                  defaultValue={selectPrinterToEdit.local}
+                  defaultValue={selectPrinterToEdit?.local}
                 />
                 {errors.local && (
                   <ErrorMessage
@@ -169,7 +169,7 @@ export default function PrinterFormEdit() {
                   type="number"
                   placeholder="Informe o contador atual"
                   {...register("counter")}
-                  defaultValue={selectPrinterToEdit.counter}
+                  defaultValue={selectPrinterToEdit?.counter}
                 />
                 {errors.counter && (
                   <ErrorMessage
