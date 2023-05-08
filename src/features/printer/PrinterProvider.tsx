@@ -55,13 +55,15 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   }, [printer]);
 
   const deleteSelectedPrinter = (id: string) => {
-    if (id) {
-      deletePrinter(id);
-    }
-    getPrinters().then((data) => {
-      setPrinters(data);
-    });
-    setShouldUpdatePrinters(true);
+    if (confirm(`Deseja realmente excluir a impressora?`)) {
+      if (id) {
+        deletePrinter(id);
+      }
+      getPrinters().then((data) => {
+        setPrinters(data);
+      });
+      setShouldUpdatePrinters(true);
+    } else "Impressora não excluída";
   };
 
   console.log(shouldUpdatePrinters);
