@@ -56,6 +56,15 @@ export default function PrinterFormEdit() {
       counter: data.counter,
     };
     try {
+      if (
+        printers?.some((item) => item.serial === selectPrinterToEdit?.serial)
+      ) {
+        alert(
+          `Já existe uma impressora cadastrada com o número de série ${selectPrinterToEdit?.serial}`
+        );
+        return;
+      }
+
       if (selectPrinterToEdit?._id) {
         const data = await updatePrinter(
           selectPrinterToEdit._id,

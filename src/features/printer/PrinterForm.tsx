@@ -26,14 +26,14 @@ export default function PrinterForm() {
   const [createdSuccess, setCreatedSuccess] = useState<boolean | null>(null);
 
   const createPrinter: SubmitHandler<FieldValues> = (data) => {
+    const newPrinter: IPrinter = {
+      model: data.model,
+      brand: data.brand,
+      serial: data.serial,
+      local: data.local,
+      counter: data.counter,
+    };
     try {
-      const newPrinter: IPrinter = {
-        model: data.model,
-        brand: data.brand,
-        serial: data.serial,
-        local: data.local,
-        counter: data.counter,
-      };
       if (printers?.some((item) => item.serial === newPrinter.serial)) {
         alert(
           `Já existe uma impressora cadastrada com o número de série ${newPrinter.serial}`
