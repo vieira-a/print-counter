@@ -22,7 +22,7 @@ export default function PrinterForm() {
     resolver: zodResolver(PrinterFormSchema),
   });
 
-  const { setPrinter } = useContext(PrinterContext);
+  const { printers, setPrinter } = useContext(PrinterContext);
   const [createdSuccess, setCreatedSuccess] = useState<boolean | null>(null);
 
   const createPrinter: SubmitHandler<FieldValues> = (data) => {
@@ -34,6 +34,12 @@ export default function PrinterForm() {
         local: data.local,
         counter: data.counter,
       };
+      if (printers?.some((item) => item.serial === newPrinter.serial)) {
+        alert(
+          `Já existe uma impressora cadastrada com o número de série ${newPrinter.serial}`
+        );
+        return;
+      }
       console.log(newPrinter);
       setPrinter(newPrinter);
       setCreatedSuccess(true);
