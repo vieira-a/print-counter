@@ -29,7 +29,11 @@ export default function Printer() {
           </div>
         </div>
         <div>
-          <Button text="Inserir" aria-label="Cadastrar nova impressora" />
+          <Button
+            onClick={() => navigate("/printer/create")}
+            text="Adicionar"
+            aria-label="Cadastrar nova impressora"
+          />
         </div>
       </div>
       <table className="w-full bg-carbon-bg-modal">
