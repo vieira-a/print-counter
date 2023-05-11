@@ -14,7 +14,7 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
           {...props}
           ref={ref}
           className="w-full
-          mt-1
+          mt-[2px]
           text-sm 
           bg-carbon-field 
           px-10 py-[11px] 
