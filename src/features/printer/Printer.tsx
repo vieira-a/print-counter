@@ -21,6 +21,7 @@ export default function Printer() {
       </div>
       <div>
         <InputSearch type="search" placeholder="Buscar uma impressora" />
+        <Button text="Procurar" aria-label="Procurar impressora" />
       </div>
       <table className="w-full bg-carbon-bg-modal">
         <thead>
