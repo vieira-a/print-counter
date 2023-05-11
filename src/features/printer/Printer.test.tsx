@@ -25,4 +25,11 @@ describe("Should render Printer.tsx components", () => {
     const buttonSearch = screen.getByRole("button", { name: "Procurar" });
     expect(buttonSearch).toBeInTheDocument();
   });
+
+  it("Should render a button for insert a new printer", () => {
+    const buttonInsertNewPrinter = screen.getByRole("button", {
+      name: "Inserir",
+    });
+    expect(buttonInsertNewPrinter).toBeInTheDocument();
+  });
 });
