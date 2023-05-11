@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import InputSearch from "../../components/InputSearch";
 import PrinterContext from "../../contexts/printerContext";
 
 export default function Printer() {
@@ -18,6 +19,7 @@ export default function Printer() {
           Clique nas ações selecionadas para editar ou excluir uma impressora
         </p>
       </div>
+      <InputSearch type="search" placeholder="Buscar uma impressora" />
       <table className="w-full bg-carbon-bg-modal">
         <thead>
           <tr className="text-left text-sm bg-carbon-table-head">
