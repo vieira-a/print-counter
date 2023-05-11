@@ -12,14 +12,16 @@ export default function Printer() {
   };
 
   return (
-    <section>
+    <section className="bg-carbon-bg-modal">
       <div className="px-4 pt-6 pb-8">
         <h2>Impressoras cadastradas</h2>
         <p>
           Clique nas ações selecionadas para editar ou excluir uma impressora
         </p>
       </div>
-      <InputSearch type="search" placeholder="Buscar uma impressora" />
+      <div>
+        <InputSearch type="search" placeholder="Buscar uma impressora" />
+      </div>
       <table className="w-full bg-carbon-bg-modal">
         <thead>
           <tr className="text-left text-sm bg-carbon-table-head">
