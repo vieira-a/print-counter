@@ -8,7 +8,7 @@ interface InputSearchProps extends InputHTMLAttributes<HTMLInputElement> {
 const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
   (props, ref) => {
     return (
-      <div className="relative">
+      <div className="relative w-full">
         <Search className="absolute m-4 " />
         <input
           {...props}

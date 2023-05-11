@@ -19,7 +19,7 @@ export default function Printer() {
           Clique nas ações selecionadas para editar ou excluir uma impressora
         </p>
       </div>
-      <div>
+      <div className="flex gap-[1px] w-full items-center">
         <InputSearch type="search" placeholder="Buscar uma impressora" />
         <Button text="Procurar" aria-label="Procurar impressora" />
       </div>
