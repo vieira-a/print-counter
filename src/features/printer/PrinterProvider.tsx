@@ -4,6 +4,7 @@ import PrinterContext from "../../contexts/printerContext";
 import {
   createPrinter,
   getPrinters,
+  getPrinterBySerial,
   deletePrinter,
 } from "../../services/servicePrinter";
 
@@ -18,6 +19,7 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   });
 
   const [printers, setPrinters] = useState<IPrinter[]>([]);
+  const [printersBySerial, setPrintersBySerial] = useState<IPrinter[]>([]);
 
   const [printerEdit, setPrinterEdit] = useState<IPrinter>({
     _id: "",
@@ -33,6 +35,7 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   );
 
   const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
+  const [searchSerial, setSearchSerial] = useState("");
 
   useEffect(() => {
     if (shouldUpdatePrinters) {
@@ -42,6 +45,19 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
       setShouldUpdatePrinters(false);
     }
   }, [shouldUpdatePrinters]);
+
+  const searchPrinterBySerial = async (expression: string) => {
+    try {
+      const data = await getPrinterBySerial(expression);
+      setPrintersBySerial(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    searchPrinterBySerial(searchSerial);
+  }, [searchSerial]);
 
   useEffect(() => {
     if (Object.values(printer).every((value) => !!value)) {
@@ -66,14 +82,13 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     } else "Impressora não excluída";
   };
 
-  console.log(shouldUpdatePrinters);
-
   const printerContextValue = {
     printer,
     setPrinter,
     printers,
     setPrinters,
     getPrinters,
+    printersBySerial,
     shouldUpdatePrinters,
     setShouldUpdatePrinters,
     printerMessage,
@@ -81,6 +96,9 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     printerEdit,
     setPrinterEdit,
     deleteSelectedPrinter,
+    searchPrinterBySerial,
+    searchSerial,
+    setSearchSerial,
   };
 
   return (

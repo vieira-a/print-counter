@@ -27,11 +27,16 @@ export interface IPrinterContext {
   setPrinterMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
   printers?: IPrinter[];
   setPrinters?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
+  printersBySerial?: IPrinter[];
+  setPrintersBySerial?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
 
   getPrinters?: () => void;
   shouldUpdatePrinters: boolean;
   setShouldUpdatePrinters: React.Dispatch<React.SetStateAction<boolean>>;
   deleteSelectedPrinter: (id: string) => void;
+  searchPrinterBySerial: (expression: string) => void;
+  searchSerial: string;
+  setSearchSerial: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IPrinterProvider {

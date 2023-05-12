@@ -34,6 +34,16 @@ const getPrinters = async () => {
   }
 };
 
+const getPrinterBySerial = async (expression: string) => {
+  try {
+    const response = await fetch(`${API_URL}/?serial=${expression}`);
+    const dataPrinterBySerial = await response.json();
+    return dataPrinterBySerial;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const updatePrinter = async (id: string, printerUpdated: IPrinter) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -74,4 +84,10 @@ const deletePrinter = async (id: string) => {
   }
 };
 
-export { createPrinter, getPrinters, updatePrinter, deletePrinter };
+export {
+  createPrinter,
+  getPrinters,
+  getPrinterBySerial,
+  updatePrinter,
+  deletePrinter,
+};

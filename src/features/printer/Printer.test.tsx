@@ -25,15 +25,12 @@ describe("Should render Printer.tsx components", () => {
   });
 
   it("Should render input search component", () => {
-    const inputSearch = screen.getByPlaceholderText(/Buscar uma impressora/i);
+    const inputSearch = screen.getByPlaceholderText(
+      /Digite o número de série para buscar uma impressora/i
+    );
 
     expect(inputSearch).toBeInTheDocument();
     expect(inputSearch).toHaveAttribute("type", "search");
-  });
-
-  it("Should render a button for search printers", () => {
-    const buttonSearch = screen.getByRole("button", { name: "Procurar" });
-    expect(buttonSearch).toBeInTheDocument();
   });
 
   it("Should render a button for insert a new printer", () => {

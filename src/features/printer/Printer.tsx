@@ -1,12 +1,31 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import InputSearch from "../../components/InputSearch";
 import PrinterContext from "../../contexts/printerContext";
+import { IPrinter } from "../../common/interfaces/IPrinter";
 
 export default function Printer() {
   const navigate = useNavigate();
-  const { printers, deleteSelectedPrinter } = useContext(PrinterContext);
+
+  const { printers, printersBySerial, deleteSelectedPrinter, setSearchSerial } =
+    useContext(PrinterContext);
+
+  const [filteredPrinters, setFilteredPrinters] = useState<IPrinter[]>();
+
+  const handleSearchSerialChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchSerial(value);
+  };
+
+  useEffect(() => {
+    if (printersBySerial && printersBySerial.length > 0) {
+      setFilteredPrinters(printersBySerial);
+    } else {
+      setFilteredPrinters(printers);
+    }
+  }, [printers, printersBySerial]);
+
   const handleDeletePrinter = (id: string) => {
     deleteSelectedPrinter(id);
   };
@@ -22,18 +41,19 @@ export default function Printer() {
       <div className="gap-[1px] flex items-center">
         <div className="flex gap-[1px] items-center w-full">
           <div className="w-full">
-            <InputSearch type="search" placeholder="Buscar uma impressora" />
+            <InputSearch
+              onChange={handleSearchSerialChange}
+              type="search"
+              placeholder="Digite o número de série para buscar uma impressora"
+            />
           </div>
           <div>
-            <Button text="Procurar" aria-label="Procurar impressora" />
+            <Button
+              onClick={() => navigate("/printer/create")}
+              text="Adicionar"
+              aria-label="Cadastrar nova impressora"
+            />
           </div>
-        </div>
-        <div>
-          <Button
-            onClick={() => navigate("/printer/create")}
-            text="Adicionar"
-            aria-label="Cadastrar nova impressora"
-          />
         </div>
       </div>
       <table className="w-full bg-carbon-bg-modal">
@@ -48,7 +68,7 @@ export default function Printer() {
           </tr>
         </thead>
         <tbody>
-          {printers?.map((item) => (
+          {filteredPrinters?.map((item) => (
             <tr key={item._id}>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {item.serial}

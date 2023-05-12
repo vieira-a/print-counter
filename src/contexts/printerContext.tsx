@@ -15,6 +15,9 @@ const PrinterContext = createContext<IPrinterContext>({
   printerMessage: undefined,
   setPrinterMessage: (printerMessage) => console.log(printerMessage),
   printers: [],
+  setPrinters: (printers) => console.log(printers),
+  printersBySerial: [],
+
   printerEdit: {
     _id: "",
     model: "",
@@ -26,13 +29,19 @@ const PrinterContext = createContext<IPrinterContext>({
   setPrinterEdit: (printerEdit: IPrinter) => {
     console.log("Updated printer", printerEdit);
   },
-  setPrinters: (printers) => console.log(printers),
   shouldUpdatePrinters: false,
   setShouldUpdatePrinters: () => {
     console.log("Updated");
   },
   deleteSelectedPrinter: () => {
     console.log("Deleted");
+  },
+  searchPrinterBySerial: () => {
+    console.log("Found");
+  },
+  searchSerial: "",
+  setSearchSerial: () => {
+    console.log("Search string");
   },
 });
 PrinterContext.displayName = "Printer";
