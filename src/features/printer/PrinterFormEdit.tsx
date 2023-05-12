@@ -16,8 +16,14 @@ import { updatePrinter } from "../../services/servicePrinter";
 export default function PrinterFormEdit() {
   const { id } = useParams();
   const goToPrinterPage = useNavigate();
-  const { printers, shouldUpdatePrinters, setShouldUpdatePrinters } =
-    useContext(PrinterContext);
+  const {
+    printers,
+    setShouldUpdatePrinters,
+    setSearchSerial,
+    searchSerial,
+    setPrintersBySerial,
+    searchPrinterBySerial,
+  } = useContext(PrinterContext);
 
   const [selectPrinterToEdit, setSelectPrinterToEdit] = useState<IPrinter>();
 
@@ -48,30 +54,31 @@ export default function PrinterFormEdit() {
   });
 
   const handleEditPrinter: SubmitHandler<FieldValues> = async (data) => {
-    const updatedPrinter: IPrinter = {
-      model: data.model,
-      brand: data.brand,
-      serial: data.serial,
-      local: data.local,
-      counter: data.counter,
-    };
     try {
-      if (
-        printers?.some((item) => item.serial === selectPrinterToEdit?.serial)
-      ) {
-        alert(
-          `Já existe uma impressora cadastrada com o número de série ${selectPrinterToEdit?.serial}`
-        );
-        return;
-      }
-
+      const updatedPrinter: IPrinter = {
+        model: data.model,
+        brand: data.brand,
+        serial: data.serial,
+        local: data.local,
+        counter: data.counter,
+      };
+      // if (
+      //   printers?.some((item) => item.serial === selectPrinterToEdit?.serial)
+      // ) {
+      //   alert(
+      //     `Já existe uma impressora cadastrada com o número de série ${selectPrinterToEdit?.serial}`
+      //   );
+      //   return;
+      // }
       if (selectPrinterToEdit?._id) {
         const data = await updatePrinter(
           selectPrinterToEdit._id,
           updatedPrinter
         );
+        searchPrinterBySerial(searchSerial);
+        setSearchSerial("");
+        setShouldUpdatePrinters(true);
         console.log(data);
-        setShouldUpdatePrinters(!shouldUpdatePrinters);
         setUpdatedSuccess({ status: true, msg: data.msg });
         setTimeout(() => {
           setUpdatedSuccess({ status: null, msg: "" });
@@ -84,7 +91,6 @@ export default function PrinterFormEdit() {
         setUpdatedSuccess({ status: null, msg: "" });
       }, 2000);
     }
-    setShouldUpdatePrinters(true);
   };
 
   return (

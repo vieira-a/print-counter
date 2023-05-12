@@ -29,7 +29,6 @@ export interface IPrinterContext {
   setPrinters?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
   printersBySerial?: IPrinter[];
   setPrintersBySerial?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
-
   getPrinters?: () => void;
   shouldUpdatePrinters: boolean;
   setShouldUpdatePrinters: React.Dispatch<React.SetStateAction<boolean>>;

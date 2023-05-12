@@ -19,7 +19,7 @@ export default function Printer() {
   };
 
   useEffect(() => {
-    if (printersBySerial && printersBySerial.length > 0) {
+    if (printersBySerial) {
       setFilteredPrinters(printersBySerial);
     } else {
       setFilteredPrinters(printers);
