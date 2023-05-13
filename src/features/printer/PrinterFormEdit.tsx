@@ -21,7 +21,6 @@ export default function PrinterFormEdit() {
     setShouldUpdatePrinters,
     setSearchSerial,
     searchSerial,
-    setPrintersBySerial,
     searchPrinterBySerial,
   } = useContext(PrinterContext);
 
@@ -62,14 +61,6 @@ export default function PrinterFormEdit() {
         local: data.local,
         counter: data.counter,
       };
-      // if (
-      //   printers?.some((item) => item.serial === selectPrinterToEdit?.serial)
-      // ) {
-      //   alert(
-      //     `Já existe uma impressora cadastrada com o número de série ${selectPrinterToEdit?.serial}`
-      //   );
-      //   return;
-      // }
       if (selectPrinterToEdit?._id) {
         const data = await updatePrinter(
           selectPrinterToEdit._id,
