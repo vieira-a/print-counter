@@ -1,33 +1,20 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import InputSearch from "../../components/InputSearch";
 import PrinterContext from "../../contexts/printerContext";
 import Notification from "../../components/Notification";
-import { IPrinter } from "../../common/interfaces/IPrinter";
 
 export default function Printer() {
   const navigate = useNavigate();
 
   const {
-    printers,
-    printersBySerial,
     deleteSelectedPrinter,
     setSearchSerial,
     deletedSuccess,
+    printersGrid,
   } = useContext(PrinterContext);
 
-  const [filteredPrinters, setFilteredPrinters] = useState<IPrinter[]>();
-
-  useEffect(() => {
-    if (printersBySerial) {
-      setFilteredPrinters(printersBySerial);
-    }
-    setFilteredPrinters(printers);
-  }, [printers, printersBySerial]);
-
-  console.log("*** printer by serial: ", printersBySerial);
-  console.log("*** object printers on Printer.tsx: ", printers);
   const handleSearchSerialChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchSerial(value);
@@ -75,7 +62,7 @@ export default function Printer() {
           </tr>
         </thead>
         <tbody>
-          {filteredPrinters?.map((item) => (
+          {printersGrid.map((item) => (
             <tr key={item._id}>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {item.serial}

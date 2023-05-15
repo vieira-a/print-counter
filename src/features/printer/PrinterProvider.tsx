@@ -20,6 +20,7 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   });
 
   const [printers, setPrinters] = useState<IPrinter[]>([]);
+  const [printersGrid, setPrintersGrid] = useState<IPrinter[]>([]);
   const [printersBySerial, setPrintersBySerial] = useState<IPrinter[]>([]);
 
   const [printerEdit, setPrinterEdit] = useState<IPrinter>({
@@ -47,25 +48,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrinters(data);
     setShouldUpdatePrinters(false);
   };
-
-  // useEffect(() => {
-  //   if (shouldUpdatePrinters) {
-  //     getPrinters().then((data) => {
-  //       setPrinters(data);
-  //       console.log(
-  //         "*** on getPrinter() > shouldUpdatePrinters:",
-  //         shouldUpdatePrinters
-  //       );
-  //     });
-  //     setShouldUpdatePrinters(false);
-  //     console.log(
-  //       "*** after getPrinter() > shouldUpdatePrinters:",
-  //       shouldUpdatePrinters
-  //     );
-  //   }
-  // }, [shouldUpdatePrinters]);
-
-  //console.log("*** object printers on PrinterProvider.tsx: ", printers);
 
   const searchPrinterBySerial = async (expression: string) => {
     try {
@@ -113,15 +95,26 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   };
 
   useEffect(() => {
-    console.log("shouldUpdatePrinters status: ", shouldUpdatePrinters);
     getAllPrinters();
-    console.log("getAllPrinters() executed");
   }, [shouldUpdatePrinters]);
+
+  useEffect(() => {
+    const showPrintersGrid = () => {
+      if (!searchSerial) {
+        setPrintersGrid(printers);
+      } else {
+        setPrintersGrid(printersBySerial);
+      }
+    };
+    showPrintersGrid();
+  }, [searchSerial, printers, printersBySerial]);
 
   const printerContextValue = {
     printer,
     setPrinter,
     printers,
+    printersGrid,
+    setPrintersGrid,
     setPrinters,
     getPrinters,
     printersBySerial,

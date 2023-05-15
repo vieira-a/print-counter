@@ -17,7 +17,8 @@ const PrinterContext = createContext<IPrinterContext>({
   printers: [],
   setPrinters: (printers) => console.log(printers),
   printersBySerial: [],
-
+  printersGrid: [],
+  setPrintersGrid: (printersGrid) => console.log(printersGrid),
   printerEdit: {
     _id: "",
     model: "",
