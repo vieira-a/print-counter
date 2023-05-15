@@ -3,28 +3,35 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import InputSearch from "../../components/InputSearch";
 import PrinterContext from "../../contexts/printerContext";
+import Notification from "../../components/Notification";
 import { IPrinter } from "../../common/interfaces/IPrinter";
 
 export default function Printer() {
   const navigate = useNavigate();
 
-  const { printers, printersBySerial, deleteSelectedPrinter, setSearchSerial } =
-    useContext(PrinterContext);
+  const {
+    printers,
+    printersBySerial,
+    deleteSelectedPrinter,
+    setSearchSerial,
+    deletedSuccess,
+  } = useContext(PrinterContext);
 
   const [filteredPrinters, setFilteredPrinters] = useState<IPrinter[]>();
-
-  const handleSearchSerialChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchSerial(value);
-  };
 
   useEffect(() => {
     if (printersBySerial) {
       setFilteredPrinters(printersBySerial);
-    } else {
-      setFilteredPrinters(printers);
     }
+    setFilteredPrinters(printers);
   }, [printers, printersBySerial]);
+
+  console.log("*** printer by serial: ", printersBySerial);
+  console.log("*** object printers on Printer.tsx: ", printers);
+  const handleSearchSerialChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchSerial(value);
+  };
 
   const handleDeletePrinter = (id: string) => {
     deleteSelectedPrinter(id);
@@ -105,6 +112,15 @@ export default function Printer() {
           ))}
         </tbody>
       </table>
+      <div className="px-4">
+        {deletedSuccess.status === true ? (
+          <Notification theme="success" message={deletedSuccess.message} />
+        ) : deletedSuccess.status === false ? (
+          <Notification theme="error" message={deletedSuccess.message} />
+        ) : (
+          ""
+        )}
+      </div>
     </section>
   );
 }

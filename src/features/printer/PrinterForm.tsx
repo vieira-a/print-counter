@@ -47,7 +47,7 @@ export default function PrinterForm() {
         setCreatedSuccess(null);
       }, 2000);
       navigate("/printer");
-      console.log("Objeto printer:", newPrinter);
+      //console.log("Objeto printer:", newPrinter);
     } catch (error) {
       setPrinter({
         model: "",
@@ -57,7 +57,7 @@ export default function PrinterForm() {
         counter: "",
       });
       setCreatedSuccess(false);
-      console.log("Erro ao cadastrar:", error);
+      //console.log("Erro ao cadastrar:", error);
     }
   };
 

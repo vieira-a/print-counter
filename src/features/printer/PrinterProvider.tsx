@@ -7,6 +7,7 @@ import {
   getPrinterBySerial,
   deletePrinter,
 } from "../../services/servicePrinter";
+import { IDeletedSuccess } from "common/interfaces/IDeletedSuccess";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
@@ -36,15 +37,35 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
 
   const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
   const [searchSerial, setSearchSerial] = useState("");
+  const [deletedSuccess, setDeletedSuccess] = useState<IDeletedSuccess>({
+    status: null,
+    message: "",
+  });
 
-  useEffect(() => {
-    if (shouldUpdatePrinters) {
-      getPrinters().then((data) => {
-        setPrinters(data);
-      });
-      setShouldUpdatePrinters(false);
-    }
-  }, [shouldUpdatePrinters]);
+  const getAllPrinters = async () => {
+    const data = await getPrinters();
+    setPrinters(data);
+    setShouldUpdatePrinters(false);
+  };
+
+  // useEffect(() => {
+  //   if (shouldUpdatePrinters) {
+  //     getPrinters().then((data) => {
+  //       setPrinters(data);
+  //       console.log(
+  //         "*** on getPrinter() > shouldUpdatePrinters:",
+  //         shouldUpdatePrinters
+  //       );
+  //     });
+  //     setShouldUpdatePrinters(false);
+  //     console.log(
+  //       "*** after getPrinter() > shouldUpdatePrinters:",
+  //       shouldUpdatePrinters
+  //     );
+  //   }
+  // }, [shouldUpdatePrinters]);
+
+  //console.log("*** object printers on PrinterProvider.tsx: ", printers);
 
   const searchPrinterBySerial = async (expression: string) => {
     try {
@@ -63,24 +84,39 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     if (Object.values(printer).every((value) => !!value)) {
       createPrinter(printer, setPrinterMessage);
       setPrinterMessage("success");
-      setShouldUpdatePrinters(true);
     }
-    getPrinters().then((data) => {
-      setPrinters(data);
-    });
+    setShouldUpdatePrinters(true);
   }, [printer]);
 
   const deleteSelectedPrinter = (id: string) => {
     if (confirm(`Deseja realmente excluir a impressora?`)) {
-      if (id) {
-        deletePrinter(id);
+      try {
+        if (id) {
+          deletePrinter(id);
+        }
+        setDeletedSuccess({
+          status: true,
+          message: "Impressora excluída com sucesso",
+        });
+        setShouldUpdatePrinters(true);
+      } catch (error) {
+        console.log(error);
+        setDeletedSuccess({
+          status: false,
+          message: "Erro ao excluir a impressora",
+        });
       }
-      getPrinters().then((data) => {
-        setPrinters(data);
-      });
-      setShouldUpdatePrinters(true);
     } else "Impressora não excluída";
+    setTimeout(() => {
+      setDeletedSuccess({ status: null, message: "" });
+    }, 2000);
   };
+
+  useEffect(() => {
+    console.log("shouldUpdatePrinters status: ", shouldUpdatePrinters);
+    getAllPrinters();
+    console.log("getAllPrinters() executed");
+  }, [shouldUpdatePrinters]);
 
   const printerContextValue = {
     printer,
@@ -99,6 +135,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     searchPrinterBySerial,
     searchSerial,
     setSearchSerial,
+    deletedSuccess,
+    setDeletedSuccess,
   };
 
   return (

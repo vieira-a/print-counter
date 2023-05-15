@@ -36,6 +36,8 @@ export interface IPrinterContext {
   searchPrinterBySerial: (expression: string) => void;
   searchSerial: string;
   setSearchSerial: React.Dispatch<React.SetStateAction<string>>;
+  deletedSuccess: { status: boolean | null; message: string };
+  setDeletedSuccess: (deletedSuccess: { status: null; message: "" }) => void;
 }
 
 export interface IPrinterProvider {

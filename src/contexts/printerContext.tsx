@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { IPrinter, IPrinterContext } from "common/interfaces/IPrinter";
+import { IPrinter, IPrinterContext } from "../common/interfaces/IPrinter";
 const PrinterContext = createContext<IPrinterContext>({
   printer: {
     _id: "",
@@ -42,6 +42,10 @@ const PrinterContext = createContext<IPrinterContext>({
   searchSerial: "",
   setSearchSerial: () => {
     console.log("Search string");
+  },
+  deletedSuccess: { status: null, message: "" },
+  setDeletedSuccess: () => {
+    console.log("Deleted");
   },
 });
 PrinterContext.displayName = "Printer";
