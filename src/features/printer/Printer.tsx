@@ -99,7 +99,7 @@ export default function Printer() {
           ))}
         </tbody>
       </table>
-      <div className="px-4">
+      <div>
         {deletedSuccess.status === true ? (
           <Notification theme="success" message={deletedSuccess.message} />
         ) : deletedSuccess.status === false ? (
