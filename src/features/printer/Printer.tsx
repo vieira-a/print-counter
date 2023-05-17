@@ -6,13 +6,17 @@ import InputSearch from "@/components/InputSearch";
 import Notification from "@/components/Notification";
 import PrinterContext from "@/contexts/printerContext";
 
+import { deletePrinter } from "@/services/servicePrinter";
+
 export default function Printer() {
   const navigate = useNavigate();
 
   const {
     deleteSelectedPrinter,
     setSearchSerial,
+    showActionNotification,
     actionNotification,
+    setShouldUpdatePrinters,
     printersGrid,
   } = useContext(PrinterContext);
 
@@ -22,7 +26,28 @@ export default function Printer() {
   };
 
   const handleDeletePrinter = (id: string) => {
-    deleteSelectedPrinter(id);
+    if (confirm("Deseja realmente excluir a impressora?")) {
+      deletePrinter(id)
+        .then(() => {
+          showActionNotification({
+            status: true,
+            message: "Impressora excluída com sucesso",
+          });
+        })
+        .catch((error) => {
+          console.log(`Error: ${error.message}`);
+          showActionNotification({
+            status: false,
+            message: "Erro ao excluir a impressora",
+          });
+        })
+        .finally(() => {
+          setTimeout(() => {
+            showActionNotification({ status: null, message: "" });
+          }, 3000);
+        });
+    }
+    setShouldUpdatePrinters(true);
   };
 
   return (

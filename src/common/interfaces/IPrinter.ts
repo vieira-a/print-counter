@@ -33,14 +33,11 @@ export interface IPrinterContext {
   getPrinters?: () => void;
   shouldUpdatePrinters: boolean;
   setShouldUpdatePrinters: React.Dispatch<React.SetStateAction<boolean>>;
-  deleteSelectedPrinter: (id: string) => void;
   searchPrinterBySerial: (expression: string) => void;
   searchSerial: string;
   setSearchSerial: React.Dispatch<React.SetStateAction<string>>;
   printersGrid: IPrinter[];
   setPrintersGrid: React.Dispatch<React.SetStateAction<IPrinter[]>>;
-  deletedSuccess: { status: boolean | null; message: string };
-  setDeletedSuccess: (deletedSuccess: { status: null; message: "" }) => void;
   actionNotification: IActionNotification;
   showActionNotification: (notification: {
     status: boolean | null;

@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
-import PrinterContext from "../../contexts/printerContext";
+import PrinterContext from "@/contexts/printerContext";
 import {
   createPrinter,
   getPrinters,
   getPrinterBySerial,
-  deletePrinter,
-} from "../../services/servicePrinter";
-import { IActionNotification } from "@/common/interfaces/IActionNotification";
+} from "@/services/servicePrinter";
 import useActionNotification from "@/hooks/useActionNotification";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
@@ -42,11 +40,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
   const [searchSerial, setSearchSerial] = useState("");
 
-  const [deletedSuccess, setDeletedSuccess] = useState<IActionNotification>({
-    status: null,
-    message: "",
-  });
-
   const getAllPrinters = async () => {
     const data = await getPrinters();
     setPrinters(data);
@@ -73,34 +66,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     }
     setShouldUpdatePrinters(true);
   }, [printer]);
-
-  const deleteSelectedPrinter = (id: string) => {
-    if (confirm(`Deseja realmente excluir a impressora?`)) {
-      try {
-        if (id) {
-          deletePrinter(id);
-        }
-        showActionNotification({
-          status: true,
-          message: "Impressora excluída com sucesso",
-        });
-        // setDeletedSuccess({
-        //   status: true,
-        //   message: "Impressora excluída com sucesso",
-        // });
-        setShouldUpdatePrinters(true);
-      } catch (error) {
-        console.log(error);
-        setDeletedSuccess({
-          status: false,
-          message: "Erro ao excluir a impressora",
-        });
-      }
-    } else "Impressora não excluída";
-    setTimeout(() => {
-      showActionNotification({ status: null, message: "" });
-    }, 2000);
-  };
 
   useEffect(() => {
     getAllPrinters();
@@ -132,12 +97,9 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrinterMessage,
     printerEdit,
     setPrinterEdit,
-    deleteSelectedPrinter,
     searchPrinterBySerial,
     searchSerial,
     setSearchSerial,
-    deletedSuccess,
-    setDeletedSuccess,
     actionNotification,
     showActionNotification,
   };

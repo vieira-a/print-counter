@@ -36,19 +36,12 @@ const PrinterContext = createContext<IPrinterContext>({
   setShouldUpdatePrinters: () => {
     console.log("Updated");
   },
-  deleteSelectedPrinter: () => {
-    console.log("Deleted");
-  },
   searchPrinterBySerial: () => {
     console.log("Found");
   },
   searchSerial: "",
   setSearchSerial: () => {
     console.log("Search string");
-  },
-  deletedSuccess: { status: null, message: "" },
-  setDeletedSuccess: () => {
-    console.log("Deleted");
   },
   actionNotification: { status: null, message: "" },
   showActionNotification: useActionNotification,
