@@ -59,6 +59,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     searchPrinterBySerial(searchSerial);
   }, [searchSerial]);
 
+  console.log(searchSerial);
+
   useEffect(() => {
     if (Object.values(printer).every((value) => !!value)) {
       createPrinter(printer, setPrinterMessage);

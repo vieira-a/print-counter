@@ -12,7 +12,6 @@ export default function Printer() {
   const navigate = useNavigate();
 
   const {
-    deleteSelectedPrinter,
     setSearchSerial,
     showActionNotification,
     actionNotification,
