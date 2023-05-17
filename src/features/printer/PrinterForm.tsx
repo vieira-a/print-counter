@@ -1,19 +1,21 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { PrinterFormSchema } from "../../common/schemas/PrinterFormSchema";
-import { Close } from "@carbon/icons-react";
-import Input from "../../components/Input";
-import ButtonContent from "../../components/ButtonContent";
-import { IPrinter } from "../../common/interfaces/IPrinter";
-import ErrorMessage from "../../components/ErrorMessage";
 import { useContext, useState } from "react";
-import PrinterContext from "../../contexts/printerContext";
-import Notification from "../../components/Notification";
 import { useNavigate } from "react-router-dom";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import { Close } from "@carbon/icons-react";
+import { PrinterFormSchema } from "@/common/schemas/PrinterFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import ButtonContent from "@/components/ButtonContent";
+import ErrorMessage from "@/components/ErrorMessage";
+import Input from "@/components/Input";
+import Notification from "@/components/Notification";
+
+import { IPrinter } from "@/common/interfaces/IPrinter";
+import PrinterContext from "@/contexts/printerContext";
 
 export default function PrinterForm() {
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -47,7 +49,6 @@ export default function PrinterForm() {
         setCreatedSuccess(null);
       }, 2000);
       navigate("/printer");
-      //console.log("Objeto printer:", newPrinter);
     } catch (error) {
       setPrinter({
         model: "",
@@ -57,7 +58,6 @@ export default function PrinterForm() {
         counter: "",
       });
       setCreatedSuccess(false);
-      //console.log("Erro ao cadastrar:", error);
     }
   };
 

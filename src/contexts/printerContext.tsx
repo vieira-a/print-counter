@@ -1,5 +1,7 @@
 import { createContext } from "react";
-import { IPrinter, IPrinterContext } from "../common/interfaces/IPrinter";
+import { IPrinter, IPrinterContext } from "@/common/interfaces/IPrinter";
+import useActionNotification from "@/hooks/useActionNotification";
+
 const PrinterContext = createContext<IPrinterContext>({
   printer: {
     _id: "",
@@ -48,6 +50,8 @@ const PrinterContext = createContext<IPrinterContext>({
   setDeletedSuccess: () => {
     console.log("Deleted");
   },
+  actionNotification: { status: null, message: "" },
+  showActionNotification: useActionNotification,
 });
 PrinterContext.displayName = "Printer";
 

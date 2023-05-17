@@ -1,9 +1,10 @@
 import { ChangeEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import InputSearch from "../../components/InputSearch";
-import PrinterContext from "../../contexts/printerContext";
-import Notification from "../../components/Notification";
+
+import Button from "@/components/Button";
+import InputSearch from "@/components/InputSearch";
+import Notification from "@/components/Notification";
+import PrinterContext from "@/contexts/printerContext";
 
 export default function Printer() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function Printer() {
   const {
     deleteSelectedPrinter,
     setSearchSerial,
-    deletedSuccess,
+    actionNotification,
     printersGrid,
   } = useContext(PrinterContext);
 
@@ -84,13 +85,11 @@ export default function Printer() {
                   <Button
                     onClick={() => navigate(`/printer/edit/${item._id}`)}
                     className="w-[25%]"
-                    // theme="primary"
                     text="Alterar"
                   />
                   <Button
                     onClick={() => handleDeletePrinter(`${item._id}`)}
                     className="w-[25%]"
-                    // theme="danger"
                     text="Excluir"
                   />
                 </div>
@@ -100,10 +99,10 @@ export default function Printer() {
         </tbody>
       </table>
       <div>
-        {deletedSuccess.status === true ? (
-          <Notification theme="success" message={deletedSuccess.message} />
-        ) : deletedSuccess.status === false ? (
-          <Notification theme="error" message={deletedSuccess.message} />
+        {actionNotification.status === true ? (
+          <Notification theme="success" message={actionNotification.message} />
+        ) : actionNotification.status === false ? (
+          <Notification theme="error" message={actionNotification.message} />
         ) : (
           ""
         )}

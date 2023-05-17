@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { IActionNotification } from "./IActionNotification";
 
 export interface IPrinter {
   _id?: string;
@@ -40,6 +41,11 @@ export interface IPrinterContext {
   setPrintersGrid: React.Dispatch<React.SetStateAction<IPrinter[]>>;
   deletedSuccess: { status: boolean | null; message: string };
   setDeletedSuccess: (deletedSuccess: { status: null; message: "" }) => void;
+  actionNotification: IActionNotification;
+  showActionNotification: (notification: {
+    status: boolean | null;
+    message: string;
+  }) => void;
 }
 
 export interface IPrinterProvider {

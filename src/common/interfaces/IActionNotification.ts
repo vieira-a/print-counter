@@ -1,4 +1,4 @@
-export interface IDeletedSuccess {
+export interface IActionNotification {
   status: boolean | null;
   message: string;
 }

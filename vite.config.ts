@@ -1,7 +1,16 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import reactRefresh from "@vitejs/plugin-react-refresh";
+import { resolve } from "path";
 
-// https://vitejs.dev/config/
+// Caminho absoluto para a pasta 'src'
+const srcPath = resolve(__dirname, "src");
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [reactRefresh()],
+  resolve: {
+    alias: {
+      // Configuração das importações absolutas
+      "@/": srcPath + "/",
+    },
+  },
 });

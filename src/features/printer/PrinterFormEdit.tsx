@@ -1,17 +1,20 @@
-import { useParams } from "react-router-dom";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { PrinterFormSchema } from "../../common/schemas/PrinterFormSchema";
-import { Close } from "@carbon/icons-react";
-import ButtonContent from "../../components/ButtonContent";
-import Input from "../../components/Input";
-import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import PrinterContext from "../../contexts/printerContext";
-import { IPrinter } from "common/interfaces/IPrinter";
-import ErrorMessage from "../../components/ErrorMessage";
-import Notification from "../../components/Notification";
-import { updatePrinter } from "../../services/servicePrinter";
+import { useNavigate, useParams } from "react-router-dom";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PrinterFormSchema } from "@/common/schemas/PrinterFormSchema";
+import { Close } from "@carbon/icons-react";
+
+import ButtonContent from "@/components/ButtonContent";
+import ErrorMessage from "@/components/ErrorMessage";
+import Input from "@/components/Input";
+import Notification from "@/components/Notification";
+
+import { updatePrinter } from "@/services/servicePrinter";
+
+import PrinterContext from "@/contexts/printerContext";
+import { IPrinter } from "@/common/interfaces/IPrinter";
 
 export default function PrinterFormEdit() {
   const { id } = useParams();

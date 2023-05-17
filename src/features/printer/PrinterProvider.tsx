@@ -7,7 +7,8 @@ import {
   getPrinterBySerial,
   deletePrinter,
 } from "../../services/servicePrinter";
-import { IDeletedSuccess } from "common/interfaces/IDeletedSuccess";
+import { IActionNotification } from "@/common/interfaces/IActionNotification";
+import useActionNotification from "@/hooks/useActionNotification";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
@@ -22,6 +23,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printers, setPrinters] = useState<IPrinter[]>([]);
   const [printersGrid, setPrintersGrid] = useState<IPrinter[]>([]);
   const [printersBySerial, setPrintersBySerial] = useState<IPrinter[]>([]);
+  const { actionNotification, showActionNotification } =
+    useActionNotification();
 
   const [printerEdit, setPrinterEdit] = useState<IPrinter>({
     _id: "",
@@ -38,7 +41,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
 
   const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
   const [searchSerial, setSearchSerial] = useState("");
-  const [deletedSuccess, setDeletedSuccess] = useState<IDeletedSuccess>({
+
+  const [deletedSuccess, setDeletedSuccess] = useState<IActionNotification>({
     status: null,
     message: "",
   });
@@ -76,10 +80,14 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
         if (id) {
           deletePrinter(id);
         }
-        setDeletedSuccess({
+        showActionNotification({
           status: true,
           message: "Impressora excluída com sucesso",
         });
+        // setDeletedSuccess({
+        //   status: true,
+        //   message: "Impressora excluída com sucesso",
+        // });
         setShouldUpdatePrinters(true);
       } catch (error) {
         console.log(error);
@@ -90,7 +98,7 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
       }
     } else "Impressora não excluída";
     setTimeout(() => {
-      setDeletedSuccess({ status: null, message: "" });
+      showActionNotification({ status: null, message: "" });
     }, 2000);
   };
 
@@ -130,6 +138,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setSearchSerial,
     deletedSuccess,
     setDeletedSuccess,
+    actionNotification,
+    showActionNotification,
   };
 
   return (
