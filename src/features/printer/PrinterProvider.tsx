@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
 import PrinterContext from "@/contexts/printerContext";
-import {
-  createPrinter,
-  getPrinters,
-  getPrinterBySerial,
-} from "@/services/servicePrinter";
+import { createPrinter, getPrinters } from "@/services/servicePrinter";
 import useActionNotification from "@/hooks/useActionNotification";
+import useFilterPrinterBySerial from "@/hooks/useFilterPrinterBySerial";
 
 export const PrinterProvider = ({ children }: IPrinterProvider) => {
   const [printer, setPrinter] = useState<IPrinter>({
@@ -20,9 +17,11 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
 
   const [printers, setPrinters] = useState<IPrinter[]>([]);
   const [printersGrid, setPrintersGrid] = useState<IPrinter[]>([]);
-  const [printersBySerial, setPrintersBySerial] = useState<IPrinter[]>([]);
+  const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
+  const [searchSerial, setSearchSerial] = useState("");
   const { actionNotification, showActionNotification } =
     useActionNotification();
+  const { printerBySerial, showPrinterBySerial } = useFilterPrinterBySerial();
 
   const [printerEdit, setPrinterEdit] = useState<IPrinter>({
     _id: "",
@@ -37,29 +36,27 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     undefined
   );
 
-  const [shouldUpdatePrinters, setShouldUpdatePrinters] = useState(false);
-  const [searchSerial, setSearchSerial] = useState("");
-
   const getAllPrinters = async () => {
     const data = await getPrinters();
     setPrinters(data);
     setShouldUpdatePrinters(false);
   };
 
-  const searchPrinterBySerial = async (expression: string) => {
-    try {
-      const data = await getPrinterBySerial(expression);
-      setPrintersBySerial(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    getAllPrinters();
+  }, [shouldUpdatePrinters]);
 
   useEffect(() => {
-    searchPrinterBySerial(searchSerial);
-  }, [searchSerial]);
+    if (searchSerial) {
+      showPrinterBySerial(searchSerial);
+    } else {
+      setPrintersGrid(printers);
+    }
+  }, [searchSerial, showPrinterBySerial, printers]);
 
-  console.log(searchSerial);
+  useEffect(() => {
+    setPrintersGrid(printerBySerial);
+  }, [printerBySerial]);
 
   useEffect(() => {
     if (Object.values(printer).every((value) => !!value)) {
@@ -69,21 +66,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setShouldUpdatePrinters(true);
   }, [printer]);
 
-  useEffect(() => {
-    getAllPrinters();
-  }, [shouldUpdatePrinters]);
-
-  useEffect(() => {
-    const showPrintersGrid = () => {
-      if (!searchSerial) {
-        setPrintersGrid(printers);
-      } else {
-        setPrintersGrid(printersBySerial);
-      }
-    };
-    showPrintersGrid();
-  }, [searchSerial, printers, printersBySerial]);
-
   const printerContextValue = {
     printer,
     setPrinter,
@@ -92,18 +74,18 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrintersGrid,
     setPrinters,
     getPrinters,
-    printersBySerial,
     shouldUpdatePrinters,
     setShouldUpdatePrinters,
     printerMessage,
     setPrinterMessage,
     printerEdit,
     setPrinterEdit,
-    searchPrinterBySerial,
     searchSerial,
     setSearchSerial,
     actionNotification,
     showActionNotification,
+    printerBySerial,
+    showPrinterBySerial,
   };
 
   return (

@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { IPrinter, IPrinterContext } from "@/common/interfaces/IPrinter";
 import useActionNotification from "@/hooks/useActionNotification";
+import useFilterPrinterBySerial from "@/hooks/useFilterPrinterBySerial";
 
 const PrinterContext = createContext<IPrinterContext>({
   printer: {
@@ -36,15 +37,14 @@ const PrinterContext = createContext<IPrinterContext>({
   setShouldUpdatePrinters: () => {
     console.log("Updated");
   },
-  searchPrinterBySerial: () => {
-    console.log("Found");
-  },
   searchSerial: "",
   setSearchSerial: () => {
     console.log("Search string");
   },
   actionNotification: { status: null, message: "" },
   showActionNotification: useActionNotification,
+  printerBySerial: [],
+  showPrinterBySerial: useFilterPrinterBySerial,
 });
 PrinterContext.displayName = "Printer";
 

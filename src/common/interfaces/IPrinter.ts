@@ -33,7 +33,6 @@ export interface IPrinterContext {
   getPrinters?: () => void;
   shouldUpdatePrinters: boolean;
   setShouldUpdatePrinters: React.Dispatch<React.SetStateAction<boolean>>;
-  searchPrinterBySerial: (expression: string) => void;
   searchSerial: string;
   setSearchSerial: React.Dispatch<React.SetStateAction<string>>;
   printersGrid: IPrinter[];
@@ -43,6 +42,8 @@ export interface IPrinterContext {
     status: boolean | null;
     message: string;
   }) => void;
+  printerBySerial: IPrinter[];
+  showPrinterBySerial: (serial: string) => void;
 }
 
 export interface IPrinterProvider {
