@@ -2,10 +2,7 @@ import { IPrinter } from "../common/interfaces/IPrinter";
 
 const API_URL = "http://172.16.0.28:3000/api/printer";
 
-const createPrinter = async (
-  newPrinter: IPrinter,
-  setPrinterMessage: (message: string | undefined) => void
-) => {
+const createPrinter = async (newPrinter: IPrinter) => {
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -16,10 +13,8 @@ const createPrinter = async (
     });
     const data = await response.json();
     console.log(data.msg);
-    setPrinterMessage("success");
   } catch (error) {
     console.log(error);
-    setPrinterMessage("error");
   }
 };
 

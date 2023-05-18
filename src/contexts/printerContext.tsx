@@ -15,8 +15,6 @@ const PrinterContext = createContext<IPrinterContext>({
   setPrinter: (printer: IPrinter) => {
     console.log("Create printer", printer);
   },
-  printerMessage: undefined,
-  setPrinterMessage: (printerMessage) => console.log(printerMessage),
   printers: [],
   setPrinters: (printers) => console.log(printers),
   printersBySerial: [],

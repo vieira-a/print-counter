@@ -10,6 +10,9 @@ const useActionNotification = () => {
 
   const showActionNotification = (notification: IActionNotification) => {
     setActionNotification(notification);
+    setTimeout(() => {
+      setActionNotification({ status: null, message: "" });
+    }, 3000);
   };
   return { actionNotification, showActionNotification };
 };

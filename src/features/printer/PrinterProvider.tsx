@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IPrinter, IPrinterProvider } from "../../common/interfaces/IPrinter";
 import PrinterContext from "@/contexts/printerContext";
-import { createPrinter, getPrinters } from "@/services/servicePrinter";
+import { getPrinters } from "@/services/servicePrinter";
 import useActionNotification from "@/hooks/useActionNotification";
 import useFilterPrinterBySerial from "@/hooks/useFilterPrinterBySerial";
 
@@ -32,10 +32,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     counter: "",
   });
 
-  const [printerMessage, setPrinterMessage] = useState<string | undefined>(
-    undefined
-  );
-
   const getAllPrinters = async () => {
     const data = await getPrinters();
     setPrinters(data);
@@ -58,13 +54,13 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrintersGrid(printerBySerial);
   }, [printerBySerial]);
 
-  useEffect(() => {
-    if (Object.values(printer).every((value) => !!value)) {
-      createPrinter(printer, setPrinterMessage);
-      setPrinterMessage("success");
-    }
-    setShouldUpdatePrinters(true);
-  }, [printer]);
+  // useEffect(() => {
+  //   if (Object.values(printer).every((value) => !!value)) {
+  //     createPrinter(printer);
+  //     setPrinterMessage("success");
+  //   }
+  //   setShouldUpdatePrinters(true);
+  // }, [printer]);
 
   const printerContextValue = {
     printer,
@@ -76,8 +72,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     getPrinters,
     shouldUpdatePrinters,
     setShouldUpdatePrinters,
-    printerMessage,
-    setPrinterMessage,
     printerEdit,
     setPrinterEdit,
     searchSerial,

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -13,6 +13,7 @@ import Notification from "@/components/Notification";
 
 import { IPrinter } from "@/common/interfaces/IPrinter";
 import PrinterContext from "@/contexts/printerContext";
+import { createPrinter } from "@/services/servicePrinter";
 
 export default function PrinterForm() {
   const navigate = useNavigate();
@@ -24,11 +25,15 @@ export default function PrinterForm() {
     resolver: zodResolver(PrinterFormSchema),
   });
 
-  const { printers, setPrinter } = useContext(PrinterContext);
-  const [createdSuccess, setCreatedSuccess] = useState<boolean | null>(null);
+  const {
+    printers,
+    showActionNotification,
+    actionNotification,
+    setShouldUpdatePrinters,
+  } = useContext(PrinterContext);
 
-  const createPrinter: SubmitHandler<FieldValues> = (data) => {
-    const newPrinter: IPrinter = {
+  const handleCreatePrinter: SubmitHandler<FieldValues> = (data) => {
+    const newPrinterObject: IPrinter = {
       model: data.model,
       brand: data.brand,
       serial: data.serial,
@@ -36,29 +41,25 @@ export default function PrinterForm() {
       counter: data.counter,
     };
     try {
-      if (printers?.some((item) => item.serial === newPrinter.serial)) {
+      if (printers?.some((item) => item.serial === newPrinterObject.serial)) {
         alert(
-          `Já existe uma impressora cadastrada com o número de série ${newPrinter.serial}`
+          `Já existe uma impressora cadastrada com o número de série ${newPrinterObject.serial}`
         );
         return;
       }
-      console.log(newPrinter);
-      setPrinter(newPrinter);
-      setCreatedSuccess(true);
-      setTimeout(() => {
-        setCreatedSuccess(null);
-      }, 2000);
-      navigate("/printer");
-    } catch (error) {
-      setPrinter({
-        model: "",
-        brand: "",
-        serial: "",
-        local: "",
-        counter: "",
+      createPrinter(newPrinterObject);
+      showActionNotification({
+        status: true,
+        message: "Impressora cadastrada com sucesso",
       });
-      setCreatedSuccess(false);
+    } catch (error) {
+      showActionNotification({
+        status: false,
+        message: "Erro ao cadastrar a impressora",
+      });
+      console.log(error);
     }
+    setShouldUpdatePrinters(true);
   };
 
   return (
@@ -82,7 +83,7 @@ export default function PrinterForm() {
       </div>
       <div>
         <form
-          onSubmit={handleSubmit(createPrinter)}
+          onSubmit={handleSubmit(handleCreatePrinter)}
           className="flex flex-col gap-8"
         >
           <div className="px-4 pt-8">
@@ -149,15 +150,15 @@ export default function PrinterForm() {
               </label>
             </div>
             <div className="px-4">
-              {createdSuccess === true ? (
+              {actionNotification.status === true ? (
                 <Notification
                   theme="success"
-                  message="Impressora cadastrada com sucesso"
+                  message={actionNotification.message}
                 />
-              ) : createdSuccess === false ? (
+              ) : actionNotification.status === false ? (
                 <Notification
                   theme="error"
-                  message="Erro ao cadastrar a impressora"
+                  message={actionNotification.message}
                 />
               ) : (
                 ""

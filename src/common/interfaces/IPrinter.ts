@@ -23,9 +23,6 @@ export interface IPrinterContext {
 
   printerEdit: IPrinter;
   setPrinterEdit: (printerEdit: IPrinter) => void;
-
-  printerMessage: string | undefined;
-  setPrinterMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
   printers?: IPrinter[];
   setPrinters?: React.Dispatch<React.SetStateAction<IPrinter[]>>;
   printersBySerial?: IPrinter[];
