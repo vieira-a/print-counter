@@ -40,11 +40,6 @@ export default function Printer() {
             message: "Erro ao excluir a impressora",
           });
         });
-      // .finally(() => {
-      //   setTimeout(() => {
-      //     showActionNotification({ status: null, message: "" });
-      //   }, 3000);
-      // });
     }
     setShouldUpdatePrinters(true);
   };

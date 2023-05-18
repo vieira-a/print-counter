@@ -54,14 +54,6 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     setPrintersGrid(printerBySerial);
   }, [printerBySerial]);
 
-  // useEffect(() => {
-  //   if (Object.values(printer).every((value) => !!value)) {
-  //     createPrinter(printer);
-  //     setPrinterMessage("success");
-  //   }
-  //   setShouldUpdatePrinters(true);
-  // }, [printer]);
-
   const printerContextValue = {
     printer,
     setPrinter,

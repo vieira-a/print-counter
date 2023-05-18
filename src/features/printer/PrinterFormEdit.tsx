@@ -22,9 +22,8 @@ export default function PrinterFormEdit() {
   const {
     printers,
     setShouldUpdatePrinters,
-    setSearchSerial,
-    searchSerial,
-    searchPrinterBySerial,
+    showActionNotification,
+    actionNotification,
   } = useContext(PrinterContext);
 
   const [selectPrinterToEdit, setSelectPrinterToEdit] = useState<IPrinter>();
@@ -45,46 +44,29 @@ export default function PrinterFormEdit() {
     resolver: zodResolver(PrinterFormSchema),
   });
 
-  interface IUpdateStatus {
-    status: boolean | null;
-    msg: string;
-  }
-
-  const [updatedSuccess, setUpdatedSuccess] = useState<IUpdateStatus>({
-    status: null,
-    msg: "",
-  });
-
-  const handleEditPrinter: SubmitHandler<FieldValues> = async (data) => {
+  const handleEditPrinter: SubmitHandler<FieldValues> = (data) => {
+    const updatedPrinter: IPrinter = {
+      model: data.model,
+      brand: data.brand,
+      serial: data.serial,
+      local: data.local,
+      counter: data.counter,
+    };
     try {
-      const updatedPrinter: IPrinter = {
-        model: data.model,
-        brand: data.brand,
-        serial: data.serial,
-        local: data.local,
-        counter: data.counter,
-      };
       if (selectPrinterToEdit?._id) {
-        const data = await updatePrinter(
-          selectPrinterToEdit._id,
-          updatedPrinter
-        );
-        searchPrinterBySerial(searchSerial);
-        setSearchSerial("");
-        setShouldUpdatePrinters(true);
-        console.log(data);
-        setUpdatedSuccess({ status: true, msg: data.msg });
-        setTimeout(() => {
-          setUpdatedSuccess({ status: null, msg: "" });
-        }, 2000);
+        updatePrinter(selectPrinterToEdit._id, updatedPrinter);
+        showActionNotification({
+          status: true,
+          message: "Impressora atualizada com sucesso.",
+        });
       }
     } catch (error) {
-      console.log(error);
-      setUpdatedSuccess({ status: false, msg: data.msg });
-      setTimeout(() => {
-        setUpdatedSuccess({ status: null, msg: "" });
-      }, 2000);
+      showActionNotification({
+        status: false,
+        message: "Erro ao atualizar a impressora.",
+      });
     }
+    setShouldUpdatePrinters(true);
   };
 
   return (
@@ -189,10 +171,16 @@ export default function PrinterFormEdit() {
               </label>
             </div>
             <div className="px-4">
-              {updatedSuccess.status === true ? (
-                <Notification theme="success" message={updatedSuccess.msg} />
-              ) : updatedSuccess.status === false ? (
-                <Notification theme="error" message={updatedSuccess.msg} />
+              {actionNotification.status === true ? (
+                <Notification
+                  theme="success"
+                  message={actionNotification.message}
+                />
+              ) : actionNotification.status === false ? (
+                <Notification
+                  theme="error"
+                  message={actionNotification.message}
+                />
               ) : (
                 ""
               )}
@@ -205,7 +193,6 @@ export default function PrinterFormEdit() {
                 text="Cancelar"
                 theme="secondary"
               />
-
               <ButtonContent type="submit" text="Salvar" theme="primary" />
             </div>
           </form>
