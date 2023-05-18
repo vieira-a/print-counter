@@ -59,6 +59,7 @@ export default function PrinterFormEdit() {
           status: true,
           message: "Impressora atualizada com sucesso.",
         });
+        goToPrinterPage("/printer");
       }
     } catch (error) {
       showActionNotification({
