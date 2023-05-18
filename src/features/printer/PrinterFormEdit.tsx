@@ -15,26 +15,26 @@ import { updatePrinter } from "@/services/servicePrinter";
 
 import PrinterContext from "@/contexts/printerContext";
 import { IPrinter } from "@/common/interfaces/IPrinter";
+import useFilterPrinterById from "@/hooks/useFilterPrinterById";
 
 export default function PrinterFormEdit() {
   const { id } = useParams();
   const goToPrinterPage = useNavigate();
   const {
-    printers,
     setShouldUpdatePrinters,
     showActionNotification,
     actionNotification,
   } = useContext(PrinterContext);
 
+  const { printerById, showPrinterById } = useFilterPrinterById();
   const [selectPrinterToEdit, setSelectPrinterToEdit] = useState<IPrinter>();
 
   useEffect(() => {
-    printers?.map((item) => {
-      if (item._id === id) {
-        setSelectPrinterToEdit(item);
-      }
-    });
-  }, [id, printers]);
+    if (id) {
+      showPrinterById(id);
+      setSelectPrinterToEdit(printerById);
+    }
+  }, [id, showPrinterById, printerById]);
 
   const {
     register,
@@ -44,7 +44,7 @@ export default function PrinterFormEdit() {
     resolver: zodResolver(PrinterFormSchema),
   });
 
-  const handleEditPrinter: SubmitHandler<FieldValues> = (data) => {
+  const handleEditPrinter: SubmitHandler<FieldValues> = async (data) => {
     const updatedPrinter: IPrinter = {
       model: data.model,
       brand: data.brand,
@@ -54,7 +54,7 @@ export default function PrinterFormEdit() {
     };
     try {
       if (selectPrinterToEdit?._id) {
-        updatePrinter(selectPrinterToEdit._id, updatedPrinter);
+        await updatePrinter(selectPrinterToEdit._id, updatedPrinter);
         showActionNotification({
           status: true,
           message: "Impressora atualizada com sucesso.",

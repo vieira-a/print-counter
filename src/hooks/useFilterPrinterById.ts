@@ -3,7 +3,7 @@ import { IPrinter } from "@/common/interfaces/IPrinter";
 import { getPrinterById } from "@/services/servicePrinter";
 
 const useFilterPrinterById = () => {
-  const [printerById, setPrinterById] = useState<IPrinter[]>([]);
+  const [printerById, setPrinterById] = useState<IPrinter>();
 
   const showPrinterById = useCallback(async (printerId: string) => {
     try {
