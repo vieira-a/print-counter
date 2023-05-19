@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -20,10 +20,22 @@ export default function PrinterForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<IPrinter>({
     resolver: zodResolver(PrinterFormSchema),
   });
+
+  const printedValue = watch("printed");
+  const copiedValue = watch("copied");
+
+  useEffect(() => {
+    if (printedValue !== undefined && copiedValue !== undefined) {
+      const counterValue = Number(printedValue) + Number(copiedValue);
+      setValue("counter", counterValue);
+    }
+  }, [printedValue, copiedValue, setValue]);
 
   const {
     printers,
@@ -33,6 +45,8 @@ export default function PrinterForm() {
   } = useContext(PrinterContext);
 
   const handleCreatePrinter: SubmitHandler<FieldValues> = (data) => {
+    const counter = Number(data.printed) + Number(data.copied);
+
     const newPrinterObject: IPrinter = {
       model: data.model,
       brand: data.brand,
@@ -40,7 +54,7 @@ export default function PrinterForm() {
       local: data.local,
       printed: data.printed,
       copied: data.copied,
-      counter: data.counter,
+      counter,
     };
     try {
       if (printers?.some((item) => item.serial === newPrinterObject.serial)) {
@@ -165,6 +179,7 @@ export default function PrinterForm() {
                 Contador atual
                 <Input
                   type="number"
+                  disabled
                   placeholder="Informe o contador atual"
                   {...register("counter", { valueAsNumber: true })}
                 />
