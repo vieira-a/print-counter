@@ -7,6 +7,8 @@ export interface IPrinter {
   brand: string;
   serial: string;
   local: string;
+  printed: number | string;
+  copied: number | string;
   counter: number | string;
   createdAt?: string;
   updatedAt?: string;

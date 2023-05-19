@@ -76,6 +76,8 @@ export default function Printer() {
             <th className="pt-6 pb-8 px-4">N. Série</th>
             <th className="pt-6 pb-8 px-4">Marca</th>
             <th className="pt-6 pb-8 px-4">Modelo</th>
+            <th className="pt-6 pb-8 px-4">Impressões</th>
+            <th className="pt-6 pb-8 px-4">Cópias</th>
             <th className="pt-6 pb-8 px-4">Contador</th>
             <th className="pt-6 pb-8 px-4">Local</th>
             <th className="pt-6 pb-8 px-4">Ações</th>
@@ -92,6 +94,12 @@ export default function Printer() {
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {item.model}
+              </td>
+              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                {item.printed}
+              </td>
+              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                {item.copied}
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {item.counter}

@@ -50,6 +50,8 @@ export default function PrinterFormEdit() {
       brand: data.brand,
       serial: data.serial,
       local: data.local,
+      printed: data.printed,
+      copied: data.copied,
       counter: data.counter,
     };
     try {
@@ -152,6 +154,36 @@ export default function PrinterFormEdit() {
                   <ErrorMessage
                     data-testid="error-local"
                     message={`${errors.local.message}`}
+                  />
+                )}
+              </label>
+              <label className="text-xs text-carbon-label">
+                Páginas impressas
+                <Input
+                  type="number"
+                  placeholder="Informe número de páginas impressas"
+                  {...register("printed")}
+                  defaultValue={selectPrinterToEdit?.printed}
+                />
+                {errors.printed && (
+                  <ErrorMessage
+                    data-testid="error-printed"
+                    message={`${errors.printed.message}`}
+                  />
+                )}
+              </label>
+              <label className="text-xs text-carbon-label">
+                Número de cópias
+                <Input
+                  type="number"
+                  placeholder="Informe o numero de cópias"
+                  {...register("copied")}
+                  defaultValue={selectPrinterToEdit?.copied}
+                />
+                {errors.copied && (
+                  <ErrorMessage
+                    data-testid="error-copied"
+                    message={`${errors.copied.message}`}
                   />
                 )}
               </label>

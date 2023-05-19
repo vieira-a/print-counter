@@ -12,6 +12,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     brand: "",
     serial: "",
     local: "",
+    printed: "",
+    copied: "",
     counter: "",
   });
 
@@ -29,6 +31,8 @@ export const PrinterProvider = ({ children }: IPrinterProvider) => {
     brand: "",
     serial: "",
     local: "",
+    printed: "",
+    copied: "",
     counter: "",
   });
 

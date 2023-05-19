@@ -38,6 +38,8 @@ export default function PrinterForm() {
       brand: data.brand,
       serial: data.serial,
       local: data.local,
+      printed: data.printed,
+      copied: data.copied,
       counter: data.counter,
     };
     try {
@@ -135,6 +137,28 @@ export default function PrinterForm() {
                 />
                 {errors.local && (
                   <ErrorMessage message={`${errors.local.message}`} />
+                )}
+              </label>
+              <label className="text-xs text-carbon-label">
+                Páginas impressas
+                <Input
+                  type="number"
+                  placeholder="Informe número de páginas impressas"
+                  {...register("printed", { valueAsNumber: true })}
+                />
+                {errors.printed && (
+                  <ErrorMessage message={`${errors.printed.message}`} />
+                )}
+              </label>
+              <label className="text-xs text-carbon-label">
+                Número de cópias
+                <Input
+                  type="number"
+                  placeholder="Informe o numero de cópias"
+                  {...register("copied", { valueAsNumber: true })}
+                />
+                {errors.copied && (
+                  <ErrorMessage message={`${errors.copied.message}`} />
                 )}
               </label>
               <label className="text-xs text-carbon-label">

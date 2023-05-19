@@ -10,6 +10,8 @@ const PrinterContext = createContext<IPrinterContext>({
     brand: "",
     serial: "",
     local: "",
+    printed: "",
+    copied: "",
     counter: "",
   },
   setPrinter: (printer: IPrinter) => {
@@ -26,6 +28,8 @@ const PrinterContext = createContext<IPrinterContext>({
     brand: "",
     serial: "",
     local: "",
+    printed: "",
+    copied: "",
     counter: "",
   },
   setPrinterEdit: (printerEdit: IPrinter) => {
