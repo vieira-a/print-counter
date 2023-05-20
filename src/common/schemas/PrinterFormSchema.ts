@@ -21,6 +21,7 @@ export const PrinterFormSchema = z.object({
     .nonempty("O campo Localização é obrigatório")
     .min(3, "O campo Localização precisa ter no mínimo 3 caracteres")
     .toUpperCase(),
+  ipv4: z.string().ip(),
   printed: z.coerce
     .number()
     .min(1, "Quantidade de impressões deve ser maior que 0"),

@@ -50,6 +50,7 @@ export default function PrinterFormEdit() {
       brand: data.brand,
       serial: data.serial,
       local: data.local,
+      ipv4: data.ipv4,
       printed: data.printed,
       copied: data.copied,
       counter: data.counter,
@@ -94,7 +95,7 @@ export default function PrinterFormEdit() {
       <div>
         {selectPrinterToEdit && (
           <form onSubmit={handleSubmit(handleEditPrinter)}>
-            <div className="px-4 pt-8">
+            <div className="grid grid-cols-2 gap-8 px-4 my-8">
               <label className="text-xs text-carbon-label">
                 Número de série
                 <Input
@@ -110,8 +111,21 @@ export default function PrinterFormEdit() {
                   />
                 )}
               </label>
-            </div>
-            <div className="grid grid-cols-2 gap-8 px-4 my-8">
+              <label className="text-xs text-carbon-label">
+                Endereço IP
+                <Input
+                  type="text"
+                  placeholder="Informe o endereço IP"
+                  {...register("ipv4")}
+                  defaultValue={selectPrinterToEdit.ipv4}
+                />
+                {errors.ipv4 && (
+                  <ErrorMessage
+                    data-testid="error-ipv4"
+                    message={`${errors.ipv4.message}`}
+                  />
+                )}
+              </label>
               <label className="text-xs text-carbon-label">
                 Fabricante
                 <Input

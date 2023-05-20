@@ -7,6 +7,7 @@ export interface IPrinter {
   brand: string;
   serial: string;
   local: string;
+  ipv4: string;
   printed: number | string;
   copied: number | string;
   counter: number | string;
