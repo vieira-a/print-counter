@@ -1,4 +1,5 @@
-import Select from "@/components/Select";
+import Select from "../../components/Select";
+import Input from "../../components/Input";
 
 export default function CounterForm() {
   return (
@@ -17,7 +18,20 @@ export default function CounterForm() {
       <form>
         <div className="grid grid-cols-2 gap-8 px-4 my-8">
           <label className="text-xs text-carbon-label">
+            Selecione a impressora
             <Select></Select>
+          </label>
+          <label className="text-xs text-carbon-label">
+            Último contador
+            <Input data-testid="printer-counter" type="number" disabled />
+          </label>
+          <label className="text-xs text-carbon-label">
+            Cópias
+            <Input data-testid="counter-copied" type="number" />
+          </label>
+          <label className="text-xs text-carbon-label">
+            Impressões
+            <Input data-testid="counter-printed" type="number" />
           </label>
         </div>
       </form>
