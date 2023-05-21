@@ -9,7 +9,7 @@ export default function BannerOptions() {
         title="Adicionar impressora"
         description="Cadastre uma nova impressora para iniciar o controle do seu contador"
       >
-        <Link to={"printer/create"}>
+        <Link to={"printer/create"} data-testid="create-printer">
           <Button text="Adicionar" />
         </Link>
       </ModalCard>
@@ -17,7 +17,9 @@ export default function BannerOptions() {
         title="Adicionar contador"
         description="Registre o contador atual para uma impressora cadastrada"
       >
-        <Button text="Adicionar" />
+        <Link to={"counter/create"} data-testid="create-counter">
+          <Button text="Adicionar" />
+        </Link>
       </ModalCard>
       <ModalCard
         title="Imprimir relatórios"
