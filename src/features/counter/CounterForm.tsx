@@ -1,5 +1,6 @@
 import Select from "../../components/Select";
 import Input from "../../components/Input";
+import ButtonContent from "../../components/ButtonContent";
 
 export default function CounterForm() {
   return (
@@ -15,7 +16,7 @@ export default function CounterForm() {
           </p>
         </div>
       </div>
-      <form>
+      <form data-testid="form-counter">
         <div className="grid grid-cols-2 gap-8 px-4 my-8">
           <label className="text-xs text-carbon-label">
             Selecione a impressora
@@ -33,6 +34,10 @@ export default function CounterForm() {
             Impressões
             <Input data-testid="counter-printed" type="number" />
           </label>
+        </div>
+        <div className="flex gap-[1px]">
+          <ButtonContent type="submit" text="Salvar" theme="primary" />
+          <ButtonContent type="reset" text="Cancelar" theme="secondary" />
         </div>
       </form>
     </section>
