@@ -6,3 +6,8 @@ export interface ICounter {
   counter: number;
   note: string;
 }
+
+export interface ICounterContext {
+  counter: ICounter;
+  setCounter: (counter: ICounter) => void;
+}

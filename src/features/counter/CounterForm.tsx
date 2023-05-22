@@ -36,8 +36,8 @@ export default function CounterForm() {
           </label>
         </div>
         <div className="flex gap-[1px]">
-          <ButtonContent type="submit" text="Salvar" theme="primary" />
           <ButtonContent type="reset" text="Cancelar" theme="secondary" />
+          <ButtonContent type="submit" text="Salvar" theme="primary" />
         </div>
       </form>
     </section>
