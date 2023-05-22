@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ICounter {
   _id?: string;
   printer: string;
@@ -10,4 +12,8 @@ export interface ICounter {
 export interface ICounterContext {
   counter: ICounter;
   setCounter: (counter: ICounter) => void;
+}
+
+export interface ICounterProvider {
+  children: ReactNode;
 }
