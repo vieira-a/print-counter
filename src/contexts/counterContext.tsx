@@ -10,6 +10,7 @@ const CounterContext = createContext<ICounterContext>({
     counter: 0,
   },
   setCounter: (counter) => counter,
+  counterPrinters: [],
 });
 
 CounterContext.displayName = "Counter";

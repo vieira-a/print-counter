@@ -1,8 +1,15 @@
 import Select from "../../components/Select";
 import Input from "../../components/Input";
 import ButtonContent from "../../components/ButtonContent";
+import { useContext } from "react";
+import CounterContext from "../../contexts/counterContext";
+import { IPrinter } from "@/common/interfaces/IPrinter";
 
 export default function CounterForm() {
+  const { counterPrinters } = useContext(CounterContext);
+
+  //console.log(counterPrinters);
+
   return (
     <section className="w-[50%] mx-auto bg-carbon-bg-modal">
       <div className="relative px-4">
@@ -19,8 +26,12 @@ export default function CounterForm() {
       <form data-testid="form-counter">
         <div className="grid grid-cols-2 gap-8 px-4 my-8">
           <label className="text-xs text-carbon-label">
-            Selecione a impressora
-            <Select></Select>
+            Selecione uma impressora
+            <Select>
+              {counterPrinters.map((printer: IPrinter) => (
+                <option key={printer.serial}>{printer.serial}</option>
+              ))}
+            </Select>
           </label>
           <label className="text-xs text-carbon-label">
             Último contador
