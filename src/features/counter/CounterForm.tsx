@@ -1,14 +1,60 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CounterFormSchema } from "../../common/schemas/CounterFormSchema";
+import { ICounter } from "../../common/interfaces/ICounter";
+import { IPrinter } from "../../common/interfaces/IPrinter";
+
 import Select from "../../components/Select";
 import Input from "../../components/Input";
 import ButtonContent from "../../components/ButtonContent";
-import { useContext } from "react";
+
 import CounterContext from "../../contexts/counterContext";
-import { IPrinter } from "../../common/interfaces/IPrinter";
+
+import { createCounter } from "../../services/servicesCounter";
+
+import useActionNotification from "../../hooks/useActionNotification";
 import useFilterPrinterBySerial from "../../hooks/useFilterPrinterBySerial";
+import ErrorMessage from "../../components/ErrorMessage";
+import Notification from "../../components/Notification";
 
 export default function CounterForm() {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ICounter>({
+    resolver: zodResolver(CounterFormSchema),
+  });
+
   const { counterPrinters } = useContext(CounterContext);
+  const { actionNotification, showActionNotification } =
+    useActionNotification();
   const { printerBySerial, showPrinterBySerial } = useFilterPrinterBySerial();
+
+  const onSubmit = (data: ICounter) => {
+    const newCounter = {
+      printer: (data.printer = printerBySerial[0]?._id),
+      copied: data.copied,
+      printed: data.printed,
+      note: data.note,
+    };
+    try {
+      createCounter(newCounter);
+      showActionNotification({
+        status: true,
+        message: "Contador atualizado com sucesso",
+      });
+    } catch (error) {
+      showActionNotification({
+        status: true,
+        message: "Erro ao atualizar contador",
+      });
+      console.log(error);
+    }
+  };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = event.target.value;
@@ -28,7 +74,18 @@ export default function CounterForm() {
           </p>
         </div>
       </div>
-      <form data-testid="form-counter">
+      <form onSubmit={handleSubmit(onSubmit)} data-testid="form-counter">
+        <div className="px-4 my-8">
+          <label className="text-xs text-carbon-label">
+            ID da impressora
+            <Input
+              defaultValue={printerBySerial[0]?._id}
+              data-testid="printer-id"
+              type="string"
+              {...register("printer")}
+            />
+          </label>
+        </div>
         <div className="grid grid-cols-2 gap-8 px-4 my-8">
           <label className="text-xs text-carbon-label">
             Selecione uma impressora
@@ -50,21 +107,57 @@ export default function CounterForm() {
           </label>
           <label className="text-xs text-carbon-label">
             Cópias
-            <Input data-testid="counter-copied" type="number" />
+            <Input
+              data-testid="counter-copied"
+              type="number"
+              {...register("copied")}
+            />
+            {errors.copied && (
+              <ErrorMessage message={`${errors.copied.message}`} />
+            )}
           </label>
           <label className="text-xs text-carbon-label">
             Impressões
-            <Input data-testid="counter-printed" type="number" />
+            <Input
+              data-testid="counter-printed"
+              type="number"
+              {...register("printed")}
+            />
+            {errors.printed && (
+              <ErrorMessage message={`${errors.printed.message}`} />
+            )}
           </label>
         </div>
         <div className="px-4 my-8">
           <label className="text-xs text-carbon-label">
             Observações
-            <Input data-testid="counter-note" type="text" />
+            <Input
+              data-testid="counter-note"
+              type="text"
+              {...register("note")}
+            />
+            {errors.note && <ErrorMessage message={`${errors.note.message}`} />}
           </label>
         </div>
+        <div className="px-4">
+          {actionNotification.status === true ? (
+            <Notification
+              theme="success"
+              message={actionNotification.message}
+            />
+          ) : actionNotification.status === false ? (
+            <Notification theme="error" message={actionNotification.message} />
+          ) : (
+            ""
+          )}
+        </div>
         <div className="flex gap-[1px]">
-          <ButtonContent type="reset" text="Cancelar" theme="secondary" />
+          <ButtonContent
+            onClick={() => navigate("/printer")}
+            type="reset"
+            text="Cancelar"
+            theme="secondary"
+          />
           <ButtonContent type="submit" text="Salvar" theme="primary" />
         </div>
       </form>

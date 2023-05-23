@@ -7,7 +7,6 @@ const CounterContext = createContext<ICounterContext>({
     copied: 0,
     printed: 0,
     note: "",
-    counter: 0,
   },
   setCounter: (counter) => counter,
   counterPrinters: [],

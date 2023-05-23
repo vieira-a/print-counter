@@ -10,7 +10,6 @@ export const CounterProvider = ({ children }: ICounterProvider) => {
     copied: 0,
     printed: 0,
     note: "",
-    counter: 0,
   });
 
   const [counterPrinters, setCounterPrinters] = useState<IPrinter[]>([]);
