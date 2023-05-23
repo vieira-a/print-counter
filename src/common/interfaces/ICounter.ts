@@ -12,8 +12,9 @@ export interface ICounter {
 
 export interface ICounterContext {
   counter: ICounter;
-  setCounter: (counter: ICounter) => void;
+  setCounter: React.Dispatch<React.SetStateAction<ICounter>>;
   counterPrinters: IPrinter[];
+  setCounterPrinters: React.Dispatch<React.SetStateAction<IPrinter[]>>;
 }
 
 export interface ICounterProvider {

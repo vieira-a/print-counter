@@ -11,6 +11,7 @@ const CounterContext = createContext<ICounterContext>({
   },
   setCounter: (counter) => counter,
   counterPrinters: [],
+  setCounterPrinters: (counterPrinters) => counterPrinters,
 });
 
 CounterContext.displayName = "Counter";

@@ -10,11 +10,9 @@ export default function CounterForm() {
   const { counterPrinters } = useContext(CounterContext);
   const { printerBySerial, showPrinterBySerial } = useFilterPrinterBySerial();
 
-  const handleSelectedPrinter = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const selectOption = event.target.value;
-    showPrinterBySerial(selectOption);
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOption = event.target.value;
+    showPrinterBySerial(selectedOption);
   };
 
   return (
@@ -34,7 +32,7 @@ export default function CounterForm() {
         <div className="grid grid-cols-2 gap-8 px-4 my-8">
           <label className="text-xs text-carbon-label">
             Selecione uma impressora
-            <Select onChange={handleSelectedPrinter}>
+            <Select onChange={handleSelectChange}>
               <option>Selecione uma impressora</option>
               {counterPrinters.map((printer: IPrinter) => (
                 <option key={printer.serial}>{printer.serial}</option>
@@ -43,16 +41,12 @@ export default function CounterForm() {
           </label>
           <label className="text-xs text-carbon-label">
             Último contador
-            {printerBySerial.length > 0 ? (
-              <Input
-                defaultValue={printerBySerial[0].counter}
-                data-testid="printer-counter"
-                type="number"
-                disabled
-              />
-            ) : (
-              <Input data-testid="printer-counter" type="number" disabled />
-            )}
+            <Input
+              data-testid="printer-counter"
+              type="number"
+              disabled
+              defaultValue={printerBySerial[0]?.counter}
+            />
           </label>
           <label className="text-xs text-carbon-label">
             Cópias

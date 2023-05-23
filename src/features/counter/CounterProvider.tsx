@@ -27,6 +27,7 @@ export const CounterProvider = ({ children }: ICounterProvider) => {
     counter,
     setCounter,
     counterPrinters,
+    setCounterPrinters,
   };
 
   return (
