@@ -39,6 +39,8 @@ export default function Counter() {
             <th className="pt-6 pb-8 px-4">Cópias</th>
             <th className="pt-6 pb-8 px-4">Contador anterior</th>
             <th className="pt-6 pb-8 px-4">Contador atual</th>
+            <th className="pt-6 pb-8 px-4">Total</th>
+            <th className="pt-6 pb-8 px-4">Criado em</th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +64,14 @@ export default function Counter() {
                 {item.counter}
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {/* 
+                {item.counteramount}
+              </td>
+              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                {item.createdAt &&
+                  new Date(item.createdAt).toLocaleDateString("pt-BR")}
+              </td>
+              {/* 
+              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 <div className="flex gap-1">
                   <Button
                     onClick={() => navigate(`/printer/edit/${item._id}`)}
@@ -74,8 +83,8 @@ export default function Counter() {
                   className="w-[25%]"
                   text="Excluir"
                 </div>
-                /> */}
               </td>
+                /> */}
             </tr>
           ))}
         </tbody>

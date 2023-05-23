@@ -10,6 +10,7 @@ export interface ICounter {
   counter?: number;
   prevcounter?: number;
   counteramount?: number;
+  createdAt?: string;
 }
 
 export interface ICounterContext {
