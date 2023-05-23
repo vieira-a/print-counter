@@ -3,10 +3,13 @@ import { IPrinter } from "./IPrinter";
 
 export interface ICounter {
   _id?: string;
-  printer: string | undefined;
+  printer: IPrinter | string | undefined;
   copied: number;
   printed: number;
   note?: string;
+  counter?: number;
+  prevcounter?: number;
+  counteramount?: number;
 }
 
 export interface ICounterContext {

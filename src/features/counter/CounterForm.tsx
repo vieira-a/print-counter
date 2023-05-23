@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CounterFormSchema } from "../../common/schemas/CounterFormSchema";
+import { Close } from "@carbon/icons-react";
+
 import { ICounter } from "../../common/interfaces/ICounter";
 import { IPrinter } from "../../common/interfaces/IPrinter";
 
@@ -66,6 +68,12 @@ export default function CounterForm() {
       <div className="relative px-4">
         <div className="flex justify-between py-4">
           <h2>Cadastro de contador</h2>
+          <Close
+            onClick={() => navigate("/counter")}
+            size={24}
+            className="cursor-pointer"
+            aria-label="Fechar formulário"
+          />
         </div>
         <div>
           <p className="w-[85%]">
@@ -153,7 +161,7 @@ export default function CounterForm() {
         </div>
         <div className="flex gap-[1px]">
           <ButtonContent
-            onClick={() => navigate("/printer")}
+            onClick={() => navigate("/counter")}
             type="reset"
             text="Cancelar"
             theme="secondary"
