@@ -29,7 +29,7 @@ export default function CounterForm() {
     resolver: zodResolver(CounterFormSchema),
   });
 
-  const { counterPrinters } = useContext(CounterContext);
+  const { printers } = useContext(CounterContext);
   const { actionNotification, showActionNotification } =
     useActionNotification();
   const { printerBySerial, showPrinterBySerial } = useFilterPrinterBySerial();
@@ -91,7 +91,7 @@ export default function CounterForm() {
             Selecione uma impressora
             <Select onChange={handleSelectChange}>
               <option>Selecione uma impressora</option>
-              {counterPrinters.map((printer: IPrinter) => (
+              {printers.map((printer: IPrinter) => (
                 <option key={printer.serial}>{printer.serial}</option>
               ))}
             </Select>

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { IPrinter } from "./IPrinter";
 
 export interface ICounter {
@@ -12,8 +12,10 @@ export interface ICounter {
 export interface ICounterContext {
   counter: ICounter;
   setCounter: React.Dispatch<React.SetStateAction<ICounter>>;
-  counterPrinters: IPrinter[];
-  setCounterPrinters: React.Dispatch<React.SetStateAction<IPrinter[]>>;
+  printers: IPrinter[];
+  setPrinters: React.Dispatch<React.SetStateAction<IPrinter[]>>;
+  countersPrinters: ICounter[];
+  setCountersPrinters: React.Dispatch<React.SetStateAction<ICounter[]>>;
 }
 
 export interface ICounterProvider {

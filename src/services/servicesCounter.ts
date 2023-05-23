@@ -17,4 +17,15 @@ const createCounter = async (newCounter: ICounter) => {
   }
 };
 
-export { createCounter };
+const getCounters = async () => {
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export { createCounter, getCounters };
