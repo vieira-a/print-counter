@@ -1,7 +1,5 @@
 import { render, screen, waitFor, act } from "@testing-library/react";
 import CounterForm from "./CounterForm";
-import { CounterProvider } from "./CounterProvider";
-import userEvent from "@testing-library/user-event";
 
 jest.mock("../../services/servicePrinter", () => ({
   getPrinters: jest.fn().mockResolvedValue([
@@ -45,6 +43,13 @@ describe("Render CounterForm components", () => {
     const inputPrinterPages = screen.getByTestId("counter-printed");
     expect(inputPrinterPages).toBeInTheDocument();
     expect(inputPrinterPages).toHaveAttribute("type", "number");
+  });
+
+  it("Should render input to fill a note to the counter register", () => {
+    render(<CounterForm />);
+    const inputNote = screen.getByTestId("counter-note");
+    expect(inputNote).toBeInTheDocument();
+    expect(inputNote).toHaveAttribute("type", "text");
   });
 
   it("Should render submit counter button", () => {

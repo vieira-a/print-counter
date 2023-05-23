@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { IPrinter } from "@/common/interfaces/IPrinter";
-import { getPrinterBySerial } from "@/services/servicePrinter";
+import { getPrinterBySerial } from "../services/servicePrinter";
 
 const useFilterPrinterBySerial = () => {
   const [printerBySerial, setPrinterBySerial] = useState<IPrinter[]>([]);

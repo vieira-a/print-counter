@@ -4,7 +4,7 @@ import ButtonContent from "../../components/ButtonContent";
 import { useContext } from "react";
 import CounterContext from "../../contexts/counterContext";
 import { IPrinter } from "../../common/interfaces/IPrinter";
-import useFilterPrinterBySerial from "@/hooks/useFilterPrinterBySerial";
+import useFilterPrinterBySerial from "../../hooks/useFilterPrinterBySerial";
 
 export default function CounterForm() {
   const { counterPrinters } = useContext(CounterContext);
@@ -55,6 +55,12 @@ export default function CounterForm() {
           <label className="text-xs text-carbon-label">
             Impressões
             <Input data-testid="counter-printed" type="number" />
+          </label>
+        </div>
+        <div className="px-4 my-8">
+          <label className="text-xs text-carbon-label">
+            Observações
+            <Input data-testid="counter-note" type="text" />
           </label>
         </div>
         <div className="flex gap-[1px]">
