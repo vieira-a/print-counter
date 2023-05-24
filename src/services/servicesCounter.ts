@@ -28,4 +28,16 @@ const getCounters = async () => {
   }
 };
 
-export { createCounter, getCounters };
+const getCounterByDate = async (startDate: string, endDate: string) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/?initialDate=${startDate}&finalDate=${endDate}`
+    );
+    const counterByDate = await response.json();
+    return counterByDate;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { createCounter, getCounters, getCounterByDate };

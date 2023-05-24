@@ -1,11 +1,27 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import CounterContext from "@/contexts/counterContext";
-import Button from "../../components/Button";
+import Input from "../../components/Input";
+import useFilterCounterByDate from "../../hooks/useFilterCounterByDate";
+import { ICounter } from "@/common/interfaces/ICounter";
 
 export default function Counter() {
-  const navigate = useNavigate();
   const { countersPrinters } = useContext(CounterContext);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [counterGrid, setCounterGrid] = useState<ICounter[]>([]);
+  const { counterByDate, showCounterByDate } = useFilterCounterByDate();
+
+  useEffect(() => {
+    if (!startDate && endDate) {
+      setCounterGrid(countersPrinters);
+    } else {
+      showCounterByDate(startDate, endDate);
+    }
+  }, [countersPrinters, endDate, showCounterByDate, startDate]);
+
+  useEffect(() => {
+    setCounterGrid(counterByDate);
+  }, [counterByDate]);
 
   return (
     <section className="bg-carbon-bg-modal">
@@ -13,22 +29,24 @@ export default function Counter() {
         <h2>Contadores registrados</h2>
         <p>Lista de contadores registrados para as impressoras cadastradas</p>
       </div>
-      <div className="gap-[1px] flex items-center">
-        <div className="flex gap-[1px] items-center w-full">
-          {/* <div className="w-full">
-          <InputSearch
-            onChange={handleSearchSerialChange}
-            type="search"
-            placeholder="Digite o número de série para buscar uma impressora"
-          />
-        </div> */}
-          <div>
-            <Button
-              onClick={() => navigate("/counter/create")}
-              text="Adicionar"
-              aria-label="Cadastrar nova impressora"
+      <div className="flex justify-end ">
+        <div className="flex gap-1">
+          <label className="text-xs text-carbon-label">
+            Data inicial
+            <Input
+              onChange={(event) => setStartDate(event.target.value)}
+              type="date"
+              placeholder="Data inicial"
             />
-          </div>
+          </label>
+          <label className="text-xs text-carbon-label">
+            Data final
+            <Input
+              onChange={(event) => setEndDate(event.target.value)}
+              type="date"
+              placeholder="Data final"
+            />
+          </label>
         </div>
       </div>
       <table className="w-full bg-carbon-bg-modal">
@@ -44,7 +62,7 @@ export default function Counter() {
           </tr>
         </thead>
         <tbody>
-          {countersPrinters.map((item) => (
+          {counterGrid.map((item) => (
             <tr key={item._id}>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {typeof item.printer === "object" &&
@@ -70,34 +88,10 @@ export default function Counter() {
                 {item.createdAt &&
                   new Date(item.createdAt).toLocaleDateString("pt-BR")}
               </td>
-              {/* 
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                <div className="flex gap-1">
-                  <Button
-                    onClick={() => navigate(`/printer/edit/${item._id}`)}
-                    className="w-[25%]"
-                    text="Alterar"
-                  />
-                  <Button
-                  onClick={() => handleDeletePrinter(`${item._id}`)}
-                  className="w-[25%]"
-                  text="Excluir"
-                </div>
-              </td>
-                /> */}
             </tr>
           ))}
         </tbody>
       </table>
-      {/* <div>
-      {actionNotification.status === true ? (
-        <Notification theme="success" message={actionNotification.message} />
-      ) : actionNotification.status === false ? (
-        <Notification theme="error" message={actionNotification.message} />
-      ) : (
-        ""
-      )}
-    </div> */}
     </section>
   );
 }
