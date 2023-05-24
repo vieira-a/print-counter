@@ -23,6 +23,16 @@ export default function Counter() {
     setCounterGrid(counterByDate);
   }, [counterByDate]);
 
+  function getCounterAmount(counterGrid: ICounter[]) {
+    const sum = counterGrid.reduce((acc, object) => {
+      const counteramount = object.counteramount || 0;
+      return acc + counteramount;
+    }, 0);
+    return sum;
+  }
+
+  const amountCounters = getCounterAmount(counterGrid);
+
   return (
     <section className="bg-carbon-bg-modal">
       <div className="px-4 pt-6 pb-8">
@@ -92,6 +102,17 @@ export default function Counter() {
           ))}
         </tbody>
       </table>
+      {startDate != "" && endDate != "" ? (
+        <div className="w-full px-4 py-6 flex gap-1 font-bold">
+          <p>Total de contadores do intervalo selecionado:</p>
+          <p>{amountCounters}</p>
+        </div>
+      ) : (
+        <div className="w-full px-4 py-6 flex gap-1 font-bold">
+          <p>Total geral de contadores:</p>
+          <p>{amountCounters}</p>
+        </div>
+      )}
     </section>
   );
 }
