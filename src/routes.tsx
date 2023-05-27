@@ -8,6 +8,7 @@ import PrinterForm from "./features/printer/PrinterForm";
 import PrinterFormEdit from "./features/printer/PrinterFormEdit";
 import Counter from "./features/counter/Counter";
 import CounterForm from "./features/counter/CounterForm";
+import Auth from "./features/auth/Auth";
 
 export default function AppRouter() {
   return (
@@ -23,6 +24,7 @@ export default function AppRouter() {
               <Route path="counter" element={<Counter />} />
               <Route path="counter/create" element={<CounterForm />} />
             </Route>
+            <Route path="login" element={<Auth />} />
           </Routes>
         </CounterProvider>
       </PrinterProvider>

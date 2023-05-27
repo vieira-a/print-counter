@@ -1,6 +1,6 @@
 import { IPrinter } from "../common/interfaces/IPrinter";
 
-const API_URL = "http://172.16.0.28:3000/api/printer";
+const API_URL = "http://localhost:3000/api/printer";
 
 const createPrinter = async (newPrinter: IPrinter) => {
   try {

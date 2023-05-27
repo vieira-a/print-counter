@@ -1,5 +1,5 @@
 import { ICounter } from "@/common/interfaces/ICounter";
-const API_URL = "http://172.16.0.28:3000/api/counter";
+const API_URL = "http://localhost:3000/api/counter";
 
 const createCounter = async (newCounter: ICounter) => {
   try {
