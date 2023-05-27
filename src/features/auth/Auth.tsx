@@ -4,7 +4,7 @@ import ButtonContent from "@/components/ButtonContent";
 export default function Auth() {
   return (
     <main className="w-full h-screen flex items-center justify-center">
-      <section className="border border-carbon-field-border min-w-[450px]">
+      <section className="min-w-[450px] bg-carbon-bg-modal">
         <div className="pt-4 pb-8 border-b border-carbon-field-border px-4">
           <h2>Login</h2>
           <div className="flex gap-1">
