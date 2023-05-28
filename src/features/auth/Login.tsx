@@ -20,16 +20,6 @@ export default function Login() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
-  useEffect(() => {
-    const getUserLoginData = () => {
-      setUserLogin({
-        email: userEmail,
-        password: userPassword,
-      });
-    };
-    getUserLoginData();
-  }, [setUserLogin, userEmail, userPassword]);
-
   const handleUserLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -39,6 +29,16 @@ export default function Login() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    const getUserLoginData = () => {
+      setUserLogin({
+        email: userEmail,
+        password: userPassword,
+      });
+    };
+    getUserLoginData();
+  }, [setUserLogin, userEmail, userPassword]);
 
   useEffect(() => {
     if (userAuthenticated) {

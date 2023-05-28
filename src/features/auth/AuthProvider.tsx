@@ -30,8 +30,6 @@ export default function AuthProvider({ children }: IAuthProvider) {
     isUserAuthenticated();
   }, [userSession.token]);
 
-  console.log(userAuthenticated);
-
   const authContextValue = {
     userLogin,
     setUserLogin,
