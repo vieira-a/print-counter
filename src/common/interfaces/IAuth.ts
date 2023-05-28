@@ -7,8 +7,6 @@ export interface IUserLogin {
 
 export interface IUserSession {
   _id: string;
-  name: string;
-  email: string;
   token: string;
   msg?: string;
 }

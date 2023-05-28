@@ -14,9 +14,8 @@ export default function AuthProvider({ children }: IAuthProvider) {
 
   const [userSession, setUserSession] = useState<IUserSession>({
     _id: "",
-    email: "",
-    name: "",
     token: "",
+    msg: "",
   });
 
   const [userAuthenticated, setUserAuthenticated] = useState(false);
