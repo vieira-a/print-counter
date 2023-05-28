@@ -1,7 +1,7 @@
 import Input from "@/components/Input";
 import ButtonContent from "@/components/ButtonContent";
 
-export default function Auth() {
+export default function Login() {
   return (
     <main className="w-full h-screen flex items-center justify-center">
       <section className="min-w-[450px] bg-carbon-bg-modal">
@@ -23,8 +23,7 @@ export default function Auth() {
               <Input type="password" placeholder="********" />
             </label>
           </fieldset>
-          <div className="flex">
-            <ButtonContent theme="secondary" text="Cancelar" />
+          <div className="w-[50%]">
             <ButtonContent theme="primary" text="Entrar" />
           </div>
         </form>
