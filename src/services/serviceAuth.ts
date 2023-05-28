@@ -18,4 +18,20 @@ const createSession = async (user: IUserLogin) => {
   }
 };
 
-export { createSession };
+const getUserById = async (id: string, token: string) => {
+  try {
+    if (id && token) {
+      const response = await fetch(`${API_URL}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const userSessionData = await response.json();
+      return userSessionData;
+    }
+  } catch (error) {
+    console.log(`Erro ao obter dados do usuário ID ${id}: ${error}`);
+  }
+};
+
+export { createSession, getUserById };

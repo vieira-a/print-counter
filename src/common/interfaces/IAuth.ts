@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export interface IUserLogin {
   email: string;
@@ -9,6 +9,11 @@ export interface IUserSession {
   _id: string;
   token: string;
   msg?: string;
+}
+
+export interface IUserSessionData {
+  name: string;
+  email: string;
 }
 
 export interface IUserRegister {
@@ -25,6 +30,8 @@ export interface IAuthContext {
   setUserSession: React.Dispatch<React.SetStateAction<IUserSession>>;
   userAuthenticated: boolean;
   setUserAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  userSessionData: IUserSessionData;
+  setUserSessionData: React.Dispatch<React.SetStateAction<IUserSessionData>>;
   handleUserLogout: () => void;
 }
 

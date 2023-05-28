@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
 import {
   IUserLogin,
   IUserSession,
   IAuthProvider,
+  IUserSessionData,
 } from "@/common/interfaces/IAuth";
+import { getUserById } from "@/services/serviceAuth";
 import AuthContext from "@/contexts/authContext";
-import { useEffect, useState } from "react";
 
 export default function AuthProvider({ children }: IAuthProvider) {
   const [userLogin, setUserLogin] = useState<IUserLogin>({
@@ -20,11 +22,16 @@ export default function AuthProvider({ children }: IAuthProvider) {
 
   const [userAuthenticated, setUserAuthenticated] = useState(false);
 
+  const [userSessionData, setUserSessionData] = useState<IUserSessionData>({
+    name: "",
+    email: "",
+  });
+
   useEffect(() => {
     const isUserAuthenticated = async () => {
       if (userSession.token) {
         setUserAuthenticated(true);
-        localStorage.setItem("user", JSON.stringify(userSession.token));
+        localStorage.setItem("user", JSON.stringify(userSession));
       }
     };
     isUserAuthenticated();
@@ -39,6 +46,20 @@ export default function AuthProvider({ children }: IAuthProvider) {
     }
   }, []);
 
+  useEffect(() => {
+    const handleUserSessionData = async () => {
+      const userInLocalStorage = localStorage.getItem("user");
+      if (userInLocalStorage) {
+        const { _id, token } = JSON.parse(userInLocalStorage);
+        const data = await getUserById(_id, token);
+        setUserSessionData(data);
+      }
+    };
+    handleUserSessionData();
+  }, [userAuthenticated]);
+
+  console.log(userSessionData);
+
   const handleUserLogout = () => {
     localStorage.removeItem("user");
     setUserAuthenticated(false);
@@ -52,6 +73,8 @@ export default function AuthProvider({ children }: IAuthProvider) {
     userSession,
     setUserSession,
     userAuthenticated,
+    userSessionData,
+    setUserSessionData,
     setUserAuthenticated,
     handleUserLogout,
   };
