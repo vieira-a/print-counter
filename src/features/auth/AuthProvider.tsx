@@ -25,10 +25,18 @@ export default function AuthProvider({ children }: IAuthProvider) {
     const isUserAuthenticated = async () => {
       if (userSession.token) {
         setUserAuthenticated(true);
+        localStorage.setItem("user", JSON.stringify(userSession.token));
       }
     };
     isUserAuthenticated();
-  }, [userSession.token]);
+  }, [userSession, userSession.token]);
+
+  useEffect(() => {
+    const userInLocalStorage = localStorage.getItem("user");
+    if (userInLocalStorage) {
+      setUserAuthenticated(true);
+    }
+  }, []);
 
   const authContextValue = {
     userLogin,
