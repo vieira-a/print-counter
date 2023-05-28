@@ -22,6 +22,9 @@ const AuthContext = createContext<IAuthContext>({
   setUserAuthenticated: () => {
     return;
   },
+  handleUserLogout: () => {
+    return;
+  },
 });
 
 AuthContext.displayName = "Auth";

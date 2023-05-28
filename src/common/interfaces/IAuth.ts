@@ -27,6 +27,7 @@ export interface IAuthContext {
   setUserSession: React.Dispatch<React.SetStateAction<IUserSession>>;
   userAuthenticated: boolean;
   setUserAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  handleUserLogout: () => void;
 }
 
 export interface IAuthProvider {

@@ -35,8 +35,17 @@ export default function AuthProvider({ children }: IAuthProvider) {
     const userInLocalStorage = localStorage.getItem("user");
     if (userInLocalStorage) {
       setUserAuthenticated(true);
+    } else {
+      setUserAuthenticated(false);
     }
   }, []);
+
+  const handleUserLogout = () => {
+    localStorage.removeItem("user");
+    setUserAuthenticated(false);
+  };
+
+  console.log(userSession);
 
   const authContextValue = {
     userLogin,
@@ -45,6 +54,7 @@ export default function AuthProvider({ children }: IAuthProvider) {
     setUserSession,
     userAuthenticated,
     setUserAuthenticated,
+    handleUserLogout,
   };
 
   return (
