@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ModelFormSchema } from "@/common/schemas/ModelFormSchema";
+
+import { createModel } from "@/services/serviceModel";
+import useActionNotification from "@/hooks/useActionNotification";
 
 import { Close } from "@carbon/icons-react";
 import ButtonContent from "@/components/ButtonContent";
@@ -10,7 +13,6 @@ import Input from "@/components/Input";
 import Notification from "@/components/Notification";
 
 import { IModel } from "@/common/interfaces/IModel";
-import { IModelContext } from "@/common/interfaces/IModel";
 
 export default function ModelForm() {
   const navigate = useNavigate();
@@ -19,6 +21,33 @@ export default function ModelForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<IModel>({ resolver: zodResolver(ModelFormSchema) });
+
+  const { actionNotification, showActionNotification } =
+    useActionNotification();
+
+  const onSubmit = (data: IModel) => {
+    const newModel: IModel = {
+      model_brand: data.model_brand,
+      model_name: data.model_name,
+      model_oid_snmp_printed: data.model_oid_snmp_printed,
+      model_oid_snmp_copied: data.model_oid_snmp_copied,
+      model_oid_snmp_toner_level: data.model_oid_snmp_toner_level,
+    };
+
+    try {
+      createModel(newModel);
+      showActionNotification({
+        status: true,
+        message: "Modelo cadastrado com sucesso",
+      });
+    } catch (error) {
+      showActionNotification({
+        status: true,
+        message: "Erro ao cadastrar modelo",
+      });
+      console.log(error);
+    }
+  };
 
   return (
     <section className="w-[50%] mx-auto bg-carbon-bg-modal">
@@ -40,7 +69,7 @@ export default function ModelForm() {
         </div>
       </div>
       <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-8 px-4 my-8">
             <label className="text-xs text-carbon-label">
               Fabricante
@@ -110,7 +139,7 @@ export default function ModelForm() {
               )}
             </label>
           </div>
-          {/*           
+
           <div className="px-4">
             {actionNotification.status === true ? (
               <Notification
@@ -125,7 +154,7 @@ export default function ModelForm() {
             ) : (
               ""
             )}
-          </div> */}
+          </div>
           <div className="flex gap-[1px]">
             <ButtonContent
               onClick={() => navigate("/")}

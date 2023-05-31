@@ -11,5 +11,7 @@ export const ModelFormSchema = z.object({
     .nonempty(
       "O código identificador de número de páginas impressas é obrigatório"
     ),
-  model_oid_snmp_toner_level: z.string().nonempty("model_oid_snmp_toner_level"),
+  model_oid_snmp_toner_level: z
+    .string()
+    .nonempty("O código identificador do nível de toner é obrigatório"),
 });
