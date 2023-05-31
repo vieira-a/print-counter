@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ReactNode, useContext } from "react";
 import DefaultPage from "./components/DefaultPage";
 import App from "./App";
+import ModelProvider from "./features/model/ModelProvider";
+import ModelForm from "./features/model/ModelForm";
 import Printer from "./features/printer/Printer";
 import PrinterProvider from "./features/printer/PrinterProvider";
 import { CounterProvider } from "./features/counter/CounterProvider";
@@ -30,63 +32,66 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <PrinterProvider>
-          <CounterProvider>
-            <Routes>
-              <Route path="/" element={<DefaultPage />}>
-                <Route
-                  index
-                  element={
-                    <Private>
-                      <App />
-                    </Private>
-                  }
-                />
-                <Route
-                  path="printer"
-                  element={
-                    <Private>
-                      <Printer />
-                    </Private>
-                  }
-                />
-                <Route
-                  path="printer/edit/:id"
-                  element={
-                    <Private>
-                      <PrinterFormEdit />
-                    </Private>
-                  }
-                />
-                <Route
-                  path="printer/create"
-                  element={
-                    <Private>
-                      <PrinterForm />
-                    </Private>
-                  }
-                />
-                <Route
-                  path="counter"
-                  element={
-                    <Private>
-                      <Counter />
-                    </Private>
-                  }
-                />
-                <Route
-                  path="counter/create"
-                  element={
-                    <Private>
-                      <CounterForm />
-                    </Private>
-                  }
-                />
-              </Route>
-              <Route path="login" element={<Login />} />
-            </Routes>
-          </CounterProvider>
-        </PrinterProvider>
+        <ModelProvider>
+          <PrinterProvider>
+            <CounterProvider>
+              <Routes>
+                <Route path="/" element={<DefaultPage />}>
+                  <Route
+                    index
+                    element={
+                      <Private>
+                        <App />
+                      </Private>
+                    }
+                  />
+                  <Route path="model/create" element={<ModelForm />} />
+                  <Route
+                    path="printer"
+                    element={
+                      <Private>
+                        <Printer />
+                      </Private>
+                    }
+                  />
+                  <Route
+                    path="printer/edit/:id"
+                    element={
+                      <Private>
+                        <PrinterFormEdit />
+                      </Private>
+                    }
+                  />
+                  <Route
+                    path="printer/create"
+                    element={
+                      <Private>
+                        <PrinterForm />
+                      </Private>
+                    }
+                  />
+                  <Route
+                    path="counter"
+                    element={
+                      <Private>
+                        <Counter />
+                      </Private>
+                    }
+                  />
+                  <Route
+                    path="counter/create"
+                    element={
+                      <Private>
+                        <CounterForm />
+                      </Private>
+                    }
+                  />
+                </Route>
+                <Route path="login" element={<Login />} />
+              </Routes>
+            </CounterProvider>
+          </PrinterProvider>
+        </ModelProvider>
       </AuthProvider>
     </BrowserRouter>
   );
