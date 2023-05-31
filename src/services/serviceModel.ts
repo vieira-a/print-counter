@@ -18,4 +18,15 @@ const createModel = async (newModel: IModel) => {
   }
 };
 
-export { createModel };
+const getModels = async () => {
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export { createModel, getModels };

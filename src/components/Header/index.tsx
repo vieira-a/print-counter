@@ -6,8 +6,6 @@ import Button from "../Button";
 export default function Header() {
   const { handleUserLogout, userSessionData } = useContext(AuthContext);
 
-  console.log(userSessionData);
-
   return (
     <nav>
       <div className="flex justify-between items-center bg-carbon-layer text-carbon-text-inverse px-4 py-[15px]">

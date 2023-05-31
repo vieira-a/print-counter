@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Home, Printer, ChartBarFloating } from "@carbon/icons-react";
+import { Home, Printer, ChartBarFloating, Template } from "@carbon/icons-react";
 
 export default function MenuBar() {
   return (
@@ -23,6 +23,13 @@ export default function MenuBar() {
           <Link to={"counter"}>
             <button>
               <ChartBarFloating size={20} />
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to={"model"}>
+            <button>
+              <Template size={20} />
             </button>
           </Link>
         </li>

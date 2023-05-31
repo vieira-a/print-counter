@@ -58,14 +58,10 @@ export default function AuthProvider({ children }: IAuthProvider) {
     handleUserSessionData();
   }, [userAuthenticated]);
 
-  console.log(userSessionData);
-
   const handleUserLogout = () => {
     localStorage.removeItem("user");
     setUserAuthenticated(false);
   };
-
-  console.log(userSession);
 
   const authContextValue = {
     userLogin,

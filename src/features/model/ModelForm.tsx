@@ -55,7 +55,7 @@ export default function ModelForm() {
         <div className="flex justify-between py-4">
           <h2>Cadastro de modelos</h2>
           <Close
-            onClick={() => navigate("/printer")}
+            onClick={() => navigate("/model")}
             size={24}
             className="cursor-pointer"
             aria-label="Fechar formulário"
