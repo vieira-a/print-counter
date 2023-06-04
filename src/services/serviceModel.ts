@@ -29,4 +29,20 @@ const getModels = async () => {
   }
 };
 
-export { createModel, getModels };
+const deleteModel = async (id: string) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      console.log("Modelo excluído do sucesso");
+    }
+  } catch (error) {
+    console.log(`Erro ao excluir o modelo ${error}`);
+  }
+};
+
+export { createModel, getModels, deleteModel };

@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@/components/Button";
@@ -6,10 +6,14 @@ import InputSearch from "@/components/InputSearch";
 import Notification from "@/components/Notification";
 import ModelContext from "@/contexts/modelContext";
 
-import { deletePrinter } from "@/services/servicePrinter";
+import { deleteModel } from "@/services/serviceModel";
+import useActionNotification from "@/hooks/useActionNotification";
 
 export default function Model() {
   const navigate = useNavigate();
+
+  const { actionNotification, showActionNotification } =
+    useActionNotification();
 
   const { model } = useContext(ModelContext);
 
@@ -18,25 +22,25 @@ export default function Model() {
   //   setSearchSerial(value);
   // };
 
-  // const handleDeletePrinter = (id: string) => {
-  //   if (confirm("Deseja realmente excluir a impressora?")) {
-  //     deletePrinter(id)
-  //       .then(() => {
-  //         showActionNotification({
-  //           status: true,
-  //           message: "Impressora excluída com sucesso",
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.log(`Error: ${error.message}`);
-  //         showActionNotification({
-  //           status: false,
-  //           message: "Erro ao excluir a impressora",
-  //         });
-  //       });
-  //   }
-  //   setShouldUpdatePrinters(true);
-  // };
+  const handleDeleteModel = (id: string) => {
+    if (confirm("Deseja realmente excluir o modelo?")) {
+      deleteModel(id)
+        .then(() => {
+          showActionNotification({
+            status: true,
+            message: "Modelo excluída com sucesso",
+          });
+        })
+        .catch((error) => {
+          console.log(`Error: ${error.message}`);
+          showActionNotification({
+            status: false,
+            message: "Erro ao excluir a impressora",
+          });
+        });
+    }
+    //setShouldUpdatePrinters(true);
+  };
 
   return (
     <section className="bg-carbon-bg-modal">
@@ -96,14 +100,18 @@ export default function Model() {
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 <div className="flex gap-1">
                   <Button className="w-[25%]" text="Alterar" />
-                  <Button className="w-[25%]" text="Excluir" />
+                  <Button
+                    onClick={() => handleDeleteModel(`${item._id}`)}
+                    className="w-[25%]"
+                    text="Excluir"
+                  />
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {/* <div>
+      <div>
         {actionNotification.status === true ? (
           <Notification theme="success" message={actionNotification.message} />
         ) : actionNotification.status === false ? (
@@ -111,7 +119,7 @@ export default function Model() {
         ) : (
           ""
         )}
-      </div> */}
+      </div>
     </section>
   );
 }
