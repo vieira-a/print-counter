@@ -47,9 +47,30 @@ export default function AppRouter() {
                       </Private>
                     }
                   />
-                  <Route path="model" element={<Model />} />
-                  <Route path="model/create" element={<ModelForm />} />
-                  <Route path="model/edit/:id" element={<ModelFormEdit />} />
+                  <Route
+                    path="model"
+                    element={
+                      <Private>
+                        <Model />
+                      </Private>
+                    }
+                  />
+                  <Route
+                    path="model/create"
+                    element={
+                      <Private>
+                        <ModelForm />
+                      </Private>
+                    }
+                  />
+                  <Route
+                    path="model/edit/:id"
+                    element={
+                      <Private>
+                        <ModelFormEdit />
+                      </Private>
+                    }
+                  />
                   <Route
                     path="printer"
                     element={
