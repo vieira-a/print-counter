@@ -99,7 +99,11 @@ export default function Model() {
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 <div className="flex gap-1">
-                  <Button className="w-[25%]" text="Alterar" />
+                  <Button
+                    onClick={() => navigate(`/model/edit/${item._id}`)}
+                    className="w-[25%]"
+                    text="Alterar"
+                  />
                   <Button
                     onClick={() => handleDeleteModel(`${item._id}`)}
                     className="w-[25%]"

@@ -45,4 +45,14 @@ const deleteModel = async (id: string) => {
   }
 };
 
-export { createModel, getModels, deleteModel };
+const getModelById = async (modelId: string) => {
+  try {
+    const response = await fetch(`${API_URL}/?id=${modelId}`);
+    const dataModelById = await response.json();
+    return dataModelById;
+  } catch (error) {
+    console.log(`Erro ao buscar modelo: ${error}`);
+  }
+};
+
+export { createModel, getModels, deleteModel, getModelById };

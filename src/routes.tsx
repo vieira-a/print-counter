@@ -15,6 +15,7 @@ import Counter from "./features/counter/Counter";
 import CounterForm from "./features/counter/CounterForm";
 import Login from "./features/auth/Login";
 import Model from "./features/model/Model";
+import ModelFormEdit from "./features/model/ModelFormEdit";
 
 export default function AppRouter() {
   interface IPrivate {
@@ -48,6 +49,7 @@ export default function AppRouter() {
                   />
                   <Route path="model" element={<Model />} />
                   <Route path="model/create" element={<ModelForm />} />
+                  <Route path="model/edit/:id" element={<ModelFormEdit />} />
                   <Route
                     path="printer"
                     element={
