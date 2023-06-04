@@ -15,7 +15,7 @@ export default function Model() {
   const { actionNotification, showActionNotification } =
     useActionNotification();
 
-  const { model } = useContext(ModelContext);
+  const { model, setShouldUpdateModel } = useContext(ModelContext);
 
   // const handleSearchSerialChange = (event: ChangeEvent<HTMLInputElement>) => {
   //   const value = event.target.value;
@@ -39,7 +39,7 @@ export default function Model() {
           });
         });
     }
-    //setShouldUpdatePrinters(true);
+    setShouldUpdateModel(true);
   };
 
   return (
