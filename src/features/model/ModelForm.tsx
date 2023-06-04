@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -5,6 +6,8 @@ import { ModelFormSchema } from "@/common/schemas/ModelFormSchema";
 
 import { createModel } from "@/services/serviceModel";
 import useActionNotification from "@/hooks/useActionNotification";
+
+import ModelContext from "@/contexts/modelContext";
 
 import { Close } from "@carbon/icons-react";
 import ButtonContent from "@/components/ButtonContent";
@@ -15,6 +18,8 @@ import Notification from "@/components/Notification";
 import { IModel } from "@/common/interfaces/IModel";
 
 export default function ModelForm() {
+  const { setShouldUpdateModel } = useContext(ModelContext);
+
   const navigate = useNavigate();
   const {
     register,
@@ -47,6 +52,7 @@ export default function ModelForm() {
       });
       console.log(error);
     }
+    setShouldUpdateModel(true);
   };
 
   return (

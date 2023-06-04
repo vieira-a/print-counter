@@ -19,6 +19,10 @@ const ModelContext = createContext<IModelContext>({
   setModelGrid: (modelGrid) => {
     return modelGrid;
   },
+  shouldUpdateModel: false,
+  setShouldUpdateModel: (shouldUpdateModel) => {
+    return shouldUpdateModel;
+  },
 });
 
 export default ModelContext;

@@ -16,16 +16,26 @@ export default function ModelProvider({ children }: IModelProvider) {
   ]);
 
   const [modelGrid, setModelGrid] = useState<IModel[]>([]);
+  const [shouldUpdateModel, setShouldUpdateModel] = useState<boolean>(false);
+
+  const getAllModels = async () => {
+    const data = await getModels();
+    setModel(data);
+    setShouldUpdateModel(false);
+  };
 
   useEffect(() => {
-    const getAllModels = async () => {
-      const data = await getModels();
-      setModel(data);
-    };
     getAllModels();
-  }, []);
+  }, [shouldUpdateModel]);
 
-  const modelContextValue = { model, setModel, modelGrid, setModelGrid };
+  const modelContextValue = {
+    model,
+    setModel,
+    modelGrid,
+    setModelGrid,
+    shouldUpdateModel,
+    setShouldUpdateModel,
+  };
 
   return (
     <ModelContext.Provider value={modelContextValue}>

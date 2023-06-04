@@ -14,6 +14,8 @@ export interface IModelContext {
   setModel: React.Dispatch<React.SetStateAction<IModel[]>>;
   modelGrid: IModel[];
   setModelGrid: React.Dispatch<React.SetStateAction<IModel[]>>;
+  shouldUpdateModel: boolean;
+  setShouldUpdateModel: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IModelProvider {
