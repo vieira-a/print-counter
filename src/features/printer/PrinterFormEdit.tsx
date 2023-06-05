@@ -87,7 +87,7 @@ export default function PrinterFormEdit() {
         </div>
         <div>
           <p className="w-[85%]">
-            Altere os campos com as informações necessárias para editar uma
+            Altere os campos com as informações necessárias para editar a
             impressora cadastrada
           </p>
         </div>

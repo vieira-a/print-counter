@@ -29,6 +29,27 @@ const getModels = async () => {
   }
 };
 
+const updateModel = async (id: string, modelUpdated: IModel) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(modelUpdated),
+    });
+
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(`Erro ao atualizar modelo. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const deleteModel = async (id: string) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -55,4 +76,4 @@ const getModelById = async (modelId: string) => {
   }
 };
 
-export { createModel, getModels, deleteModel, getModelById };
+export { createModel, getModels, deleteModel, getModelById, updateModel };
