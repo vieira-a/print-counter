@@ -147,7 +147,13 @@ export default function PrinterFormEdit() {
                   type="text"
                   placeholder="Informe o modelo"
                   {...register("model")}
-                  defaultValue={selectPrinterToEdit?.model}
+                  defaultValue={
+                    selectPrinterToEdit &&
+                    selectPrinterToEdit.model &&
+                    typeof selectPrinterToEdit.model === "object"
+                      ? selectPrinterToEdit.model.model_name
+                      : undefined
+                  }
                 />
                 {errors.model && (
                   <ErrorMessage

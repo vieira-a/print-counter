@@ -24,8 +24,6 @@ export default function Printer() {
     setSearchSerial(value);
   };
 
-  console.log(printersGrid);
-
   const handleDeletePrinter = (id: string) => {
     if (confirm("Deseja realmente excluir a impressora?")) {
       deletePrinter(id)

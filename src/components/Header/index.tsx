@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
+import { Link } from "react-router-dom";
 
 import Button from "../Button";
 
@@ -10,7 +11,9 @@ export default function Header() {
     <nav>
       <div className="flex justify-between items-center bg-carbon-layer text-carbon-text-inverse px-4 py-[15px]">
         <div>
-          <h2 className="font-semibold">Print Counter</h2>
+          <Link to={"/"}>
+            <h2 className="font-semibold">Print Counter</h2>
+          </Link>
         </div>
 
         <div className="flex gap-4 items-center">

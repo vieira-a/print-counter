@@ -168,7 +168,7 @@ export default function PrinterForm() {
               Modelo
               <Select onChange={handleSelectChange}>
                 <option>Selecione um modelo</option>
-                {model.map((item: IModel) => (
+                {model?.map((item: IModel) => (
                   <option key={item._id} {...register("model")}>
                     {item.model_name}
                   </option>

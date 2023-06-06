@@ -1,5 +1,7 @@
 import BannerOptions from "../BannerOptions";
 import Header from "../Header/";
+// import Footer from "../Footer";
+
 import MenuBar from "../Menubar";
 import { Outlet } from "react-router-dom";
 
@@ -14,6 +16,7 @@ export default function DefaultPage() {
       <main className="ml-[52px] pt-4 pr-4">
         <Outlet />
       </main>
+      {/* <Footer /> */}
     </>
   );
 }
