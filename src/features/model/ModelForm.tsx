@@ -45,6 +45,7 @@ export default function ModelForm() {
         status: true,
         message: "Modelo cadastrado com sucesso",
       });
+      navigate("/model");
     } catch (error) {
       showActionNotification({
         status: true,

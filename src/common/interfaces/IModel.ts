@@ -16,6 +16,10 @@ export interface IModelContext {
   setModelGrid: React.Dispatch<React.SetStateAction<IModel[]>>;
   shouldUpdateModel: boolean;
   setShouldUpdateModel: React.Dispatch<React.SetStateAction<boolean>>;
+  searchModel: string;
+  setSearchModel: React.Dispatch<React.SetStateAction<string>>;
+  modelByName: IModel[];
+  setModelByName: React.Dispatch<React.SetStateAction<IModel[]>>;
 }
 
 export interface IModelProvider {

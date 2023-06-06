@@ -76,4 +76,23 @@ const getModelById = async (modelId: string) => {
   }
 };
 
-export { createModel, getModels, deleteModel, getModelById, updateModel };
+const getModelByName = async (expression: string) => {
+  try {
+    const response = await fetch(`${API_URL}?model_name=${expression}`);
+    const dataModelByName = response.json();
+    return dataModelByName;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//http://localhost:3000/api/model?model_name=W
+
+export {
+  createModel,
+  getModels,
+  updateModel,
+  deleteModel,
+  getModelById,
+  getModelByName,
+};

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IModel, IModelProvider } from "@/common/interfaces/IModel";
 import ModelContext from "@/contexts/modelContext";
 import { getModels } from "@/services/serviceModel";
+import useFilterModelByName from "@/hooks/useFilterModelByName";
 
 export default function ModelProvider({ children }: IModelProvider) {
   const [model, setModel] = useState<IModel[]>([
@@ -17,12 +18,28 @@ export default function ModelProvider({ children }: IModelProvider) {
 
   const [modelGrid, setModelGrid] = useState<IModel[]>([]);
   const [shouldUpdateModel, setShouldUpdateModel] = useState<boolean>(false);
+  const [searchModel, setSearchModel] = useState("");
+  const [modelByName, setModelByName] = useState<IModel[]>([]);
+
+  const { modelByModelName, showModelByName } = useFilterModelByName();
 
   const getAllModels = async () => {
     const data = await getModels();
     setModel(data);
     setShouldUpdateModel(false);
   };
+
+  useEffect(() => {
+    if (searchModel) {
+      showModelByName(searchModel);
+    } else {
+      setModelGrid(model);
+    }
+  }, [searchModel, showModelByName, model]);
+
+  useEffect(() => {
+    setModelGrid(modelByModelName);
+  }, [modelByModelName]);
 
   useEffect(() => {
     getAllModels();
@@ -35,6 +52,10 @@ export default function ModelProvider({ children }: IModelProvider) {
     setModelGrid,
     shouldUpdateModel,
     setShouldUpdateModel,
+    searchModel,
+    setSearchModel,
+    modelByName,
+    setModelByName,
   };
 
   return (

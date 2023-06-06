@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Button from "@/components/Button";
@@ -15,12 +15,8 @@ export default function Model() {
   const { actionNotification, showActionNotification } =
     useActionNotification();
 
-  const { model, setShouldUpdateModel } = useContext(ModelContext);
-
-  // const handleSearchSerialChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const value = event.target.value;
-  //   setSearchSerial(value);
-  // };
+  const { modelGrid, setShouldUpdateModel, setSearchModel } =
+    useContext(ModelContext);
 
   const handleDeleteModel = (id: string) => {
     if (confirm("Deseja realmente excluir o modelo?")) {
@@ -42,6 +38,11 @@ export default function Model() {
     setShouldUpdateModel(true);
   };
 
+  const handleSearchModelChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchModel(value);
+  };
+
   return (
     <section className="bg-carbon-bg-modal">
       <div className="px-4 pt-6 pb-8">
@@ -55,6 +56,7 @@ export default function Model() {
         <div className="flex gap-[1px] items-center w-full">
           <div className="w-full">
             <InputSearch
+              onChange={handleSearchModelChange}
               type="search"
               placeholder="Digite um modelo para buscar"
             />
@@ -80,7 +82,7 @@ export default function Model() {
           </tr>
         </thead>
         <tbody>
-          {model.map((item) => (
+          {modelGrid.map((item) => (
             <tr key={item._id}>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {item.model_brand}

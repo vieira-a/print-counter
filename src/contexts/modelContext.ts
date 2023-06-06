@@ -23,6 +23,14 @@ const ModelContext = createContext<IModelContext>({
   setShouldUpdateModel: (shouldUpdateModel) => {
     return shouldUpdateModel;
   },
+  searchModel: "",
+  setSearchModel: (searchModel) => {
+    return searchModel;
+  },
+  modelByName: [],
+  setModelByName: (modelByName) => {
+    return modelByName;
+  },
 });
 
 export default ModelContext;
