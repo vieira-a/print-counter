@@ -25,7 +25,9 @@ export default function BannerOptions() {
         title="Imprimir relatórios"
         description="Monte relatórios personalizados,  imprima ou exporte para um arquivo"
       >
-        <Button text="Acessar" />
+        <Link to={"/counter"}>
+          <Button text="Acessar" />
+        </Link>
       </ModalCard>
     </section>
   );
