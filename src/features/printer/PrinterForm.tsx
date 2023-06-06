@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -13,7 +13,12 @@ import Notification from "@/components/Notification";
 
 import { IPrinter } from "@/common/interfaces/IPrinter";
 import PrinterContext from "@/contexts/printerContext";
+import ModelContext from "@/contexts/modelContext";
 import { createPrinter } from "@/services/servicePrinter";
+import Select from "@/components/Select";
+import { IModel } from "@/common/interfaces/IModel";
+
+import useFilterModelByName from "@/hooks/useFilterModelByName";
 
 export default function PrinterForm() {
   const navigate = useNavigate();
@@ -26,6 +31,8 @@ export default function PrinterForm() {
   } = useForm<IPrinter>({
     resolver: zodResolver(PrinterFormSchema),
   });
+
+  const { modelByModelName, showModelByName } = useFilterModelByName();
 
   const printedValue = watch("printed");
   const copiedValue = watch("copied");
@@ -44,11 +51,23 @@ export default function PrinterForm() {
     setShouldUpdatePrinters,
   } = useContext(PrinterContext);
 
+  const { model } = useContext(ModelContext);
+  const [modelId, setModelId] = useState("");
+
+  useEffect(() => {
+    const handleModelId = () => {
+      if (modelByModelName[0]?._id) {
+        setModelId(modelByModelName[0]._id);
+      }
+    };
+    handleModelId();
+  }, [modelByModelName]);
+
   const handleCreatePrinter: SubmitHandler<FieldValues> = (data) => {
     const counter = Number(data.printed) + Number(data.copied);
 
     const newPrinterObject: IPrinter = {
-      model: data.model,
+      model: (data.model = modelId),
       brand: data.brand,
       serial: data.serial,
       local: data.local,
@@ -77,6 +96,11 @@ export default function PrinterForm() {
       console.log(error);
     }
     setShouldUpdatePrinters(true);
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOption = event.target.value;
+    showModelByName(selectedOption);
   };
 
   return (
@@ -142,14 +166,25 @@ export default function PrinterForm() {
             </label>
             <label className="text-xs text-carbon-label">
               Modelo
-              <Input
+              <Select onChange={handleSelectChange}>
+                <option>Selecione um modelo</option>
+                {model.map((item: IModel) => (
+                  <option key={item._id} {...register("model")}>
+                    {item.model_name}
+                  </option>
+                ))}
+              </Select>
+              {errors.model && (
+                <ErrorMessage message={`${errors.model.message}`} />
+              )}
+              {/* <Input
                 type="text"
                 placeholder="Informe o modelo"
                 {...register("model")}
               />
               {errors.model && (
                 <ErrorMessage message={`${errors.model.message}`} />
-              )}
+              )} */}
             </label>
             <label className="text-xs text-carbon-label">
               Localização

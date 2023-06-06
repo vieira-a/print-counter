@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 import { IActionNotification } from "./IActionNotification";
+import { IModel } from "./IModel";
 
 export interface IPrinter {
   _id?: string;
-  model: string;
+  model: IModel | string | undefined;
   brand: string;
   serial: string;
   local: string;

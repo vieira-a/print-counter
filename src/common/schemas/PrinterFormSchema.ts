@@ -1,11 +1,7 @@
 import { z } from "zod";
 
 export const PrinterFormSchema = z.object({
-  model: z
-    .string()
-    .nonempty("O campo Modelo é obrigatório")
-    .min(3, "O campo Modelo precisa ter no mínimo 3 caracteres")
-    .toUpperCase(),
+  model: z.string().nonempty("O campo Modelo é obrigatório").toUpperCase(),
   brand: z
     .string()
     .nonempty("O campo Marca é obrigatório")
