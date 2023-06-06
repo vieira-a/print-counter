@@ -24,6 +24,8 @@ export default function Printer() {
     setSearchSerial(value);
   };
 
+  console.log(printersGrid);
+
   const handleDeletePrinter = (id: string) => {
     if (confirm("Deseja realmente excluir a impressora?")) {
       deletePrinter(id)
@@ -93,7 +95,9 @@ export default function Printer() {
                 {item.brand}
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {item.model}
+                {typeof item.model === "object" &&
+                  item.model !== null &&
+                  item.model.model_name}
               </td>
               <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
                 {item.printed}
