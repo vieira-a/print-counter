@@ -17,13 +17,6 @@ export interface IUserSessionData {
   role: string;
 }
 
-export interface IUserRegister {
-  name: string;
-  email: string;
-  password: string;
-  confirmpassword: string;
-}
-
 export interface IAuthContext {
   userLogin: IUserLogin;
   setUserLogin: React.Dispatch<React.SetStateAction<IUserLogin>>;

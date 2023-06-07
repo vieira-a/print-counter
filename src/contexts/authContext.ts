@@ -24,6 +24,7 @@ const AuthContext = createContext<IAuthContext>({
   userSessionData: {
     name: "",
     email: "",
+    role: "",
   },
   setUserSessionData: () => {
     return;
