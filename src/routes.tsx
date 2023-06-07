@@ -14,6 +14,7 @@ import PrinterFormEdit from "./features/printer/PrinterFormEdit";
 import Counter from "./features/counter/Counter";
 import CounterForm from "./features/counter/CounterForm";
 import Login from "./features/auth/Login";
+import User from "./features/auth/User";
 import Model from "./features/model/Model";
 import ModelFormEdit from "./features/model/ModelFormEdit";
 
@@ -27,6 +28,16 @@ export default function AppRouter() {
 
     if (!userAuthenticated) {
       return <Navigate to={"/login"} />;
+    }
+    return <>{children}</>;
+  };
+
+  const PrivateAdmin = ({ children }: IPrivate) => {
+    const { userAuthenticated, userSessionData } = useContext(AuthContext);
+    const isAdmin = userSessionData.role === "admin";
+
+    if (!userAuthenticated && !isAdmin) {
+      return <Navigate to={"/"} />;
     }
     return <>{children}</>;
   };
@@ -109,6 +120,14 @@ export default function AppRouter() {
                       <Private>
                         <CounterForm />
                       </Private>
+                    }
+                  />
+                  <Route
+                    path="user"
+                    element={
+                      <PrivateAdmin>
+                        <User />
+                      </PrivateAdmin>
                     }
                   />
                 </Route>

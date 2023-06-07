@@ -25,6 +25,7 @@ export default function AuthProvider({ children }: IAuthProvider) {
   const [userSessionData, setUserSessionData] = useState<IUserSessionData>({
     name: "",
     email: "",
+    role: "",
   });
 
   useEffect(() => {

@@ -14,6 +14,7 @@ export interface IUserSession {
 export interface IUserSessionData {
   name: string;
   email: string;
+  role: string;
 }
 
 export interface IUserRegister {
