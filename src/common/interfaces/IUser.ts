@@ -5,11 +5,19 @@ export interface IUserRegister {
   email: string;
   password: string;
   confirmpassword: string;
+  role: string;
 }
+
+export interface IUserRole {
+  id: number | null;
+  name: string;
+}
+[];
 
 export interface IUserContext {
   userRegister: IUserRegister;
   setUserRegister: React.Dispatch<React.SetStateAction<IUserRegister>>;
+  userRole: IUserRole[];
 }
 
 export interface IUserProvider {

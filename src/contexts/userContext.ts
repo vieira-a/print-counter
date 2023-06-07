@@ -7,10 +7,21 @@ const UserContext = createContext<IUserContext>({
     email: "",
     password: "",
     confirmpassword: "",
+    role: "",
   },
   setUserRegister: (userRegister) => {
     return userRegister;
   },
+  userRole: [
+    {
+      id: 1,
+      name: "default",
+    },
+    {
+      id: 2,
+      name: "admin",
+    },
+  ],
 });
 
 UserContext.displayName = "User";

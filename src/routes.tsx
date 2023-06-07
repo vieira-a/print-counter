@@ -37,7 +37,7 @@ export default function AppRouter() {
     const { userAuthenticated, userSessionData } = useContext(AuthContext);
     const isAdmin = userSessionData.role === "admin";
 
-    if (!userAuthenticated && !isAdmin) {
+    if (!userAuthenticated || !isAdmin) {
       return <Navigate to={"/"} />;
     }
     return <>{children}</>;
