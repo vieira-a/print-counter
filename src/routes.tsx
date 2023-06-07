@@ -14,7 +14,8 @@ import PrinterFormEdit from "./features/printer/PrinterFormEdit";
 import Counter from "./features/counter/Counter";
 import CounterForm from "./features/counter/CounterForm";
 import Login from "./features/auth/Login";
-import User from "./features/auth/User";
+import User from "./features/user/User";
+import Register from "./features/user/Register";
 import Model from "./features/model/Model";
 import ModelFormEdit from "./features/model/ModelFormEdit";
 
@@ -127,6 +128,14 @@ export default function AppRouter() {
                     element={
                       <PrivateAdmin>
                         <User />
+                      </PrivateAdmin>
+                    }
+                  />
+                  <Route
+                    path="user/register"
+                    element={
+                      <PrivateAdmin>
+                        <Register />
                       </PrivateAdmin>
                     }
                   />
