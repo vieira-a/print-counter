@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   IUserLogin,
@@ -62,6 +63,7 @@ export default function AuthProvider({ children }: IAuthProvider) {
   const handleUserLogout = () => {
     localStorage.removeItem("user");
     setUserAuthenticated(false);
+    <Navigate to={"/"} />;
   };
 
   const authContextValue = {
