@@ -26,9 +26,8 @@ const getUser = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const users = await response.json();
-    console.log(users);
-    return users;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(`Erro ao obter lista de usuários ${error}`);
   }

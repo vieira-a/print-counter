@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { IUserProvider, IUserRegister } from "@/common/interfaces/IUser";
+import { IUser, IUserProvider, IUserRegister } from "@/common/interfaces/IUser";
 import UserContext from "@/contexts/userContext";
 import useGetSessionToken from "@/hooks/useGetSessionToken";
 import { getUser } from "@/services/serviceUser";
@@ -13,7 +13,16 @@ export default function UserProvider({ children }: IUserProvider) {
     role: "",
   });
 
-  const { userRole, users, setUsers } = useContext(UserContext);
+  const [users, setUsers] = useState<IUser[]>([
+    {
+      _id: "",
+      name: "",
+      email: "",
+      role: "",
+    },
+  ]);
+
+  const { userRole } = useContext(UserContext);
 
   const { getSessionToken, sessionToken } = useGetSessionToken();
 
@@ -26,15 +35,18 @@ export default function UserProvider({ children }: IUserProvider) {
   };
 
   useEffect(() => {
+    getSessionToken();
+  }, [getSessionToken]);
+
+  useEffect(() => {
     const handleGetUsers = async () => {
-      getSessionToken();
       if (sessionToken) {
         const dataUsers = await getUser(sessionToken);
         setUsers(dataUsers);
       }
     };
     handleGetUsers();
-  }, [getSessionToken, sessionToken, setUsers]);
+  }, [sessionToken]);
 
   return (
     <UserContext.Provider value={userContextValue}>

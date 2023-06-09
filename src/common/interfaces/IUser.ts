@@ -18,16 +18,14 @@ export interface IUser {
   name: string;
   email: string;
   role: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface IUserContext {
   userRegister: IUserRegister;
   setUserRegister: React.Dispatch<React.SetStateAction<IUserRegister>>;
   userRole: IUserRole[];
-  users: IUser;
-  setUsers: React.Dispatch<React.SetStateAction<IUser>>;
+  users: IUser[];
+  setUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
 }
 
 export interface IUserProvider {
