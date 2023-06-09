@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import AuthContext from "@/contexts/authContext";
+
 import { Link } from "react-router-dom";
 import {
   Home,
@@ -8,6 +11,8 @@ import {
 } from "@carbon/icons-react";
 
 export default function MenuBar() {
+  const { userSessionData } = useContext(AuthContext);
+
   return (
     <nav className="p-4">
       <ul className="flex flex-col gap-6">
@@ -39,13 +44,15 @@ export default function MenuBar() {
             </button>
           </Link>
         </li>
-        <li>
-          <Link to={"user"}>
-            <button>
-              <UserAvatar size={20} />
-            </button>
-          </Link>
-        </li>
+        {userSessionData.role === "admin" && (
+          <li>
+            <Link to={"user"}>
+              <button>
+                <UserAvatar size={20} />
+              </button>
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
