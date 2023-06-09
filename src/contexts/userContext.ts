@@ -33,6 +33,10 @@ const UserContext = createContext<IUserContext>({
   setUsers: () => {
     return;
   },
+  shouldUpdateUsers: null,
+  setShouldUpdateUsers: () => {
+    return;
+  },
 });
 
 UserContext.displayName = "User";

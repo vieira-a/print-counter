@@ -12,16 +12,15 @@ import ErrorMessage from "@/components/ErrorMessage";
 import Notification from "@/components/Notification";
 
 import useActionNotification from "@/hooks/useActionNotification";
+import useGetSessionToken from "@/hooks/useGetSessionToken";
 import { registerUser } from "@/services/serviceUser";
 
-import AuthContext from "@/contexts/authContext";
 import UserContext from "@/contexts/userContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
-  const { userSession } = useContext(AuthContext);
-  const { userRole } = useContext(UserContext);
+  const { userRole, setShouldUpdateUsers } = useContext(UserContext);
 
   const {
     register,
@@ -31,13 +30,18 @@ export default function Register() {
     resolver: zodResolver(UserRegisterSchema),
   });
 
+  const { sessionToken, getSessionToken } = useGetSessionToken();
+
   const { actionNotification, showActionNotification } =
     useActionNotification();
 
   const [userRoleSelect, setUserRoleSelect] = useState("");
 
+  useEffect(() => {
+    getSessionToken();
+  }, [getSessionToken]);
+
   const onSubmit = (data: IUserRegister) => {
-    console.log("entrei aqui");
     const newUser: IUserRegister = {
       name: data.name,
       email: data.email,
@@ -47,7 +51,7 @@ export default function Register() {
     };
 
     try {
-      registerUser(newUser, userSession.token);
+      registerUser(newUser, sessionToken);
       showActionNotification({
         status: true,
         message: "Cadastrado com sucesso",
@@ -59,6 +63,7 @@ export default function Register() {
       });
       console.log(error);
     }
+    setShouldUpdateUsers(true);
   };
 
   const handleSelectUserRole = (
@@ -74,7 +79,7 @@ export default function Register() {
         <div className="flex justify-between py-4">
           <h2>Cadastro de usuário</h2>
           <Close
-            onClick={() => navigate("/counter")}
+            onClick={() => navigate("/user")}
             size={24}
             className="cursor-pointer"
             aria-label="Fechar formulário"

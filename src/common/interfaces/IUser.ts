@@ -26,6 +26,8 @@ export interface IUserContext {
   userRole: IUserRole[];
   users: IUser[];
   setUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
+  shouldUpdateUsers: boolean | null;
+  setShouldUpdateUsers: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 
 export interface IUserProvider {

@@ -24,6 +24,10 @@ export default function UserProvider({ children }: IUserProvider) {
 
   const { userRole } = useContext(UserContext);
 
+  const [shouldUpdateUsers, setShouldUpdateUsers] = useState<boolean | null>(
+    null
+  );
+
   const { getSessionToken, sessionToken } = useGetSessionToken();
 
   const userContextValue = {
@@ -32,6 +36,8 @@ export default function UserProvider({ children }: IUserProvider) {
     userRole,
     users,
     setUsers,
+    shouldUpdateUsers,
+    setShouldUpdateUsers,
   };
 
   useEffect(() => {
@@ -40,13 +46,16 @@ export default function UserProvider({ children }: IUserProvider) {
 
   useEffect(() => {
     const handleGetUsers = async () => {
-      if (sessionToken) {
+      if (sessionToken || shouldUpdateUsers) {
         const dataUsers = await getUser(sessionToken);
         setUsers(dataUsers);
       }
+      setShouldUpdateUsers(false);
     };
     handleGetUsers();
-  }, [sessionToken]);
+  }, [sessionToken, setShouldUpdateUsers, shouldUpdateUsers]);
+
+  console.log("** PROVIDER", shouldUpdateUsers);
 
   return (
     <UserContext.Provider value={userContextValue}>

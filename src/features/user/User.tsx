@@ -16,12 +16,11 @@ export default function User() {
   const { showActionNotification, actionNotification } =
     useActionNotification();
 
-  const { users } = useContext(UserContext);
+  const { users, setShouldUpdateUsers } = useContext(UserContext);
 
   useEffect(() => {
     getSessionToken();
-    console.log(sessionToken);
-  }, [getSessionToken, sessionToken]);
+  }, [getSessionToken]);
 
   const handleDeleteUser = (id: string) => {
     if (confirm("Deseja realmente excluir o usuário?")) {
@@ -39,6 +38,7 @@ export default function User() {
         });
       }
     }
+    setShouldUpdateUsers(true);
   };
 
   return (

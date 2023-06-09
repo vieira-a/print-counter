@@ -30,6 +30,7 @@ const getUser = async (token: string) => {
     return data;
   } catch (error) {
     console.log(`Erro ao obter lista de usuários ${error}`);
+    return [];
   }
 };
 
