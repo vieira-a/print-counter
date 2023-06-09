@@ -33,4 +33,21 @@ const getUser = async (token: string) => {
   }
 };
 
-export { registerUser, getUser };
+const deleteUser = async (id: string, token: string) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      console.log("Usuário excluído com sucesso");
+    }
+  } catch (error) {
+    console.log(`Erro ao excluir usuário ${error}`);
+  }
+};
+
+export { registerUser, getUser, deleteUser };

@@ -1,17 +1,46 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "@/contexts/userContext";
 import Button from "@/components/Button";
 import InputSearch from "@/components/InputSearch";
 import { useNavigate } from "react-router-dom";
 import Notification from "@/components/Notification";
 import useActionNotification from "@/hooks/useActionNotification";
+import useGetSessionToken from "@/hooks/useGetSessionToken";
+import { deleteUser } from "@/services/serviceUser";
 
 export default function User() {
+  const navigate = useNavigate();
+
+  const { sessionToken, getSessionToken } = useGetSessionToken();
+
   const { showActionNotification, actionNotification } =
     useActionNotification();
-  const navigate = useNavigate();
+
   const { users } = useContext(UserContext);
+
+  useEffect(() => {
+    getSessionToken();
+    console.log(sessionToken);
+  }, [getSessionToken, sessionToken]);
+
+  const handleDeleteUser = (id: string) => {
+    if (confirm("Deseja realmente excluir o usuário?")) {
+      try {
+        deleteUser(id, sessionToken);
+        showActionNotification({
+          status: true,
+          message: "Usuário excluído com sucesso.",
+        });
+      } catch (error) {
+        console.log(`Erro ao excluir usuário: ${error}`);
+        showActionNotification({
+          status: false,
+          message: "Erro ao excluir usuário.",
+        });
+      }
+    }
+  };
+
   return (
     <section className="bg-carbon-bg-modal">
       <div className="px-4 pt-6 pb-8">
@@ -61,7 +90,7 @@ export default function User() {
                     text="Alterar"
                   />
                   <Button
-                    //onClick={() => handleDeletePrinter(`${item._id}`)}
+                    onClick={() => handleDeleteUser(item._id)}
                     className="w-[25%]"
                     text="Excluir"
                   />
