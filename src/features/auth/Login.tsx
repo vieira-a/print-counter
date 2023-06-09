@@ -23,8 +23,8 @@ export default function Login() {
   const handleUserLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const userSessionData = await createSession(userLogin);
-      setUserSession(userSessionData);
+      const userSessionDataLogin = await createSession(userLogin);
+      setUserSession(userSessionDataLogin);
     } catch (error) {
       console.log(error);
     }

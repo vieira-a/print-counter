@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   IUserLogin,
   IUserSession,
@@ -27,6 +27,7 @@ export default function AuthProvider({ children }: IAuthProvider) {
     name: "",
     email: "",
     role: "",
+    token: "",
   });
 
   useEffect(() => {

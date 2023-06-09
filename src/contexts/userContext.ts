@@ -22,6 +22,17 @@ const UserContext = createContext<IUserContext>({
       name: "admin",
     },
   ],
+  users: {
+    _id: "",
+    name: "",
+    email: "",
+    role: "",
+    createdAt: "",
+    updatedAt: "",
+  },
+  setUsers: (users) => {
+    return users;
+  },
 });
 
 UserContext.displayName = "User";

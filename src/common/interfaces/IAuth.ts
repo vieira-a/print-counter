@@ -15,6 +15,7 @@ export interface IUserSessionData {
   name: string;
   email: string;
   role: string;
+  token: string;
 }
 
 export interface IAuthContext {

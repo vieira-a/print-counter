@@ -9,6 +9,7 @@ import PrinterProvider from "./features/printer/PrinterProvider";
 import { CounterProvider } from "./features/counter/CounterProvider";
 import AuthContext from "./contexts/authContext";
 import AuthProvider from "./features/auth/AuthProvider";
+import UserProvider from "./features/user/UserProvider";
 import PrinterForm from "./features/printer/PrinterForm";
 import PrinterFormEdit from "./features/printer/PrinterFormEdit";
 import Counter from "./features/counter/Counter";
@@ -127,7 +128,9 @@ export default function AppRouter() {
                     path="user"
                     element={
                       <PrivateAdmin>
-                        <User />
+                        <UserProvider>
+                          <User />
+                        </UserProvider>
                       </PrivateAdmin>
                     }
                   />
