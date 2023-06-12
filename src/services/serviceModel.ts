@@ -12,7 +12,7 @@ const createModel = async (newModel: IModel) => {
       body: JSON.stringify(newModel),
     });
     const data = await response.json();
-    return data.msg;
+    return data.message;
   } catch (error) {
     console.log(error);
   }
@@ -38,13 +38,8 @@ const updateModel = async (id: string, modelUpdated: IModel) => {
       },
       body: JSON.stringify(modelUpdated),
     });
-
-    if (response.status === 200) {
-      const data = await response.json();
-      return data;
-    } else {
-      throw new Error(`Erro ao atualizar modelo. Status: ${response.status}`);
-    }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -69,8 +64,8 @@ const deleteModel = async (id: string) => {
 const getModelById = async (modelId: string) => {
   try {
     const response = await fetch(`${API_URL}/?id=${modelId}`);
-    const dataModelById = await response.json();
-    return dataModelById;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(`Erro ao buscar modelo: ${error}`);
   }
@@ -79,8 +74,8 @@ const getModelById = async (modelId: string) => {
 const getModelByName = async (expression: string) => {
   try {
     const response = await fetch(`${API_URL}?model_name=${expression}`);
-    const dataModelByName = response.json();
-    return dataModelByName;
+    const data = response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }

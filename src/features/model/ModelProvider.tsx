@@ -25,7 +25,7 @@ export default function ModelProvider({ children }: IModelProvider) {
 
   const getAllModels = async () => {
     const data = await getModels();
-    setModel(data);
+    setModel(data.model);
     setShouldUpdateModel(false);
   };
 

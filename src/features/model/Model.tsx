@@ -24,14 +24,14 @@ export default function Model() {
         .then(() => {
           showActionNotification({
             status: true,
-            message: "Modelo excluída com sucesso",
+            message: "Modelo excluído com sucesso",
           });
         })
         .catch((error) => {
           console.log(`Error: ${error.message}`);
           showActionNotification({
             status: false,
-            message: "Erro ao excluir a impressora",
+            message: "Erro ao excluir o modelo",
           });
         });
     }
@@ -82,39 +82,50 @@ export default function Model() {
           </tr>
         </thead>
         <tbody>
-          {modelGrid.map((item) => (
-            <tr key={item._id}>
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {item.model_brand}
-              </td>
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {item.model_name}
-              </td>
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {item.model_oid_snmp_printed}
-              </td>
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {item.model_oid_snmp_copied}
-              </td>
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                {item.model_oid_snmp_toner_level}
-              </td>
-              <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
-                <div className="flex gap-1">
-                  <Button
-                    onClick={() => navigate(`/model/edit/${item._id}`)}
-                    className="w-[25%]"
-                    text="Alterar"
-                  />
-                  <Button
-                    onClick={() => handleDeleteModel(`${item._id}`)}
-                    className="w-[25%]"
-                    text="Excluir"
-                  />
-                </div>
+          {modelGrid.length > 0 ? (
+            modelGrid.map((item) => (
+              <tr key={item._id}>
+                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                  {item.model_brand}
+                </td>
+                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                  {item.model_name}
+                </td>
+                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                  {item.model_oid_snmp_printed}
+                </td>
+                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                  {item.model_oid_snmp_copied}
+                </td>
+                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                  {item.model_oid_snmp_toner_level}
+                </td>
+                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                  <div className="flex gap-1">
+                    <Button
+                      onClick={() => navigate(`/model/edit/${item._id}`)}
+                      className="w-[25%]"
+                      text="Alterar"
+                    />
+                    <Button
+                      onClick={() => handleDeleteModel(`${item._id}`)}
+                      className="w-[25%]"
+                      text="Excluir"
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td>
+                <Notification
+                  theme="warning"
+                  message="Não há dados a exibir."
+                />
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
       <div>

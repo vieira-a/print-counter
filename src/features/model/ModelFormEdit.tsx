@@ -37,7 +37,7 @@ export default function ModelFormEdit() {
     const handleGetModelById = async () => {
       if (id) {
         const data = await getModelById(id);
-        setSelectModelToEdit(data);
+        setSelectModelToEdit(data.modelById);
       }
     };
     handleGetModelById();

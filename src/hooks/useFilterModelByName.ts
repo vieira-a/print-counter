@@ -8,8 +8,7 @@ const useFilterModelByName = () => {
   const showModelByName = useCallback(async (expression: string) => {
     try {
       const data = await getModelByName(expression);
-      console.log(data);
-      setModelByModelName(data);
+      setModelByModelName(data.model);
     } catch (error) {
       console.log(error);
     }
