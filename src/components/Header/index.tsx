@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import { Link } from "react-router-dom";
-import { Logout } from "@carbon/icons-react";
+import { Logout, Menu } from "@carbon/icons-react";
 
 export default function Header() {
   const { handleUserLogout, userSessionData } = useContext(AuthContext);
@@ -9,12 +9,12 @@ export default function Header() {
   return (
     <nav>
       <div className="flex justify-between items-center bg-text-01 text-bg-main-01 py-3 px-4">
-        <div>
+        <div className="flex items-center gap-4">
+          <Menu className="cursor-pointer" aria-label="Abrir menu" size={20} />
           <Link to={"/"}>
             <h1 className="text-md">Print Counter </h1>
           </Link>
         </div>
-
         <div className="flex gap-4 items-center">
           <div>
             {userSessionData && (

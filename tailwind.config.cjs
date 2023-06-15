@@ -37,6 +37,7 @@ module.exports = {
       "notification-error-bg": "#DA1E2830",
       "bg-main-01": "#FFFFFF",
       "bg-main-02": "#F0F3F6",
+      "bg-main-03": "#f4f7fb",
       "bg-danger": "#DA1E28",
       "bg-warning": "#F1C21B",
       "bg-success": "#198038",
