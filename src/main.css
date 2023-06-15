@@ -21,7 +21,7 @@
     @apply mx-auto;
     @apply text-carbon-text-primary;
     @apply text-sm;
-    @apply bg-bg-main-03;
+    @apply bg-bg-main-00;
   }
   h2 {
     @apply text-xl;

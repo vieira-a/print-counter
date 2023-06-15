@@ -1,5 +1,6 @@
 import BannerOptions from "../BannerOptions";
 import Header from "../Header/";
+import Dashboard from "../Dashboard";
 // import Footer from "../Footer";
 
 import MenuBar from "../Menubar";
@@ -9,13 +10,13 @@ export default function DefaultPage() {
   return (
     <>
       <Header />
-      <section className="flex mt-3 pr-4">
-        <MenuBar />
-        <BannerOptions />
+      <Outlet />
+      <section>
+        {/* <MenuBar /> */}
+        <Dashboard />
+        {/* <BannerOptions /> */}
       </section>
-      <main className="ml-[52px] pt-4 pr-4">
-        <Outlet />
-      </main>
+      <main className="h-screen bg-bg-main-03"></main>
       {/* <Footer /> */}
     </>
   );
