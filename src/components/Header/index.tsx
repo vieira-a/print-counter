@@ -1,34 +1,39 @@
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import { Link } from "react-router-dom";
-
-import Button from "../Button";
+import { Logout } from "@carbon/icons-react";
 
 export default function Header() {
   const { handleUserLogout, userSessionData } = useContext(AuthContext);
 
   return (
     <nav>
-      <div className="flex justify-between items-center bg-carbon-layer text-carbon-text-inverse px-4 py-[15px]">
+      <div className="flex justify-between items-center bg-text-01 text-bg-main-01 py-3 px-4">
         <div>
           <Link to={"/"}>
-            <h2 className="font-semibold">Print Counter</h2>
+            <h1 className="text-md">Print Counter </h1>
           </Link>
         </div>
 
         <div className="flex gap-4 items-center">
           <div>
             {userSessionData && (
-              <p className="text-carbon-field">
-                Boas vindas, {userSessionData.name}
+              <p className="text-carbon-field text-md">
+                {userSessionData.name}
               </p>
             )}
           </div>
-          <Button
+          <Logout
+            onClick={handleUserLogout}
+            size={20}
+            aria-label="Sair do sistema"
+            className="cursor-pointer"
+          />
+          {/* <Button
             onClick={handleUserLogout}
             text="Sair"
             aria-label="Botão sair"
-          />
+          /> */}
         </div>
       </div>
     </nav>
