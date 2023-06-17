@@ -13,9 +13,41 @@ import {
 export default function MenuBar() {
   const { userSessionData } = useContext(AuthContext);
 
+  const menuItems = [
+    {
+      id: 1,
+      title: "Home",
+      page: "/",
+    },
+    {
+      id: 2,
+      title: "Modelos",
+      page: "model",
+    },
+    {
+      id: 3,
+      title: "Impressoras",
+      page: "printer",
+    },
+    {
+      id: 4,
+      title: "Contadores",
+      page: "counter",
+    },
+  ];
+
   return (
-    <nav className="p-4">
-      <ul className="flex flex-col gap-6">
+    <nav>
+      <ul>
+        {menuItems.map((item) => (
+          <li>
+            <Link key={item.id} to={`${item.page}`}>
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      {/* <ul className="flex flex-col gap-6">
         <li>
           <Link to={"/"}>
             <button>
@@ -53,7 +85,7 @@ export default function MenuBar() {
             </Link>
           </li>
         )}
-      </ul>
+      </ul> */}
     </nav>
   );
 }

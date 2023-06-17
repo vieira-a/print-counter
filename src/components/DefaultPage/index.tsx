@@ -12,7 +12,6 @@ export default function DefaultPage() {
       <Header />
       <Outlet />
       <section>
-        {/* <MenuBar /> */}
         <Dashboard />
         {/* <BannerOptions /> */}
       </section>
