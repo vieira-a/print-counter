@@ -38,7 +38,7 @@ export default function MenuBar() {
 
   return (
     <nav>
-      <ul>
+      <ul className="flex gap-6">
         {menuItems.map((item) => (
           <li>
             <Link key={item.id} to={`${item.page}`}>

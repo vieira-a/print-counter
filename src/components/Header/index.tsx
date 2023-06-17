@@ -2,6 +2,7 @@ import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import { Link } from "react-router-dom";
 import { Logout, Menu } from "@carbon/icons-react";
+import MenuBar from "../Menubar";
 
 export default function Header() {
   const { handleUserLogout, userSessionData } = useContext(AuthContext);
@@ -14,6 +15,9 @@ export default function Header() {
           <Link to={"/"}>
             <h1 className="text-md">Print Counter </h1>
           </Link>
+        </div>
+        <div>
+          <MenuBar />
         </div>
         <div className="flex gap-4 items-center">
           <div>
