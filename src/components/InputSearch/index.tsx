@@ -9,7 +9,7 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
   (props, ref) => {
     return (
       <div className="relative w-full">
-        <Search className="absolute m-4 " />
+        <Search className="absolute mx-4 mt-3" />
         <input
           {...props}
           ref={ref}
@@ -17,7 +17,7 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
           mt-[2px]
           text-sm 
           bg-carbon-field 
-          px-10 py-[11px] 
+          px-10 py-[6px] 
           placeholder:text-carbon-field-placeholder
           outline-0
           border-b border-carbon-field-border
