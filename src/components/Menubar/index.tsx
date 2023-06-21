@@ -33,10 +33,8 @@ export default function MenuBar() {
     <nav>
       <ul className="flex gap-6">
         {menuItems.map((item) => (
-          <li>
-            <Link key={item.id} to={`${item.page}`}>
-              {item.title}
-            </Link>
+          <li key={item.id}>
+            <Link to={`${item.page}`}>{item.title}</Link>
           </li>
         ))}
         {userSessionData.role === "admin" && (

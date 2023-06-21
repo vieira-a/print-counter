@@ -20,8 +20,6 @@
   }
 
   body {
-    @apply max-w-[1234px];
-    @apply mx-auto;
     @apply text-carbon-text-primary;
     @apply text-sm;
     @apply bg-bg-main-00;
