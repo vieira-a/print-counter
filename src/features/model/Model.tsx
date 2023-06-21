@@ -44,13 +44,14 @@ export default function Model() {
   };
 
   return (
-    <section className="bg-carbon-bg-modal">
-      <div className="px-4 pt-6 pb-8">
-        <h2>Modelos cadastrados</h2>
-        <p>
-          Clique nas ações selecionadas para editar ou excluir um modelo de
-          impressora
-        </p>
+    <section className="my-4 bg-bg-main-01 border border-border-00">
+      <div className="px-4 py-2 flex justify-between items-center border-b border-border-00">
+        <h4>Modelos cadastrados</h4>
+        <Button
+          onClick={() => navigate("/model/create")}
+          text="Adicionar"
+          aria-label="Cadastrar novo modelo de impressora"
+        />
       </div>
       <div className="gap-[1px] flex items-center">
         <div className="flex gap-[1px] items-center w-full">
@@ -61,46 +62,39 @@ export default function Model() {
               placeholder="Digite um modelo para buscar"
             />
           </div>
-          <div>
-            <Button
-              onClick={() => navigate("/model/create")}
-              text="Adicionar"
-              aria-label="Cadastrar novo modelo de impressora"
-            />
-          </div>
         </div>
       </div>
-      <table className="w-full bg-carbon-bg-modal">
-        <thead>
-          <tr className="text-left text-sm bg-carbon-table-head">
-            <th className="pt-6 pb-8 px-4">Marca</th>
-            <th className="pt-6 pb-8 px-4">Modelo</th>
-            <th className="pt-6 pb-8 px-4">OID impressões</th>
-            <th className="pt-6 pb-8 px-4">OID cópias</th>
-            <th className="pt-6 pb-8 px-4">OID nível de toner</th>
-            <th className="pt-6 pb-8 px-4">Ações</th>
+      <table className="w-full">
+        <thead className="border-b border-b-border-02 border-t border-t-border-00">
+          <tr className="text-left text-xs">
+            <th className="p-4">MARCA</th>
+            <th className="p-4">MODELO</th>
+            <th className="p-4">OID IMPRESSÕES</th>
+            <th className="p-4">OID CÓPIAS</th>
+            <th className="p-4">OID NÍVEL DE TONER</th>
+            <th className="p-4">AÇÕES</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="font-light">
           {modelGrid.length > 0 ? (
             modelGrid.map((item) => (
               <tr key={item._id}>
-                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                <td className="py-1 px-4 border-b border-b-border-00 text-sm">
                   {item.model_brand}
                 </td>
-                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                <td className="py-1 px-4 border-b border-b-border-00 text-sm">
                   {item.model_name}
                 </td>
-                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                <td className="py-1 px-4 border-b border-b-border-00 text-sm">
                   {item.model_oid_snmp_printed}
                 </td>
-                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                <td className="py-1 px-4 border-b border-b-border-00 text-sm">
                   {item.model_oid_snmp_copied}
                 </td>
-                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                <td className="py-1 px-4 border-b border-b-border-00 text-sm">
                   {item.model_oid_snmp_toner_level}
                 </td>
-                <td className="py-2 px-4 border-b border-b-carbon-field-border text-sm">
+                <td className="py-1 px-4 border-b border-b-border-00 text-sm">
                   <div className="flex gap-1">
                     <Button
                       onClick={() => navigate(`/model/edit/${item._id}`)}

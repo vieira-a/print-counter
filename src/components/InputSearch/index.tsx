@@ -14,14 +14,13 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
           {...props}
           ref={ref}
           className="w-full
-          mt-[2px]
           text-sm 
-          bg-carbon-field 
-          px-10 py-[6px] 
+          bg-bg-main-03
+          px-10 py-2
           placeholder:text-carbon-field-placeholder
           outline-0
-          border-b border-carbon-field-border
-          focus:border-2 focus:border-carbon-field-focus
+          
+          focus:border-2 focus:border-border-02
         "
         />
       </div>

@@ -2,9 +2,9 @@
 module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
-    fontFamily: {
-      "ibm-regular": ["IBM Plex Sans", "sans-serif"],
-    },
+    // fontFamily: {
+    //   "ibm-regular": ["IBM Plex Sans", "sans-serif"],
+    // },
     colors: {
       "carbon-layer": "#161616",
       "carbon-bg": "#E5E5E5",
@@ -15,7 +15,7 @@ module.exports = {
       "carbon-field": "#FFFFFF",
       "carbon-field-placeholder": "#A8A8A8",
       "carbon-field-focus": "#0F62FE",
-      "carbon-field-border": "#8D8D8D",
+      "carbon-field-border": "#DFE3E6",
       "carbon-white": "#FFFFFF",
       "carbon-text-inverse": "#FFFFFF",
       "carbon-text-primary": "#161616",
@@ -38,14 +38,16 @@ module.exports = {
       "bg-main-00": "#f4f4f4",
       "bg-main-01": "#FFFFFF",
       "bg-main-02": "#F0F3F6",
-      "bg-main-03": "#f4f7fb",
+      "bg-main-03": "#F5F7FA",
       "bg-danger": "#DA1E28",
       "bg-warning": "#F1C21B",
       "bg-success": "#198038",
       "text-01": "#152935",
       "text-02": "#5A6872",
       "brand-01": "#3d70b2",
+      "border-00": "#DFE3E6",
       "border-01": "#e9edf0",
+      "border-02": "#6FB5FB",
     },
   },
   plugins: [],
