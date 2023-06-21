@@ -57,28 +57,20 @@ export default function ModelForm() {
   };
 
   return (
-    <section className="w-[50%] mx-auto bg-carbon-bg-modal">
-      <div className="relative px-4">
-        <div className="flex justify-between py-4">
-          <h2>Cadastro de modelos</h2>
-          <Close
-            onClick={() => navigate("/model")}
-            size={24}
-            className="cursor-pointer"
-            aria-label="Fechar formulário"
-          />
-        </div>
-        <div>
-          <p className="w-[85%]">
-            Preencha os campos com as informações necessárias para cadastrar um
-            novo modelo de impressora
-          </p>
-        </div>
+    <section className="my-4 bg-bg-main-01 border border-border-00">
+      <div className="flex justify-between items-center px-4 py-2 border-b border-b-border-00">
+        <h4>Cadastro de modelos</h4>
+        <Close
+          onClick={() => navigate("/model")}
+          size={24}
+          className="cursor-pointer"
+          aria-label="Fechar formulário"
+        />
       </div>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-8 px-4 my-8">
-            <label className="text-xs text-carbon-label">
+          <div className="mobile:grid mobile:grid-cols-2 gap-4 px-4 my-8 flex flex-col">
+            <label>
               Fabricante
               <Input
                 type="text"
@@ -92,7 +84,7 @@ export default function ModelForm() {
                 />
               )}
             </label>
-            <label className="text-xs text-carbon-label">
+            <label>
               Modelo
               <Input
                 type="text"
@@ -106,7 +98,7 @@ export default function ModelForm() {
                 />
               )}
             </label>
-            <label className="text-xs text-carbon-label">
+            <label>
               OID número de impressões
               <Input
                 type="text"
@@ -119,7 +111,7 @@ export default function ModelForm() {
                 />
               )}
             </label>
-            <label className="text-xs text-carbon-label">
+            <label>
               OID número de cópias
               <Input
                 type="text"
@@ -132,7 +124,7 @@ export default function ModelForm() {
                 />
               )}
             </label>
-            <label className="text-xs text-carbon-label">
+            <label>
               OID nível de toner
               <Input
                 type="text"

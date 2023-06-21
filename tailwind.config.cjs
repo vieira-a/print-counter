@@ -5,6 +5,9 @@ module.exports = {
     // fontFamily: {
     //   "ibm-regular": ["IBM Plex Sans", "sans-serif"],
     // },
+    screens: {
+      mobile: "640px",
+    },
     colors: {
       "carbon-layer": "#161616",
       "carbon-bg": "#E5E5E5",

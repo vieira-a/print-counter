@@ -22,10 +22,7 @@ export default function ButtonContent({
       type={type}
       onClick={onClick}
       className={`w-full text-left text-carbon-text-inverse text-sm px-[13px] pt-3 pb-[28px]
-      ${
-        theme === "primary" &&
-        "bg-carbon-brand hover:bg-carbon-brand-hover active:bg-carbon-brand-active"
-      }
+      ${theme === "primary" && "bg-brand-01 hover:opacity-80 active:opacity-90"}
       ${
         theme === "danger" &&
         "bg-carbon-bg-danger hover:bg-carbon-bg-danger-hover active:bg-carbon-bg-danger-active"

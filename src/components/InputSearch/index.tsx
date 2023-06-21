@@ -19,7 +19,6 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
           px-10 py-2
           placeholder:text-carbon-field-placeholder
           outline-0
-          
           focus:border-2 focus:border-border-02
         "
         />

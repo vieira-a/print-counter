@@ -13,11 +13,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         mt-1
         text-sm 
         bg-carbon-field 
-        px-4 py-[11px] 
+        p-2 
         placeholder:text-carbon-field-placeholder
         outline-0
         border-b border-carbon-field-border
-        focus:border-2 focus:border-carbon-field-focus
+        focus:border-2 focus:border-border-02
       "
     />
   );
